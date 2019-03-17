@@ -10,7 +10,13 @@ app.use("/",express.static(__dirname+"/public"));
 
 //Recursos Javier Ezcurra
 
-var uefaclubsranking = [{
+var uefaclubranking = [];
+
+// GET /api/v1/uefa-club-rankings/loadInitialData
+
+app.get("/api/v1/uefa-club-rankings/loadInitialData", (req,res)=>{
+    
+    uefaclubranking =  [{
     country: "ESP",
     season: "2018/19",
     points : "146000",
@@ -26,47 +32,51 @@ var uefaclubsranking = [{
     team : "FC Bayern München"
 }];
 
-// GET /uefaclubsranking/
-
-app.get("/api/v1/uefa-clubs-rankings", (req,res)=>{
-    res.send(uefaclubsranking);
+    res.sendStatus(200);
 });
 
 
-// POST /uefaclubsranking/
+// GET /api/v1/uefa-club-rankings
 
-app.post("/api/v1/uefa-clubs-rankings", (req,res)=>{
+app.get("/api/v1/uefa-club-rankings", (req,res)=>{
+    res.send(uefaclubranking);
+});
+
+
+// POST /api/v1/uefa-club-rankings
+
+app.post("/api/v1/uefa-club-rankings", (req,res)=>{
     
-    var newuefaclubsranking = req.body;
+    var newuefaclubranking = req.body;
     
-    uefaclubsranking.push(newuefaclubsranking)
+    uefaclubranking.push(newuefaclubranking);
     
     res.sendStatus(201);
 });
 
 
-// DELETE /uefaclubsranking/
+// DELETE /api/v1/uefa-club-rankings
 
-app.delete("/api/v1/uefa-clubs-rankings", (req,res)=>{
+app.delete("/api/v1/uefa-club-rankings", (req,res)=>{
     
-    uefaclubsranking =  [];
+    uefaclubranking =  [];
 
     res.sendStatus(200);
 });
 
 
-// GET /uefaclubsranking/Real Madrid
+// GET /api/v1/uefa-club-rankings/Real Madrid
 
-app.get("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
+app.get("/api/v1/uefa-club-rankings:team", (req,res)=>{
 
     var team = req.params.team;
 
-    var filtereduefaclubsranking = uefaclubsranking.filter((c) =>{
+    var filtereduefaclubranking = uefaclubranking.filter((c) =>{
        return c.team == team; 
     })
     
-    if (filtereduefaclubsranking.length >= 1){
-        res.send(uefaclubsranking[0]);
+    if (filtereduefaclubranking.length >= 1){
+        res.send(uefaclubranking[0]);
     }else{
         res.sendStatus(404);
     }
@@ -74,19 +84,19 @@ app.get("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
 });
 
 
-// PUT /uefaclubsranking/Real Madrid
+// PUT /api/v1/uefa-club-rankings/Real Madrid
 
-app.put("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
+app.put("/api/v1/uefa-club-rankings:team", (req,res)=>{
 
     var team = req.params.team;
-    var updateduefaclubsranking = req.body;
+    var updateduefaclubranking = req.body;
     var found = false;
 
-    var updateduefaclubsranking = uefaclubsranking.map((c) =>{
+    var updateduefaclubranking = uefaclubranking.map((c) =>{
     
         if(c.team == team){
             found = true;
-            return updateduefaclubsranking;
+            return updateduefaclubranking;
         }else{
             return c;            
         }
@@ -103,14 +113,14 @@ app.put("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
 });
 
 
-// DELETE /uefaclubsranking/Real Madrid
+// DELETE /api/v1/uefa-club-rankings/Real Madrid
 
-app.delete("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
+app.delete("/api/v1/uefa-club-rankings:team", (req,res)=>{
 
     var team = req.params.team;
     var found = false;
 
-    var updateduefaclubsranking = uefaclubsranking.filter((c) =>{
+    var updateduefaclubranking = uefaclubranking.filter((c) =>{
         
             if(c.team == team)  
                 found = true;
@@ -121,12 +131,25 @@ app.delete("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubsranking = updateduefaclubsranking;
+        uefaclubranking = updateduefaclubranking;
         res.sendStatus(200);
     }
 
 });
 
+// POST /api/v1/uefa-club-rankings/Real Madrid
+
+app.post("/api/v1/uefa-club-rankings:team", (req,res)=>{
+
+    res.sendStatus(404);
+});
+
+// PUT /api/v1/uefa-club-rankings
+
+app.put("/api/v1/uefa-club-rankings", (req,res)=>{
+
+    res.sendStatus(404);
+});
 
 
 app.listen(port,()=>{
