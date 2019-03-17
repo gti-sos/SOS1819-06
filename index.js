@@ -6,7 +6,7 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
 
-//app.use("/",express.static(__dirname+"/public"));
+app.use("/",express.static(__dirname+"/public"));
 
 //Recursos Javier Ezcurra
 
@@ -28,7 +28,7 @@ var uefaclubsranking = [{
 
 // GET /uefaclubsranking/
 
-app.get("/uefaclubsranking", (req,res)=>{
+app.get("/api/v1/uefaclubsranking", (req,res)=>{
     res.send(uefaclubsranking);
 });
 
