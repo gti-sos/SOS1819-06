@@ -73,10 +73,10 @@ app.get("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
     var filtereduefaclubrankings = uefaclubrankings.filter((c) =>{
        return c.country == country; 
-    })
+    });
     
     if (filtereduefaclubrankings.length >= 1){
-        res.send(uefaclubrankings[0]);
+        res.send(uefaclubrankings);
     }else{
         res.sendStatus(404);
     }
@@ -92,7 +92,7 @@ app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     var updateduefaclubrankings = req.body;
     var found = false;
 
-    var updateduefaclubrankings = uefaclubrankings.map((c) =>{
+    var updateduefaclubrankings2 = uefaclubrankings.map((c) =>{
     
         if(c.country == country){
             found = true;
@@ -106,7 +106,7 @@ app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubrankings = updateduefaclubrankings;
+        uefaclubrankings = updateduefaclubrankings2;
         res.sendStatus(200);
     }
 
