@@ -10,13 +10,13 @@ app.use("/",express.static(__dirname+"/public"));
 
 //Recursos Javier Ezcurra
 
-var uefaclubranking = [];
+var uefaclubrankings = [];
 
 // GET /api/v1/uefa-club-rankings/loadInitialData
 
 app.get("/api/v1/uefa-club-rankings/loadInitialData", (req,res)=>{
     
-    uefaclubranking =  [{
+    uefaclubrankings =  [{
     country: "ESP",
     season: "2018/19",
     points : "146000",
@@ -39,7 +39,7 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req,res)=>{
 // GET /api/v1/uefa-club-rankings
 
 app.get("/api/v1/uefa-club-rankings", (req,res)=>{
-    res.send(uefaclubranking);
+    res.send(uefaclubrankings);
 });
 
 
@@ -47,9 +47,9 @@ app.get("/api/v1/uefa-club-rankings", (req,res)=>{
 
 app.post("/api/v1/uefa-club-rankings", (req,res)=>{
     
-    var newuefaclubranking = req.body;
+    var newuefaclubrankings = req.body;
     
-    uefaclubranking.push(newuefaclubranking);
+    uefaclubrankings.push(newuefaclubrankings);
     
     res.sendStatus(201);
 });
@@ -59,24 +59,24 @@ app.post("/api/v1/uefa-club-rankings", (req,res)=>{
 
 app.delete("/api/v1/uefa-club-rankings", (req,res)=>{
     
-    uefaclubranking =  [];
+    uefaclubrankings =  [];
 
     res.sendStatus(200);
 });
 
 
-// GET /api/v1/uefa-club-rankings/Real Madrid
+// GET /api/v1/uefa-club-rankings/ESP
 
-app.get("/api/v1/uefa-club-rankings:team", (req,res)=>{
+app.get("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
-    var team = req.params.team;
+    var country = req.params.country;
 
-    var filtereduefaclubranking = uefaclubranking.filter((c) =>{
-       return c.team == team; 
+    var filtereduefaclubrankings = uefaclubrankings.filter((c) =>{
+       return c.country == country; 
     })
     
-    if (filtereduefaclubranking.length >= 1){
-        res.send(uefaclubranking[0]);
+    if (filtereduefaclubrankings.length >= 1){
+        res.send(uefaclubrankings[0]);
     }else{
         res.sendStatus(404);
     }
@@ -84,19 +84,19 @@ app.get("/api/v1/uefa-club-rankings:team", (req,res)=>{
 });
 
 
-// PUT /api/v1/uefa-club-rankings/Real Madrid
+// PUT /api/v1/uefa-club-rankings/ESP
 
-app.put("/api/v1/uefa-club-rankings:team", (req,res)=>{
+app.put("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
-    var team = req.params.team;
-    var updateduefaclubranking = req.body;
+    var country = req.params.country;
+    var updateduefaclubrankings = req.body;
     var found = false;
 
-    var updateduefaclubranking = uefaclubranking.map((c) =>{
+    var updateduefaclubrankings = uefaclubrankings.map((c) =>{
     
-        if(c.team == team){
+        if(c.country == country){
             found = true;
-            return updateduefaclubranking;
+            return updateduefaclubrankings;
         }else{
             return c;            
         }
@@ -106,40 +106,40 @@ app.put("/api/v1/uefa-club-rankings:team", (req,res)=>{
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubsranking = updateduefaclubsranking;
+        uefaclubrankings = updateduefaclubrankings;
         res.sendStatus(200);
     }
 
 });
 
 
-// DELETE /api/v1/uefa-club-rankings/Real Madrid
+// DELETE /api/v1/uefa-club-rankings/ESP
 
-app.delete("/api/v1/uefa-club-rankings:team", (req,res)=>{
+app.delete("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
-    var team = req.params.team;
+    var country = req.params.team;
     var found = false;
 
-    var updateduefaclubranking = uefaclubranking.filter((c) =>{
+    var updateduefaclubrankings = uefaclubrankings.filter((c) =>{
         
-            if(c.team == team)  
+            if(c.country == country)  
                 found = true;
         
-            return c.team != team;
+            return c.country != country;
     });
     
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubranking = updateduefaclubranking;
+        uefaclubrankings = updateduefaclubrankings;
         res.sendStatus(200);
     }
 
 });
 
-// POST /api/v1/uefa-club-rankings/Real Madrid
+// POST /api/v1/uefa-club-rankings/ESP
 
-app.post("/api/v1/uefa-club-rankings:team", (req,res)=>{
+app.post("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
     res.sendStatus(404);
 });
