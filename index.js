@@ -28,14 +28,14 @@ var uefaclubsranking = [{
 
 // GET /uefaclubsranking/
 
-app.get("/api/v1/uefaclubsranking", (req,res)=>{
+app.get("/api/v1/uefa-clubs-rankings", (req,res)=>{
     res.send(uefaclubsranking);
 });
 
 
 // POST /uefaclubsranking/
 
-app.post("/uefaclubsranking", (req,res)=>{
+app.post("/api/v1/uefa-clubs-rankings", (req,res)=>{
     
     var newuefaclubsranking = req.body;
     
@@ -47,7 +47,7 @@ app.post("/uefaclubsranking", (req,res)=>{
 
 // DELETE /uefaclubsranking/
 
-app.delete("/uefaclubsranking", (req,res)=>{
+app.delete("/api/v1/uefa-clubs-rankings", (req,res)=>{
     
     uefaclubsranking =  [];
 
@@ -57,7 +57,7 @@ app.delete("/uefaclubsranking", (req,res)=>{
 
 // GET /uefaclubsranking/Real Madrid
 
-app.get("/uefaclubsranking/:team", (req,res)=>{
+app.get("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
 
     var team = req.params.team;
 
@@ -76,7 +76,7 @@ app.get("/uefaclubsranking/:team", (req,res)=>{
 
 // PUT /uefaclubsranking/Real Madrid
 
-app.put("/uefaclubsranking/:team", (req,res)=>{
+app.put("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
 
     var team = req.params.team;
     var updateduefaclubsranking = req.body;
@@ -105,7 +105,7 @@ app.put("/uefaclubsranking/:team", (req,res)=>{
 
 // DELETE /uefaclubsranking/Real Madrid
 
-app.delete("/uefaclubsranking/:team", (req,res)=>{
+app.delete("/api/v1/uefa-clubs-rankings:team", (req,res)=>{
 
     var team = req.params.team;
     var found = false;
