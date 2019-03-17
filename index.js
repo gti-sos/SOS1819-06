@@ -67,7 +67,7 @@ app.delete("/api/v1/uefa-club-rankings", (req,res)=>{
 
 // GET /api/v1/uefa-club-rankings/ESP
 
-app.get("/api/v1/uefa-club-rankings:country", (req,res)=>{
+app.get("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
     var country = req.params.country;
 
@@ -86,7 +86,7 @@ app.get("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
 // PUT /api/v1/uefa-club-rankings/ESP
 
-app.put("/api/v1/uefa-club-rankings:country", (req,res)=>{
+app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
     var country = req.params.country;
     var updateduefaclubrankings = req.body;
@@ -115,7 +115,7 @@ app.put("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
 // DELETE /api/v1/uefa-club-rankings/ESP
 
-app.delete("/api/v1/uefa-club-rankings:country", (req,res)=>{
+app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
     var country = req.params.team;
     var found = false;
@@ -139,7 +139,7 @@ app.delete("/api/v1/uefa-club-rankings:country", (req,res)=>{
 
 // POST /api/v1/uefa-club-rankings/ESP
 
-app.post("/api/v1/uefa-club-rankings:country", (req,res)=>{
+app.post("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
     res.sendStatus(404);
 });
