@@ -117,10 +117,10 @@ app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
 app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
-    var country = req.params.team;
+    var country = req.params.country;
     var found = false;
 
-    var updateduefaclubrankings = uefaclubrankings.filter((c) =>{
+    var updatedCountry = uefaclubrankings.filter((c) =>{
         
             if(c.country == country)  
                 found = true;
@@ -131,7 +131,7 @@ app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubrankings = updateduefaclubrankings;
+        uefaclubrankings = updatedCountry;
         res.sendStatus(200);
     }
 
