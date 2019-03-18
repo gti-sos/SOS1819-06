@@ -76,7 +76,7 @@ app.get("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     });
     
     if (filtereduefaclubrankings.length >= 1){
-        res.send(uefaclubrankings);
+        res.send(filtereduefaclubrankings);
     }else{
         res.sendStatus(404);
     }
@@ -224,7 +224,7 @@ app.get("/api/v1/transfer-stats/:country", (req,res)=>{
     });
     
     if (filteredtransferstats.length >= 1){
-        res.send(transferstats);
+        res.send(filteredtransferstats);
     }else{
         res.sendStatus(404);
     }
