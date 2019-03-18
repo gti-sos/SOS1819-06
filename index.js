@@ -232,19 +232,19 @@ app.get("/api/v1/transfer-stats/:country", (req,res)=>{
 });
 
 
-// PUT /api/v1/uefa-club-rankings/ESP
+// PUT /api/v1/transfer-stats/England
 
-app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.put("/api/v1/transfer-stats/:country", (req,res)=>{
 
     var country = req.params.country;
-    var updateduefaclubrankings = req.body;
+    var updatedtransferstats = req.body;
     var found = false;
 
-    var updateduefaclubrankings2 = uefaclubrankings.map((c) =>{
+    var updatedtransferstats2 = uefaclubrankings.map((c) =>{
     
         if(c.country == country){
             found = true;
-            return updateduefaclubrankings;
+            return updatedtransferstats;
         }else{
             return c;            
         }
@@ -254,21 +254,21 @@ app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubrankings = updateduefaclubrankings2;
+        transferstats = updatedtransferstats2;
         res.sendStatus(200);
     }
 
 });
 
 
-// DELETE /api/v1/uefa-club-rankings/ESP
+// DELETE /api/v1/transfer-stats/England
 
-app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.delete("/api/v1/transfer-stats/:country", (req,res)=>{
 
     var country = req.params.country;
     var found = false;
 
-    var updatedCountry = uefaclubrankings.filter((c) =>{
+    var updatedCountry = transferstats.filter((c) =>{
         
             if(c.country == country)  
                 found = true;
@@ -279,22 +279,22 @@ app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     if (found == false){
         res.sendStatus(404);
     }else{
-        uefaclubrankings = updatedCountry;
+        transferstats = updatedCountry;
         res.sendStatus(200);
     }
 
 });
 
-// POST /api/v1/uefa-club-rankings/ESP
+// POST /api/v1/transfer-stats/England
 
-app.post("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.post("/api/v1/transfer-stats/:country", (req,res)=>{
 
     res.sendStatus(404);
 });
 
-// PUT /api/v1/uefa-club-rankings
+// PUT /api/v1/transfer-stats
 
-app.put("/api/v1/uefa-club-rankings", (req,res)=>{
+app.put("/api/v1/transfer-stats", (req,res)=>{
 
     res.sendStatus(404);
 });
