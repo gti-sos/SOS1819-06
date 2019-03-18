@@ -76,7 +76,7 @@ app.get("/api/v1/uefa-club-rankings/:country", (req,res)=>{
     });
     
     if (filtereduefaclubrankings.length >= 1){
-        res.send(uefaclubrankings);
+        res.send(filtereduefaclubrankings);
     }else{
         res.sendStatus(404);
     }
@@ -141,14 +141,14 @@ app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
 app.post("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
-    res.sendStatus(404);
+    res.sendStatus(409);
 });
 
 // PUT /api/v1/uefa-club-rankings
 
 app.put("/api/v1/uefa-club-rankings", (req,res)=>{
 
-    res.sendStatus(404);
+    res.sendStatus(409);
 });
 
 
@@ -224,7 +224,7 @@ app.get("/api/v1/transfer-stats/:country", (req,res)=>{
     });
     
     if (filteredtransferstats.length >= 1){
-        res.send(transferstats);
+        res.send(filteredtransferstats);
     }else{
         res.sendStatus(404);
     }
@@ -289,14 +289,14 @@ app.delete("/api/v1/transfer-stats/:country", (req,res)=>{
 
 app.post("/api/v1/transfer-stats/:country", (req,res)=>{
 
-    res.sendStatus(404);
+    res.sendStatus(409);
 });
 
 // PUT /api/v1/transfer-stats
 
 app.put("/api/v1/transfer-stats", (req,res)=>{
 
-    res.sendStatus(404);
+    res.sendStatus(409);
 });
 
 //Recursos Jesús Herrera
