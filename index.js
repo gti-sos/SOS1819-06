@@ -240,7 +240,7 @@ app.put("/api/v1/transfer-stats/:country", (req,res)=>{
     var updatedtransferstats = req.body;
     var found = false;
 
-    var updatedtransferstats2 = uefaclubrankings.map((c) =>{
+    var updatedtransferstats2 = transferstats.map((c) =>{
     
         if(c.country == country){
             found = true;
