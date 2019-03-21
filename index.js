@@ -8,6 +8,7 @@ var port = process.env.PORT || 8080;
 
 app.use("/",express.static(__dirname+"/public"));
 
+
 //Recursos Javier Ezcurra
 
 var uefaclubrankings = [];
