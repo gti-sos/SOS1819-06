@@ -260,6 +260,34 @@ app.put("/api/v1/transfer-stats/:country", (req,res)=>{
 
 });
 
+/*// PUT /api/v1/uefa-club-rankings/ESP
+
+app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+
+    var country = req.params.country;
+    var updateduefaclubrankings = req.body;
+    var found = false;
+
+    var updateduefaclubrankings2 = uefaclubrankings.map((c) =>{
+    
+        if(c.country == country){
+            found = true;
+            return updateduefaclubrankings;
+        }else{
+            return c;            
+        }
+ 
+    });
+    
+    if (found == false){
+        res.sendStatus(404);
+    }else{
+        uefaclubrankings = updateduefaclubrankings2;
+        res.sendStatus(200);
+    }
+
+});*/
+
 
 // DELETE /api/v1/transfer-stats/England
 
@@ -289,7 +317,7 @@ app.delete("/api/v1/transfer-stats/:country", (req,res)=>{
 
 app.post("/api/v1/transfer-stats/:country", (req,res)=>{
 
-    res.sendStatus(409);
+    res.sendStatus(405);
 });
 
 // PUT /api/v1/transfer-stats
