@@ -290,7 +290,7 @@ app.delete("/api/v1/transfer-stats/:country", (req,res)=>{
 
 app.post("/api/v1/transfer-stats/:country", (req,res)=>{
 
-    res.sendStatus(409);
+    res.sendStatus(405);
 });
 
 // PUT /api/v1/transfer-stats
