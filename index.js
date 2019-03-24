@@ -31,6 +31,27 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req,res)=>{
     ptsseason : "20000",
     ptsbeforeseason: "29000",
     team : "FC Bayern München"
+}, {
+    country: "ESP",
+    season: "2018/19",
+    points : "128000",
+    ptsseason : "20000",
+    ptsbeforeseason: "25000",
+    team : "FC Barcelona"
+}, {
+    country: "ESP",
+    season: "2018/19",
+    points : "127000",
+    ptsseason : "20000",
+    ptsbeforeseason: "28000",
+    team : "Club Atlético de Madrid"
+}, {
+    country: "ITA",
+    season: "2018/19",
+    points : "120000",
+    ptsseason : "17000",
+    ptsbeforeseason: "23000",
+    team : "Juventus"
 }];
 
     res.sendStatus(200);
