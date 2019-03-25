@@ -230,7 +230,7 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
 
     res.sendStatus(200);
     }else{
-        res.sendStatus(405);
+        res.sendStatus(409);
     }
     
 });
