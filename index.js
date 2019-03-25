@@ -181,7 +181,7 @@ app.put("/api/v1/uefa-club-rankings", (req,res)=>{
 //GET/api/v1/transfer-stats/docs
 
 app.get("/api/v1/transfer-stats/docs", (req,res)=>{
-    res.redirect('https://app.example.io');
+    res.redirect("https://documenter.getpostman.com/view/6893874/S17tP7Vg");
 });
 
 
