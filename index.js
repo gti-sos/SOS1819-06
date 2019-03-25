@@ -94,7 +94,11 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
 // GET /api/v1/uefa-club-rankings
 
 app.get("/api/v1/uefa-club-rankings", (req, res) => {
-    res.send(uefaclubrankings);
+    uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        res.send(uefaclubrankingsArray);
+    });
 });
 
 
@@ -102,9 +106,8 @@ app.get("/api/v1/uefa-club-rankings", (req, res) => {
 
 app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
-    var newuefaclubrankings = req.body;
-
-    uefaclubrankings.push(newuefaclubrankings);
+    var  newuefaclubrankings = req.body;
+    uefaclubrankings.insert(newuefaclubrankings);
 
     res.sendStatus(201);
 });
@@ -114,7 +117,7 @@ app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
 app.delete("/api/v1/uefa-club-rankings", (req, res) => {
 
-    uefaclubrankings = [];
+     uefaclubrankings.remove({});
 
     res.sendStatus(200);
 });
@@ -126,19 +129,21 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
     var country = req.params.country;
 
-    var filtereduefaclubrankings = uefaclubrankings.filter((c) => {
-        return c.country == country;
+    uefaclubrankings.find({ "country": country }).toArray((err, filtereduefaclubrankings) => {
+        if (err){
+           console.log("Error: " + err);
+           res.sendStatus(500);
+           return;
+        }
+        if (filtereduefaclubrankings.length >= 1) {
+            res.send(filtereduefaclubrankings);
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
 
-    if (filtereduefaclubrankings.length >= 1) {
-        res.send(filtereduefaclubrankings);
-    }
-    else {
-        res.sendStatus(404);
-    }
-
 });
-
 
 // PUT /api/v1/uefa-club-rankings/ESP
 
