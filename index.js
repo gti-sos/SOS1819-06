@@ -19,11 +19,26 @@ const clientjeg = new MongoClientjeg(urijeg, { useNewUrlParser: true });
 
 var uefaclubrankings = [];
 
+clientjeg.connect(err => {
+    if (err) {
+        console.error("Error accesing DB " + err);
+        process.exit(1);
+    }
+    uefaclubrankings = clientjeg.db("sos1819").collection("uefa-club-rankings");
+    console.log("Connected!");
+});
+
+//Get /api/v1/uefa-club-rankings/docs
+
+app.get("/api/v1/uefa-club-rankings/docs", (req,res) =>{
+    res.redirect("");
+});
+
 // GET /api/v1/uefa-club-rankings/loadInitialData
 
 app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
 
-    uefaclubrankings = [{
+    var newuefaclubrankings = [{
         country: "ESP",
         season: "2018/19",
         points: "146000",
@@ -59,8 +74,20 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
         ptsbeforeseason: "23000",
         team: "Juventus"
     }];
+    
+    uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
 
-    res.sendStatus(200);
+        if (uefaclubrankingsArray.length == 0) {
+            console.log("Empty DB");
+            uefaclubrankings.insert(newuefaclubrankings);
+            res.sendStatus(200);
+        }
+        else {
+            console.log("Error" + err);
+            res.sendStatus(409);
+        }
+    });
+
 });
 
 
