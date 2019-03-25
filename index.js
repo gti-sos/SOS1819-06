@@ -8,18 +8,36 @@ var port = process.env.PORT || 8080;
 
 app.use("/", express.static(__dirname + "/public"));
 
-
+const MongoClient = require("mongodb").MongoClient;
 
 
 //Recursos Javier Ezcurra
 
-var uefaclubrankings = [];
+const urijeg = "mongodb+srv://test:test@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
+const clientjeg = new MongoClient(urijeg, { useNewUrlParser: true });
+
+var uefaclubrankings;
+
+clientjeg.connect(err => {
+    if (err) {
+        console.error("Error accesing DB " + err);
+        process.exit(1);
+    }
+    uefaclubrankings = clientjeg.db("sos1819").collection("uefa-club-rankings");
+    console.log("Connected!");
+});
+
+//Get /api/v1/uefa-club-rankings/docs
+
+app.get("/api/v1/uefa-club-rankings/docs", (req,res) =>{
+    res.redirect("");
+});
 
 // GET /api/v1/uefa-club-rankings/loadInitialData
 
 app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
 
-    uefaclubrankings = [{
+    var newuefaclubrankings = [{
         country: "ESP",
         season: "2018/19",
         points: "146000",
@@ -55,15 +73,31 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
         ptsbeforeseason: "23000",
         team: "Juventus"
     }];
+    
+    uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
 
-    res.sendStatus(200);
+        if (uefaclubrankingsArray.length == 0) {
+            console.log("Empty DB");
+            uefaclubrankings.insert(newuefaclubrankings);
+            res.sendStatus(200);
+        }
+        else {
+            console.log("Error" + err);
+            res.sendStatus(409);
+        }
+    });
+
 });
 
 
 // GET /api/v1/uefa-club-rankings
 
 app.get("/api/v1/uefa-club-rankings", (req, res) => {
-    res.send(uefaclubrankings);
+    uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        res.send(uefaclubrankingsArray);
+    });
 });
 
 
@@ -71,9 +105,8 @@ app.get("/api/v1/uefa-club-rankings", (req, res) => {
 
 app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
-    var newuefaclubrankings = req.body;
-
-    uefaclubrankings.push(newuefaclubrankings);
+    var  newuefaclubrankings = req.body;
+    uefaclubrankings.insert(newuefaclubrankings);
 
     res.sendStatus(201);
 });
@@ -83,7 +116,7 @@ app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
 app.delete("/api/v1/uefa-club-rankings", (req, res) => {
 
-    uefaclubrankings = [];
+     uefaclubrankings.remove({});
 
     res.sendStatus(200);
 });
@@ -95,19 +128,21 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
     var country = req.params.country;
 
-    var filtereduefaclubrankings = uefaclubrankings.filter((c) => {
-        return c.country == country;
+    uefaclubrankings.find({ "country": country }).toArray((err, filtereduefaclubrankings) => {
+        if (err){
+           console.log("Error: " + err);
+           res.sendStatus(500);
+           return;
+        }
+        if (filtereduefaclubrankings.length >= 1) {
+            res.send(filtereduefaclubrankings);
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
 
-    if (filtereduefaclubrankings.length >= 1) {
-        res.send(filtereduefaclubrankings);
-    }
-    else {
-        res.sendStatus(404);
-    }
-
 });
-
 
 // PUT /api/v1/uefa-club-rankings/ESP
 
@@ -372,7 +407,6 @@ app.put("/api/v1/transfer-stats", (req, res) => {
 
 //Recursos Jesús Herrera
 
-const MongoClient = require("mongodb").MongoClient;
 const uri3 = "mongodb+srv://test:country@sos1819-a0beg.mongodb.net/test?retryWrites=true";
 const client3 = new MongoClient(uri3, { useNewUrlParser: true });
 
