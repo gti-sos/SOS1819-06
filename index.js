@@ -6,7 +6,9 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
 
-app.use("/",express.static(__dirname+"/public"));
+app.use("/", express.static(__dirname + "/public"));
+
+
 
 
 //Recursos Javier Ezcurra
@@ -15,44 +17,44 @@ var uefaclubrankings = [];
 
 // GET /api/v1/uefa-club-rankings/loadInitialData
 
-app.get("/api/v1/uefa-club-rankings/loadInitialData", (req,res)=>{
-    
-    uefaclubrankings =  [{
-    country: "ESP",
-    season: "2018/19",
-    points : "146000",
-    ptsseason : "19000",
-    ptsbeforeseason: "32000",
-    team : "Real Madrid"
-}, {
-    country: "GER",
-    season: "2018/19",
-    points : "128000",
-    ptsseason : "20000",
-    ptsbeforeseason: "29000",
-    team : "FC Bayern München"
-}, {
-    country: "ESP",
-    season: "2018/19",
-    points : "128000",
-    ptsseason : "20000",
-    ptsbeforeseason: "25000",
-    team : "FC Barcelona"
-}, {
-    country: "ESP",
-    season: "2018/19",
-    points : "127000",
-    ptsseason : "20000",
-    ptsbeforeseason: "28000",
-    team : "Club Atlético de Madrid"
-}, {
-    country: "ITA",
-    season: "2018/19",
-    points : "120000",
-    ptsseason : "17000",
-    ptsbeforeseason: "23000",
-    team : "Juventus"
-}];
+app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
+
+    uefaclubrankings = [{
+        country: "ESP",
+        season: "2018/19",
+        points: "146000",
+        ptsseason: "19000",
+        ptsbeforeseason: "32000",
+        team: "Real Madrid"
+    }, {
+        country: "GER",
+        season: "2018/19",
+        points: "128000",
+        ptsseason: "20000",
+        ptsbeforeseason: "29000",
+        team: "FC Bayern München"
+    }, {
+        country: "ESP",
+        season: "2018/19",
+        points: "128000",
+        ptsseason: "20000",
+        ptsbeforeseason: "25000",
+        team: "FC Barcelona"
+    }, {
+        country: "ESP",
+        season: "2018/19",
+        points: "127000",
+        ptsseason: "20000",
+        ptsbeforeseason: "28000",
+        team: "Club Atlético de Madrid"
+    }, {
+        country: "ITA",
+        season: "2018/19",
+        points: "120000",
+        ptsseason: "17000",
+        ptsbeforeseason: "23000",
+        team: "Juventus"
+    }];
 
     res.sendStatus(200);
 });
@@ -60,28 +62,28 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req,res)=>{
 
 // GET /api/v1/uefa-club-rankings
 
-app.get("/api/v1/uefa-club-rankings", (req,res)=>{
+app.get("/api/v1/uefa-club-rankings", (req, res) => {
     res.send(uefaclubrankings);
 });
 
 
 // POST /api/v1/uefa-club-rankings
 
-app.post("/api/v1/uefa-club-rankings", (req,res)=>{
-    
+app.post("/api/v1/uefa-club-rankings", (req, res) => {
+
     var newuefaclubrankings = req.body;
-    
+
     uefaclubrankings.push(newuefaclubrankings);
-    
+
     res.sendStatus(201);
 });
 
 
 // DELETE /api/v1/uefa-club-rankings
 
-app.delete("/api/v1/uefa-club-rankings", (req,res)=>{
-    
-    uefaclubrankings =  [];
+app.delete("/api/v1/uefa-club-rankings", (req, res) => {
+
+    uefaclubrankings = [];
 
     res.sendStatus(200);
 });
@@ -89,17 +91,18 @@ app.delete("/api/v1/uefa-club-rankings", (req,res)=>{
 
 // GET /api/v1/uefa-club-rankings/ESP
 
-app.get("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
     var country = req.params.country;
 
-    var filtereduefaclubrankings = uefaclubrankings.filter((c) =>{
-       return c.country == country; 
+    var filtereduefaclubrankings = uefaclubrankings.filter((c) => {
+        return c.country == country;
     });
-    
-    if (filtereduefaclubrankings.length >= 1){
+
+    if (filtereduefaclubrankings.length >= 1) {
         res.send(filtereduefaclubrankings);
-    }else{
+    }
+    else {
         res.sendStatus(404);
     }
 
@@ -108,26 +111,28 @@ app.get("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
 // PUT /api/v1/uefa-club-rankings/ESP
 
-app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
     var country = req.params.country;
     var updateduefaclubrankings = req.body;
     var found = false;
 
-    var updateduefaclubrankings2 = uefaclubrankings.map((c) =>{
-    
-        if(c.country == country){
+    var updateduefaclubrankings2 = uefaclubrankings.map((c) => {
+
+        if (c.country == country) {
             found = true;
             return updateduefaclubrankings;
-        }else{
-            return c;            
         }
- 
+        else {
+            return c;
+        }
+
     });
-    
-    if (found == false){
+
+    if (found == false) {
         res.sendStatus(404);
-    }else{
+    }
+    else {
         uefaclubrankings = updateduefaclubrankings2;
         res.sendStatus(200);
     }
@@ -137,22 +142,23 @@ app.put("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
 // DELETE /api/v1/uefa-club-rankings/ESP
 
-app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
     var country = req.params.country;
     var found = false;
 
-    var updatedCountry = uefaclubrankings.filter((c) =>{
-        
-            if(c.country == country)  
-                found = true;
-        
-            return c.country != country;
+    var updatedCountry = uefaclubrankings.filter((c) => {
+
+        if (c.country == country)
+            found = true;
+
+        return c.country != country;
     });
-    
-    if (found == false){
+
+    if (found == false) {
         res.sendStatus(404);
-    }else{
+    }
+    else {
         uefaclubrankings = updatedCountry;
         res.sendStatus(200);
     }
@@ -161,14 +167,14 @@ app.delete("/api/v1/uefa-club-rankings/:country", (req,res)=>{
 
 // POST /api/v1/uefa-club-rankings/ESP
 
-app.post("/api/v1/uefa-club-rankings/:country", (req,res)=>{
+app.post("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
     res.sendStatus(409);
 });
 
 // PUT /api/v1/uefa-club-rankings
 
-app.put("/api/v1/uefa-club-rankings", (req,res)=>{
+app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
     res.sendStatus(409);
 });
@@ -181,25 +187,25 @@ var transferstats = [];
 
 // GET /api/v1/transfer-stats/loadInitialData
 
-app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
-    
-    transferstats =  [{ 
-    country: "Italy", 
-    team: "Juventus", 
-    season: 2018-2019, 
-    moneyspent : 261.5 ,  
-    moneyentered : 109.5 , 
-    numberofsignings : 69 , 
-    numberoffarewells : 48
-}, {
-    country: "England", 
-    team: "Chelsea", 
-    season: 2018-2019, 
-    moneyspent : 210.0 ,  
-    moneyentered : 54.75 , 
-    numberofsignings : 38 , 
-    numberoffarewells : 30
-}];
+app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
+
+    transferstats = [{
+        country: "Italy",
+        team: "Juventus",
+        season: 2018 - 2019,
+        moneyspent: 261.5,
+        moneyentered: 109.5,
+        numberofsignings: 69,
+        numberoffarewells: 48
+    }, {
+        country: "England",
+        team: "Chelsea",
+        season: 2018 - 2019,
+        moneyspent: 210.0,
+        moneyentered: 54.75,
+        numberofsignings: 38,
+        numberoffarewells: 30
+    }];
 
 
     res.sendStatus(200);
@@ -208,28 +214,28 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
 
 // GET /api/v1/transfer-stats
 
-app.get("/api/v1/transfer-stats", (req,res)=>{
+app.get("/api/v1/transfer-stats", (req, res) => {
     res.send(transferstats);
 });
 
 
 // POST /api/v1/transfer-stats
 
-app.post("/api/v1/transfer-stats", (req,res)=>{
-    
+app.post("/api/v1/transfer-stats", (req, res) => {
+
     var newtransferstat = req.body;
-    
+
     transferstats.push(newtransferstat);
-    
+
     res.sendStatus(201);
 });
 
 
 // DELETE /api/v1/transfer-stats
 
-app.delete("/api/v1/transfer-stats", (req,res)=>{
-    
-    transferstats =  [];
+app.delete("/api/v1/transfer-stats", (req, res) => {
+
+    transferstats = [];
 
     res.sendStatus(200);
 });
@@ -237,17 +243,18 @@ app.delete("/api/v1/transfer-stats", (req,res)=>{
 
 // GET /api/v1/transfer-stats/England
 
-app.get("/api/v1/transfer-stats/:country", (req,res)=>{
+app.get("/api/v1/transfer-stats/:country", (req, res) => {
 
     var country = req.params.country;
 
-    var filteredtransferstats = transferstats.filter((c) =>{
-       return c.country == country; 
+    var filteredtransferstats = transferstats.filter((c) => {
+        return c.country == country;
     });
-    
-    if (filteredtransferstats.length >= 1){
+
+    if (filteredtransferstats.length >= 1) {
         res.send(filteredtransferstats);
-    }else{
+    }
+    else {
         res.sendStatus(404);
     }
 
@@ -256,26 +263,28 @@ app.get("/api/v1/transfer-stats/:country", (req,res)=>{
 
 // PUT /api/v1/transfer-stats/England
 
-app.put("/api/v1/transfer-stats/:country", (req,res)=>{
+app.put("/api/v1/transfer-stats/:country", (req, res) => {
 
     var country = req.params.country;
     var updatedtransferstats = req.body;
     var found = false;
 
-    var updatedtransferstats2 = transferstats.map((c) =>{
-    
-        if(c.country == country){
+    var updatedtransferstats2 = transferstats.map((c) => {
+
+        if (c.country == country) {
             found = true;
             return updatedtransferstats;
-        }else{
-            return c;            
         }
- 
+        else {
+            return c;
+        }
+
     });
-    
-    if (found == false){
+
+    if (found == false) {
         res.sendStatus(404);
-    }else{
+    }
+    else {
         transferstats = updatedtransferstats2;
         res.sendStatus(200);
     }
@@ -285,22 +294,23 @@ app.put("/api/v1/transfer-stats/:country", (req,res)=>{
 
 // DELETE /api/v1/transfer-stats/England
 
-app.delete("/api/v1/transfer-stats/:country", (req,res)=>{
+app.delete("/api/v1/transfer-stats/:country", (req, res) => {
 
     var country = req.params.country;
     var found = false;
 
-    var updatedCountry = transferstats.filter((c) =>{
-        
-            if(c.country == country)  
-                found = true;
-        
-            return c.country != country;
+    var updatedCountry = transferstats.filter((c) => {
+
+        if (c.country == country)
+            found = true;
+
+        return c.country != country;
     });
-    
-    if (found == false){
+
+    if (found == false) {
         res.sendStatus(404);
-    }else{
+    }
+    else {
         transferstats = updatedCountry;
         res.sendStatus(200);
     }
@@ -309,80 +319,124 @@ app.delete("/api/v1/transfer-stats/:country", (req,res)=>{
 
 // POST /api/v1/transfer-stats/England
 
-app.post("/api/v1/transfer-stats/:country", (req,res)=>{
+app.post("/api/v1/transfer-stats/:country", (req, res) => {
 
     res.sendStatus(405);
 });
 
 // PUT /api/v1/transfer-stats
 
-app.put("/api/v1/transfer-stats", (req,res)=>{
+app.put("/api/v1/transfer-stats", (req, res) => {
 
     res.sendStatus(409);
 });
 
 //Recursos Jesús Herrera
 
-var uefaCountryRankings = [];
+const MongoClient = require("mongodb").MongoClient;
+const uri3 = "mongodb+srv://test:country@sos1819-a0beg.mongodb.net/test?retryWrites=true";
+const client3 = new MongoClient(uri3, { useNewUrlParser: true });
+
+var uefaCountryRankings;
+
+client3.connect(err => {
+    if (err) {
+        console.error("Error accesing DB " + err);
+        process.exit(1);
+    }
+    uefaCountryRankings = client3.db("sos1819").collection("uefaCountryRankings");
+    console.log("Connected!");
+});
+
+// GET REDIRECT
+
+app.get("/api/v1/uefa-country-rankings/docs", (req,res) =>{
+    res.redirect("https://documenter.getpostman.com/view/7044495/S17tPSu7");
+});
 
 // GET /api/v1/uefa-country-rankings/loadInitialData
 
-app.get("/api/v1/uefa-country-rankings/loadInitialData", (req,res)=>{
-    
-    uefaCountryRankings =  [{
-    country: "Spain",
-    season: "17-18",
-    rankingPosition : 1,
-    points : 106998,
-    teams : 7
-},{
-    country: "Spain",
-    season: "16-17",
-    rankingPosition : 1,
-    points : 104998,
-    teams : 7
-}, {
-    country: "England",
-    season: "17-18",
-    rankingPosition : 2,
-    points : 79605,
-    teams : 7
-}, {
-    country: "Germany",
-    season: "16-17",
-    rankingPosition : 2,
-    points : 79498,
-    teams : 7
-}];
+app.get("/api/v1/uefa-country-rankings/loadInitialData", (req, res) => {
 
-    res.sendStatus(200);
+    var newUefaCountryRankings = [{
+        country: "Spain",
+        season: "17-18",
+        rankingPosition: 1,
+        points: 106998,
+        teams: 7
+    }, {
+        country: "Spain",
+        season: "16-17",
+        rankingPosition: 1,
+        points: 104998,
+        teams: 7
+    }, {
+        country: "England",
+        season: "17-18",
+        rankingPosition: 2,
+        points: 79605,
+        teams: 7
+    }, {
+        country: "Portugal",
+        season: "17-18",
+        rankingPosition: 7,
+        points: 47248,
+        teams: 6
+    }, {
+        country: "France",
+        season: "17-18",
+        rankingPosition: 5,
+        points: 56415,
+        teams: 6
+    }, {
+        country: "Germany",
+        season: "16-17",
+        rankingPosition: 2,
+        points: 79498,
+        teams: 7
+    }];
+    uefaCountryRankings.find({}).toArray((err, uefaCountryRankingsArray) => {
+
+        if (uefaCountryRankingsArray.length == 0) {
+            console.log("Empty DB");
+            uefaCountryRankings.insert(newUefaCountryRankings);
+            res.sendStatus(200);
+        }
+        else {
+            console.log("Error" + err);
+            res.sendStatus(409);
+        }
+    });
 });
 
 
 // GET /api/v1/uefa-country-rankings
 
-app.get("/api/v1/uefa-country-rankings", (req,res)=>{
-    res.send(uefaCountryRankings);
+app.get("/api/v1/uefa-country-rankings", (req, res) => {
+    uefaCountryRankings.find({}).toArray((err, uefaCountryRankingsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        res.send(uefaCountryRankingsArray);
+    });
 });
 
 
 // POST /api/v1/uefa-country-rankings
 
-app.post("/api/v1/uefa-country-rankings", (req,res)=>{
-    
+app.post("/api/v1/uefa-country-rankings", (req, res) => {
+
     var newUefaCountryRankings = req.body;
-    
-    uefaCountryRankings.push(newUefaCountryRankings);
-    
+    uefaCountryRankings.insert(newUefaCountryRankings);
+
     res.sendStatus(201);
 });
 
 
 // DELETE /api/v1/uefa-country-rankings
 
-app.delete("/api/v1/uefa-country-rankings", (req,res)=>{
-    
-    uefaCountryRankings =  [];
+app.delete("/api/v1/uefa-country-rankings", (req, res) => {
+
+    uefaCountryRankings.remove({});
 
     res.sendStatus(200);
 });
@@ -390,64 +444,75 @@ app.delete("/api/v1/uefa-country-rankings", (req,res)=>{
 
 // GET /api/v1/uefa-country-rankings/Spain
 
-app.get("/api/v1/uefa-country-rankings/:country", (req,res)=>{
+app.get("/api/v1/uefa-country-rankings/:country", (req, res) => {
 
     var country = req.params.country;
 
-    var filteredUefaCountryRankings = uefaCountryRankings.filter((c) =>{
-       return c.country == country; 
+    uefaCountryRankings.find({ "country": country }).toArray((err, filteredUefaCountryRankings) => {
+        if (err){
+           console.log("Error: " + err);
+           res.sendStatus(500);
+           return;
+        }
+        if (filteredUefaCountryRankings.length >= 1) {
+            res.send(filteredUefaCountryRankings);
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
-    
-    if (filteredUefaCountryRankings.length >= 1){
-        res.send(filteredUefaCountryRankings);
-    }else{
-        res.sendStatus(404);
-    }
 
 });
 
 // GET /api/v1/uefa-country-rankings/Spain/17-18
 
-app.get("/api/v1/uefa-country-rankings/:country/:season", (req,res)=>{
+app.get("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 
     var country = req.params.country;
     var season = req.params.season;
 
-    var filteredUefaCountryRankings = uefaCountryRankings.filter((c) =>{
-       return c.country == country && c.season==season; 
+    uefaCountryRankings.find({ "country": country, "season": season  }).toArray((err, filteredUefaCountryRankings) => {
+        if (err){
+           console.log("Error: " + err);
+           res.sendStatus(500);
+           return;
+        }
+        if (filteredUefaCountryRankings.length >= 1) {
+            res.send(filteredUefaCountryRankings);
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
-    
-    if (filteredUefaCountryRankings.length >= 1){
-        res.send(filteredUefaCountryRankings);
-    }else{
-        res.sendStatus(404);
-    }
 
 });
 
 
 // PUT /api/v1/uefa-country-rankings/Spain
 
-app.put("/api/v1/uefa-country-rankings/:country", (req,res)=>{
+app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 
     var country = req.params.country;
+    var season = req.params.season;
     var updatedUefaCountryRankings = req.body;
     var found = false;
 
-    var updatedUefaCountryRankings2 = uefaCountryRankings.map((c) =>{
-    
-        if(c.country == country){
+    var updatedUefaCountryRankings2 = uefaCountryRankings.map((c) => {
+
+        if (c.country == country && c.season == season) {
             found = true;
             return updatedUefaCountryRankings;
-        }else{
-            return c;            
         }
- 
+        else {
+            return c;
+        }
+
     });
-    
-    if (found == false){
+
+    if (found == false) {
         res.sendStatus(404);
-    }else{
+    }
+    else {
         uefaCountryRankings = updatedUefaCountryRankings2;
         res.sendStatus(200);
     }
@@ -457,22 +522,23 @@ app.put("/api/v1/uefa-country-rankings/:country", (req,res)=>{
 
 // DELETE /api/v1/uefa-country-rankings/Spain
 
-app.delete("/api/v1/uefa-country-rankings/:country", (req,res)=>{
+app.delete("/api/v1/uefa-country-rankings/:country", (req, res) => {
 
     var country = req.params.country;
     var found = false;
 
-    var updatedCountry = uefaCountryRankings.filter((c) =>{
-        
-            if(c.country == country)  
-                found = true;
-        
-            return c.country != country;
+    var updatedCountry = uefaCountryRankings.filter((c) => {
+
+        if (c.country == country)
+            found = true;
+
+        return c.country != country;
     });
-    
-    if (found == false){
+
+    if (found == false) {
         res.sendStatus(404);
-    }else{
+    }
+    else {
         uefaCountryRankings = updatedCountry;
         res.sendStatus(200);
     }
@@ -481,18 +547,19 @@ app.delete("/api/v1/uefa-country-rankings/:country", (req,res)=>{
 
 // POST /api/v1/uefa-country-rankings/Spain
 
-app.post("/api/v1/uefa-country-rankings/:country", (req,res)=>{
-
+app.post("/api/v1/uefa-country-rankings/:country", (req, res) => {
     res.sendStatus(409);
 });
 
 // PUT /api/v1/uefa-country-rankings
 
-app.put("/api/v1/uefa-country-rankings", (req,res)=>{
+app.put("/api/v1/uefa-country-rankings", (req, res) => {
 
     res.sendStatus(409);
 });
 
-app.listen(port,()=>{
-    console.log("Magic is happening in port "+port);
+app.listen(port, () => {
+    console.log("Magic is happening in port " + port);
+
+
 });
