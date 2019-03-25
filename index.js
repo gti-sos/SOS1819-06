@@ -14,7 +14,7 @@ app.use("/", express.static(__dirname + "/public"));
 //Recursos Javier Ezcurra
 
 const MongoClientjeg = require("mongodb").MongoClientjeg;
-const urijeg = "mongodb+srv://test:password@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
+const urijeg = "mongodb+srv://test:test@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
 const clientjeg = new MongoClientjeg(urijeg, { useNewUrlParser: true });
 
 var uefaclubrankings = [];
