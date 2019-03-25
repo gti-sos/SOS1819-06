@@ -587,14 +587,14 @@ app.delete("/api/v1/uefa-country-rankings/:country", (req, res) => {
 // POST /api/v1/uefa-country-rankings/Spain
 
 app.post("/api/v1/uefa-country-rankings/:country", (req, res) => {
-    res.sendStatus(409);
+    res.sendStatus(405);
 });
 
 // PUT /api/v1/uefa-country-rankings
 
 app.put("/api/v1/uefa-country-rankings", (req, res) => {
 
-    res.sendStatus(409);
+    res.sendStatus(405);
 });
 
 app.listen(port, () => {
