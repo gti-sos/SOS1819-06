@@ -177,6 +177,14 @@ app.put("/api/v1/uefa-club-rankings", (req,res)=>{
 
 
 //Recursos Alfonso Bravo
+
+//GET/api/v1/transfer-stats/docs
+
+app.get("/api/v1/transfer-stats/docs", (req,res)=>{
+    res.redirect('https://app.example.io');
+});
+
+
 var transferstats = [];
 
 // GET /api/v1/transfer-stats/loadInitialData
