@@ -8,16 +8,15 @@ var port = process.env.PORT || 8080;
 
 app.use("/", express.static(__dirname + "/public"));
 
-
+const MongoClient = require("mongodb").MongoClient;
 
 
 //Recursos Javier Ezcurra
 
-const MongoClientjeg = require("mongodb").MongoClientjeg;
 const urijeg = "mongodb+srv://test:test@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
-const clientjeg = new MongoClientjeg(urijeg, { useNewUrlParser: true });
+const clientjeg = new MongoClient(urijeg, { useNewUrlParser: true });
 
-var uefaclubrankings = [];
+var uefaclubrankings;
 
 clientjeg.connect(err => {
     if (err) {
