@@ -225,10 +225,14 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
     moneyentered : 273.75 , 
     numberofsignings : 63 , 
     numberoffarewells : 47
-}];}
+}];
 
 
     res.sendStatus(200);
+    }else{
+        res.sendStatus(405);
+    }
+    
 });
 
 
