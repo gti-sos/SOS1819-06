@@ -407,7 +407,6 @@ app.put("/api/v1/transfer-stats", (req, res) => {
 
 //Recursos Jesús Herrera
 
-const MongoClient = require("mongodb").MongoClient;
 const uri3 = "mongodb+srv://test:country@sos1819-a0beg.mongodb.net/test?retryWrites=true";
 const client3 = new MongoClient(uri3, { useNewUrlParser: true });
 
