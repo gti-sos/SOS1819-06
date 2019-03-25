@@ -182,6 +182,8 @@ var transferstats = [];
 // GET /api/v1/transfer-stats/loadInitialData
 
 app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
+    if (transferstats.length==0){
+        
     
     transferstats =  [{ 
     country: "Italy", 
@@ -199,7 +201,31 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
     moneyentered : 54.75 , 
     numberofsignings : 38 , 
     numberoffarewells : 30
-}];
+}, {
+    country: "Spain", 
+    team: "Madrid", 
+    season: 2018, 
+    moneyspent : 115.0 ,  
+    moneyentered : 98.75 , 
+    numberofsignings : 23 , 
+    numberoffarewells : 24
+}, {
+    country: "Spain", 
+    team: "Barcelona", 
+    season: 2018, 
+    moneyspent : 340.0 ,  
+    moneyentered : 162.0 , 
+    numberofsignings : 58 , 
+    numberoffarewells : 21
+}, {
+    country: "France", 
+    team: "PSG", 
+    season: 2018, 
+    moneyspent : 422.25 ,  
+    moneyentered : 273.75 , 
+    numberofsignings : 63 , 
+    numberoffarewells : 47
+}];}
 
 
     res.sendStatus(200);
