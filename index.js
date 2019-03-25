@@ -182,6 +182,7 @@ app.put("/api/v1/uefa-club-rankings", (req,res)=>{
 
 app.get("/api/v1/transfer-stats/docs", (req,res)=>{
     res.redirect('https://documenter.getpostman.com/view/6893874/S17tP7Vg');
+    res.sendStatus(200);
 });
 
 
