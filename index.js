@@ -183,32 +183,71 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
 
 //Recursos Alfonso Bravo
+
+//GET/api/v1/transfer-stats/docs
+
+app.get("/api/v1/transfer-stats/docs", (req,res)=>{
+    res.redirect('https://documenter.getpostman.com/view/6893874/S17tP7Vg');
+    res.sendStatus(200);
+});
+
+
 var transferstats = [];
 
 // GET /api/v1/transfer-stats/loadInitialData
 
-app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
-
-    transferstats = [{
-        country: "Italy",
-        team: "Juventus",
-        season: 2018 - 2019,
-        moneyspent: 261.5,
-        moneyentered: 109.5,
-        numberofsignings: 69,
-        numberoffarewells: 48
-    }, {
-        country: "England",
-        team: "Chelsea",
-        season: 2018 - 2019,
-        moneyspent: 210.0,
-        moneyentered: 54.75,
-        numberofsignings: 38,
-        numberoffarewells: 30
-    }];
+app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
+    if (transferstats.length==0){
+        
+    
+    transferstats =  [{ 
+    country: "Italy", 
+    team: "Juventus", 
+    season: 2018-2019, 
+    moneyspent : 261.5 ,  
+    moneyentered : 109.5 , 
+    numberofsignings : 69 , 
+    numberoffarewells : 48
+}, {
+    country: "England", 
+    team: "Chelsea", 
+    season: 2018-2019, 
+    moneyspent : 210.0 ,  
+    moneyentered : 54.75 , 
+    numberofsignings : 38 , 
+    numberoffarewells : 30
+}, {
+    country: "Spain", 
+    team: "Madrid", 
+    season: 2018, 
+    moneyspent : 115.0 ,  
+    moneyentered : 98.75 , 
+    numberofsignings : 23 , 
+    numberoffarewells : 24
+}, {
+    country: "Spain", 
+    team: "Barcelona", 
+    season: 2018, 
+    moneyspent : 340.0 ,  
+    moneyentered : 162.0 , 
+    numberofsignings : 58 , 
+    numberoffarewells : 21
+}, {
+    country: "France", 
+    team: "PSG", 
+    season: 2018, 
+    moneyspent : 422.25 ,  
+    moneyentered : 273.75 , 
+    numberofsignings : 63 , 
+    numberoffarewells : 47
+}];
 
 
     res.sendStatus(200);
+    }else{
+        res.sendStatus(409);
+    }
+    
 });
 
 
