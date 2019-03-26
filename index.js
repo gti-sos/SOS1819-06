@@ -590,7 +590,7 @@ app.get("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 });
 
 
-// PUT /api/v1/uefa-country-rankings/Spain
+// PUT /api/v1/uefa-country-rankings/Spain/17-18
 
 app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 
@@ -603,9 +603,22 @@ app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
         res.sendStatus(400);
         return;
     }
-
-    uefaCountryRankings.update({ "country": updatedUefaCountry.country, "season": updatedUefaCountry.season }, updatedUefaCountry);
-
+    
+    uefaCountryRankings.find({ "country": country, "season": season }).toArray((err, filteredUefaCountryRankings) => {
+        if (err) {
+            console.log("Error: " + err);
+            res.sendStatus(500);
+            return;
+        }
+        if (filteredUefaCountryRankings["country"]==country && filteredUefaCountryRankings["season"]==season) {
+            uefaCountryRankings.update({ "country": updatedUefaCountry.country, "season": updatedUefaCountry.season }, updatedUefaCountry);
+            res.sendStatus(200);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+    
 });
 
 
