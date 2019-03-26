@@ -236,8 +236,7 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
 //Recursos Alfonso Bravo
 
-//const uriabl = "mongodb+srv://test:test@cluster0-caxk9.mongodb.net/test?retryWrites=true";
-const uriabl ="mongodb+srv://test:test@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
+const uriabl = "mongodb+srv://test:test@cluster0-caxk9.mongodb.net/test?retryWrites=true";
 const clientabl = new MongoClient(uriabl, { useNewUrlParser: true });
 var transferstats;
 
@@ -246,7 +245,7 @@ clientabl.connect(err => {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    transferstats = clientabl.db("sos1819-jeg").collection("transfer-stats");
+    transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
     console.log("Connected!");
 });
 
