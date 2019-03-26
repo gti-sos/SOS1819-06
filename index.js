@@ -29,7 +29,7 @@ clientjeg.connect(err => {
 
 //Get /api/v1/uefa-club-rankings/docs
 
-app.get("/api/v1/uefa-club-rankings/docs", (req,res) =>{
+app.get("/api/v1/uefa-club-rankings/docs", (req, res) => {
     res.redirect("");
 });
 
@@ -73,7 +73,7 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
         ptsbeforeseason: "23000",
         team: "Juventus"
     }];
-    
+
     uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
 
         if (uefaclubrankingsArray.length == 0) {
@@ -105,10 +105,25 @@ app.get("/api/v1/uefa-club-rankings", (req, res) => {
 
 app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
-    var  newuefaclubrankings = req.body;
-    uefaclubrankings.insert(newuefaclubrankings);
+    var newuefaclubrankings = req.body;
+    uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        if(uefaclubrankingsArray.country==newuefaclubrankings.country ||uefaclubrankingsArray.season==newuefaclubrankings.season
+        || uefaclubrankingsArray.team==newuefaclubrankings.team ){
+            res.sendStatus(409);
+            return;
+        }
+    });
+    if (!newuefaclubrankings.country || !newuefaclubrankings.season || !newuefaclubrankings.points ||
+        !newuefaclubrankings.ptsseason || !newuefaclubrankings.ptsbeforeseason || !newuefaclubrankings.team || newuefaclubrankings.length <= 6) {
+        uefaclubrankings.insert(newuefaclubrankings);
+        res.sendStatus(201);
+    }
+    else {
+        res.sendStatus(400);
+    }
 
-    res.sendStatus(201);
 });
 
 
@@ -116,7 +131,7 @@ app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
 app.delete("/api/v1/uefa-club-rankings", (req, res) => {
 
-     uefaclubrankings.remove({});
+    uefaclubrankings.remove({});
 
     res.sendStatus(200);
 });
@@ -129,10 +144,10 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
     var country = req.params.country;
 
     uefaclubrankings.find({ "country": country }).toArray((err, filtereduefaclubrankings) => {
-        if (err){
-           console.log("Error: " + err);
-           res.sendStatus(500);
-           return;
+        if (err) {
+            console.log("Error: " + err);
+            res.sendStatus(500);
+            return;
         }
         if (filtereduefaclubrankings.length >= 1) {
             res.send(filtereduefaclubrankings);
@@ -147,29 +162,25 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 // PUT /api/v1/uefa-club-rankings/ESP
 
 app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
-
-    var country = req.params.country;
     var updateduefaclubrankings = req.body;
-    var found = false;
-
-    var updateduefaclubrankings2 = uefaclubrankings.map((c) => {
-
-        if (c.country == country) {
-            found = true;
-            return updateduefaclubrankings;
-        }
-        else {
-            return c;
-        }
-
-    });
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        uefaclubrankings = updateduefaclubrankings2;
-        res.sendStatus(200);
+    if (!updateduefaclubrankings.country || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
+        !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team 
+        || updateduefaclubrankings.length <= 6) {
+        var country = req.params.country;
+        uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
+            if (error) {
+                console.log("Error: " + error);
+            }
+            if (filtereduefaclubrankings.length == 0) {
+                res.sendStatus(400);
+            }
+            else {
+                uefaclubrankings.updateOne({ "country": country }, { $set: updateduefaclubrankings });
+                res.sendStatus(200);
+            }
+        });
+    }else{
+        res.sendStatus(400);
     }
 
 });
@@ -178,26 +189,19 @@ app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
 // DELETE /api/v1/uefa-club-rankings/ESP
 
 app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
-
     var country = req.params.country;
-    var found = false;
-
-    var updatedCountry = uefaclubrankings.filter((c) => {
-
-        if (c.country == country)
-            found = true;
-
-        return c.country != country;
-    });
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        uefaclubrankings = updatedCountry;
-        res.sendStatus(200);
-    }
-
+    uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filtereduefaclubrankings.length == 0) {
+            res.sendStatus(404);
+        }
+        else {
+            uefaclubrankings.deleteOne({ "country": country });
+            res.sendStatus(200);
+        }
+    })
 });
 
 // POST /api/v1/uefa-club-rankings/ESP
@@ -221,7 +225,7 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
 //GET/api/v1/transfer-stats/docs
 
-app.get("/api/v1/transfer-stats/docs", (req,res)=>{
+app.get("/api/v1/transfer-stats/docs", (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/6893874/S17tP7Vg');
     res.sendStatus(200);
 });
@@ -231,58 +235,59 @@ var transferstats = [];
 
 // GET /api/v1/transfer-stats/loadInitialData
 
-app.get("/api/v1/transfer-stats/loadInitialData", (req,res)=>{
-    if (transferstats.length==0){
-        
-    
-    transferstats =  [{ 
-    country: "Italy", 
-    team: "Juventus", 
-    season: 2018-2019, 
-    moneyspent : 261.5 ,  
-    moneyentered : 109.5 , 
-    numberofsignings : 69 , 
-    numberoffarewells : 48
-}, {
-    country: "England", 
-    team: "Chelsea", 
-    season: 2018-2019, 
-    moneyspent : 210.0 ,  
-    moneyentered : 54.75 , 
-    numberofsignings : 38 , 
-    numberoffarewells : 30
-}, {
-    country: "Spain", 
-    team: "Madrid", 
-    season: 2018, 
-    moneyspent : 115.0 ,  
-    moneyentered : 98.75 , 
-    numberofsignings : 23 , 
-    numberoffarewells : 24
-}, {
-    country: "Spain", 
-    team: "Barcelona", 
-    season: 2018, 
-    moneyspent : 340.0 ,  
-    moneyentered : 162.0 , 
-    numberofsignings : 58 , 
-    numberoffarewells : 21
-}, {
-    country: "France", 
-    team: "PSG", 
-    season: 2018, 
-    moneyspent : 422.25 ,  
-    moneyentered : 273.75 , 
-    numberofsignings : 63 , 
-    numberoffarewells : 47
-}];
+app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
+    if (transferstats.length == 0) {
 
 
-    res.sendStatus(200);
-    }else{
+        transferstats = [{
+            country: "Italy",
+            team: "Juventus",
+            season: 2018 - 2019,
+            moneyspent: 261.5,
+            moneyentered: 109.5,
+            numberofsignings: 69,
+            numberoffarewells: 48
+        }, {
+            country: "England",
+            team: "Chelsea",
+            season: 2018 - 2019,
+            moneyspent: 210.0,
+            moneyentered: 54.75,
+            numberofsignings: 38,
+            numberoffarewells: 30
+        }, {
+            country: "Spain",
+            team: "Madrid",
+            season: 2018,
+            moneyspent: 115.0,
+            moneyentered: 98.75,
+            numberofsignings: 23,
+            numberoffarewells: 24
+        }, {
+            country: "Spain",
+            team: "Barcelona",
+            season: 2018,
+            moneyspent: 340.0,
+            moneyentered: 162.0,
+            numberofsignings: 58,
+            numberoffarewells: 21
+        }, {
+            country: "France",
+            team: "PSG",
+            season: 2018,
+            moneyspent: 422.25,
+            moneyentered: 273.75,
+            numberofsignings: 63,
+            numberoffarewells: 47
+        }];
+
+
+        res.sendStatus(200);
+    }
+    else {
         res.sendStatus(409);
     }
-    
+
 });
 
 
@@ -423,7 +428,7 @@ client3.connect(err => {
 
 // GET REDIRECT
 
-app.get("/api/v1/uefa-country-rankings/docs", (req,res) =>{
+app.get("/api/v1/uefa-country-rankings/docs", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/7044495/S17tPSu7");
 });
 
@@ -522,10 +527,10 @@ app.get("/api/v1/uefa-country-rankings/:country", (req, res) => {
     var country = req.params.country;
 
     uefaCountryRankings.find({ "country": country }).toArray((err, filteredUefaCountryRankings) => {
-        if (err){
-           console.log("Error: " + err);
-           res.sendStatus(500);
-           return;
+        if (err) {
+            console.log("Error: " + err);
+            res.sendStatus(500);
+            return;
         }
         if (filteredUefaCountryRankings.length >= 1) {
             res.send(filteredUefaCountryRankings);
@@ -544,11 +549,11 @@ app.get("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
     var country = req.params.country;
     var season = req.params.season;
 
-    uefaCountryRankings.find({ "country": country, "season": season  }).toArray((err, filteredUefaCountryRankings) => {
-        if (err){
-           console.log("Error: " + err);
-           res.sendStatus(500);
-           return;
+    uefaCountryRankings.find({ "country": country, "season": season }).toArray((err, filteredUefaCountryRankings) => {
+        if (err) {
+            console.log("Error: " + err);
+            res.sendStatus(500);
+            return;
         }
         if (filteredUefaCountryRankings.length >= 1) {
             res.send(filteredUefaCountryRankings);
