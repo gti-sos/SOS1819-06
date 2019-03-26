@@ -167,29 +167,6 @@ app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
 // DELETE /api/v1/uefa-club-rankings/ESP
 
 app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
-
-    var country = req.params.country;
-    var found = false;
-
-    var updatedCountry = uefaclubrankings.filter((c) => {
-
-        if (c.country == country)
-            found = true;
-
-        return c.country != country;
-    });
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        uefaclubrankings = updatedCountry;
-        res.sendStatus(200);
-    }
-
-});
-
-app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
     var country = req.params.country;
     uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
         if (error) {
