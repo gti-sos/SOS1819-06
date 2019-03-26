@@ -396,6 +396,7 @@ app.get("/api/v1/transfer-stats/:country", (req, res) => {
     }
 
 });
+});
 
 
 // PUT /api/v1/transfer-stats/England
