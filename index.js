@@ -30,7 +30,7 @@ clientjeg.connect(err => {
 //Get /api/v1/uefa-club-rankings/docs
 
 app.get("/api/v1/uefa-club-rankings/docs", (req, res) => {
-    res.redirect("");
+    res.redirect("https://documenter.getpostman.com/view/7060168/S17tRntb");
 });
 
 // GET /api/v1/uefa-club-rankings/loadInitialData
