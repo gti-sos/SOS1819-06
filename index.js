@@ -220,7 +220,7 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 });
 
 
-
+/*
 
 //Recursos Alfonso Bravo
 
@@ -429,7 +429,7 @@ app.post("/api/v1/transfer-stats/:country", (req, res) => {
 app.put("/api/v1/transfer-stats", (req, res) => {
 
     res.sendStatus(409);
-});
+});*/
 
 //Recursos Jesús Herrera
 
