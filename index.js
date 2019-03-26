@@ -109,8 +109,8 @@ app.post("/api/v1/uefa-club-rankings", (req, res) => {
     uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
         if (err)
             console.log("Error: " + err);
-        if(uefaclubrankingsArray.country==newuefaclubrankings.country ||uefaclubrankingsArray.season==newuefaclubrankings.season
-        || uefaclubrankingsArray.team==newuefaclubrankings.team ){
+        if (uefaclubrankingsArray.country == newuefaclubrankings.country || uefaclubrankingsArray.season == newuefaclubrankings.season ||
+            uefaclubrankingsArray.team == newuefaclubrankings.team) {
             res.sendStatus(409);
             return;
         }
@@ -164,8 +164,8 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
     var updateduefaclubrankings = req.body;
     if (!updateduefaclubrankings.country || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
-        !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team 
-        || updateduefaclubrankings.length <= 6) {
+        !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team ||
+        updateduefaclubrankings.length <= 6) {
         var country = req.params.country;
         uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
             if (error) {
@@ -179,7 +179,8 @@ app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
                 res.sendStatus(200);
             }
         });
-    }else{
+    }
+    else {
         res.sendStatus(400);
     }
 
@@ -504,6 +505,32 @@ app.get("/api/v1/uefa-country-rankings", (req, res) => {
 app.post("/api/v1/uefa-country-rankings", (req, res) => {
 
     var newUefaCountryRankings = req.body;
+
+    if (newUefaCountryRankings.length > 5 || !newUefaCountryRankings.country || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition ||
+        !newUefaCountryRankings.points || !newUefaCountryRankings.teams) {
+
+        res.sendStatus(400);
+        return;
+    }
+
+    newUefaCountryRankings.find({ "country": newUefaCountryRankings.country, "season": newUefaCountryRankings.season }).toArray((err, newUefaCountryRankingsArray) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+
+        if (newUefaCountryRankingsArray.length > 0) {
+            res.sendStatus(409);
+            return;
+        }
+        else {
+            uefaCountryRankings.insert(newUefaCountryRankings);
+        }
+
+    });
+
+
     uefaCountryRankings.insert(newUefaCountryRankings);
 
     res.sendStatus(201);
@@ -572,54 +599,28 @@ app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 
     var country = req.params.country;
     var season = req.params.season;
-    var updatedUefaCountryRankings = req.body;
-    var found = false;
+    var updatedUefaCountry = req.body;
 
-    var updatedUefaCountryRankings2 = uefaCountryRankings.map((c) => {
-
-        if (c.country == country && c.season == season) {
-            found = true;
-            return updatedUefaCountryRankings;
-        }
-        else {
-            return c;
-        }
-
-    });
-
-    if (found == false) {
-        res.sendStatus(404);
+    if (updatedUefaCountry.country != country || updatedUefaCountry.season != season || !updatedUefaCountry.rankingPosition || !updatedUefaCountry.points || !updatedUefaCountry.teams ||
+        updatedUefaCountry["country"] == null || updatedUefaCountry["season"] == null || updatedUefaCountry["rankingPosition"] == null || updatedUefaCountry["points"] == null || updatedUefaCountry["teams"] == null) {
+        res.sendStatus(400);
+        return;
     }
-    else {
-        uefaCountryRankings = updatedUefaCountryRankings2;
-        res.sendStatus(200);
-    }
+
+    uefaCountryRankings.update({ "country": updatedUefaCountry.country, "season": updatedUefaCountry.season }, updatedUefaCountry);
 
 });
+
 
 
 // DELETE /api/v1/uefa-country-rankings/Spain
 
 app.delete("/api/v1/uefa-country-rankings/:country", (req, res) => {
-
     var country = req.params.country;
-    var found = false;
+    //var season = req.params.season;
+    uefaCountryRankings.remove({"country":country});
 
-    var updatedCountry = uefaCountryRankings.filter((c) => {
-
-        if (c.country == country)
-            found = true;
-
-        return c.country != country;
-    });
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        uefaCountryRankings = updatedCountry;
-        res.sendStatus(200);
-    }
+    res.sendStatus(200);
 
 });
 
