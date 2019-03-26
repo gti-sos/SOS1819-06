@@ -23,7 +23,7 @@ clientjeg.connect(err => {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    uefaclubrankings = clientjeg.db("sos1819").collection("uefa-club-rankings");
+    uefaclubrankings = clientjeg.db("sos1819-jeg").collection("uefa-club-rankings");
     console.log("Connected!");
 });
 
@@ -221,7 +221,6 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
 
 /*
-
 //Recursos Alfonso Bravo
 
 const uriabl = "mongodb+srv://test:test@cluster0-caxk9.mongodb.net/test?retryWrites=true";
@@ -233,7 +232,7 @@ clientabl.connect(err => {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
+    transferstats = clientabl.db("sos1819-abl").collection("transferstats");
     console.log("Connected!");
 });
 
@@ -429,7 +428,9 @@ app.post("/api/v1/transfer-stats/:country", (req, res) => {
 app.put("/api/v1/transfer-stats", (req, res) => {
 
     res.sendStatus(409);
-});*/
+});
+
+*/
 
 //Recursos Jesús Herrera
 
