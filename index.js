@@ -604,14 +604,14 @@ app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
         return;
     }
     
-    uefaCountryRankings.find({"country":country, "season":season }).toArray((err, filteredUefaCountryRankings) => {
+    uefaCountryRankings.find({"country": country, "season": season }).toArray((err, filteredUefaCountryRankings) => {
         if (err) {
             console.log("Error: " + err);
             res.sendStatus(500);
             return;
         }
-        if (filteredUefaCountryRankings>=1) {
-            uefaCountryRankings.update({ "country": updatedUefaCountry.country, "season": updatedUefaCountry.season }, updatedUefaCountry);
+        if (filteredUefaCountryRankings.length >= 1) {
+            uefaCountryRankings.update({"country": updatedUefaCountry.country, "season": updatedUefaCountry.season }, updatedUefaCountry);
             res.sendStatus(200);
         }
         else {
