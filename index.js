@@ -233,7 +233,7 @@ clientabl.connect(err => {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    transferstats = clientabl.db("sos1819-abl").collection("transferstats");
+    transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
     console.log("Connected!");
 });
 
