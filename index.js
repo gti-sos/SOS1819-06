@@ -226,14 +226,14 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
 const uriabl = "mongodb+srv://test:test@cluster0-caxk9.mongodb.net/test?retryWrites=true";
 const clientabl = new MongoClient(uriabl, { useNewUrlParser: true });
-var transferstats = [];
+var transferstats;
 
 clientabl.connect(err => {
     if (err) {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    transferstats = clientabl.db("sos1819").collection("transfer-stats");
+    transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
     console.log("Connected!");
 });
 
