@@ -513,7 +513,7 @@ app.post("/api/v1/uefa-country-rankings", (req, res) => {
         return;
     }
 
-    newUefaCountryRankings.find({ "country": newUefaCountryRankings.country, "season": newUefaCountryRankings.season }).toArray((err, newUefaCountryRankingsArray) => {
+    uefaCountryRankings.find({ "country": newUefaCountryRankings.country, "season": newUefaCountryRankings.season }).toArray((err, newUefaCountryRankingsArray) => {
         if (err) {
             console.error("Error accesing DB");
             res.sendStatus(500);
