@@ -160,8 +160,8 @@ app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
             uefaclubrankings.updateOne({ "country": country }, { $set: updateduefaclubrankings });
             res.sendStatus(200);
         }
-    })
-
+    });
+});
 
 
 // DELETE /api/v1/uefa-club-rankings/ESP
