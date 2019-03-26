@@ -224,6 +224,20 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 
 //Recursos Alfonso Bravo
 
+const uriabl = "mongodb+srv://test:test@cluster0-caxk9.mongodb.net/test?retryWrites=true";
+const clientabl = new MongoClient(uriabl, { useNewUrlParser: true });
+var transferstats = [];
+
+clientabl.connect(err => {
+    if (err) {
+        console.error("Error accesing DB " + err);
+        process.exit(1);
+    }
+    transferstats = clientabl.db("sos1819-abl").collection("transferstats");
+    console.log("Connected!");
+});
+
+
 //GET/api/v1/transfer-stats/docs
 
 app.get("/api/v1/transfer-stats/docs", (req, res) => {
@@ -232,7 +246,7 @@ app.get("/api/v1/transfer-stats/docs", (req, res) => {
 });
 
 
-var transferstats = [];
+
 
 // GET /api/v1/transfer-stats/loadInitialData
 
@@ -240,10 +254,10 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
     if (transferstats.length == 0) {
 
 
-        transferstats = [{
+        var newtransferstats = [{
             country: "Italy",
             team: "Juventus",
-            season: 2018 - 2019,
+            season: 2018,
             moneyspent: 261.5,
             moneyentered: 109.5,
             numberofsignings: 69,
@@ -251,7 +265,7 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
         }, {
             country: "England",
             team: "Chelsea",
-            season: 2018 - 2019,
+            season: 2018,
             moneyspent: 210.0,
             moneyentered: 54.75,
             numberofsignings: 38,
@@ -282,11 +296,17 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
             numberoffarewells: 47
         }];
 
+        transferstats.find({}).toArray((err, transferstatsArray) => {
 
-        res.sendStatus(200);
-    }
-    else {
-        res.sendStatus(409);
+        if (transferstatsArray.length == 0) {
+            console.log("Empty DB");
+            transferstats.insert(newtransferstats);
+            res.sendStatus(200);
+        }else {
+            console.log("Error" + err);
+            res.sendStatus(409);
+        }
+    });
     }
 
 });
