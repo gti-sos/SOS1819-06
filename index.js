@@ -525,15 +525,12 @@ app.post("/api/v1/uefa-country-rankings", (req, res) => {
             return;
         }
         else {
-            uefaCountryRankings.insertOne(newUefaCountryRankings);
+            uefaCountryRankings.insert(newUefaCountryRankings);
+            res.sendStatus(201);
         }
 
     });
 
-
-    uefaCountryRankings.insert(newUefaCountryRankings);
-
-    res.sendStatus(201);
 });
 
 
