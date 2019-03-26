@@ -220,7 +220,7 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
 });
 
 
-/*
+
 //Recursos Alfonso Bravo
 
 const uriabl = "mongodb+srv://test:test@cluster0-caxk9.mongodb.net/test?retryWrites=true";
@@ -232,10 +232,24 @@ clientabl.connect(err => {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    transferstats = clientabl.db("sos1819-abl").collection("transferstats");
+    transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
     console.log("Connected!");
 });
 
+/*const urijeg = "mongodb+srv://test:test@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
+const clientjeg = new MongoClient(urijeg, { useNewUrlParser: true });
+
+var uefaclubrankings;
+
+clientjeg.connect(err => {
+    if (err) {
+        console.error("Error accesing DB " + err);
+        process.exit(1);
+    }
+    uefaclubrankings = clientjeg.db("sos1819").collection("uefa-club-rankings");
+    console.log("Connected!");
+});
+*/
 
 //GET/api/v1/transfer-stats/docs
 
@@ -243,8 +257,6 @@ app.get("/api/v1/transfer-stats/docs", (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/6893874/S17tP7Vg');
     res.sendStatus(200);
 });
-
-
 
 
 // GET /api/v1/transfer-stats/loadInitialData
@@ -430,7 +442,6 @@ app.put("/api/v1/transfer-stats", (req, res) => {
     res.sendStatus(409);
 });
 
-*/
 
 //Recursos Jesús Herrera
 
