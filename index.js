@@ -232,7 +232,7 @@ app.put("/api/v1/uefa-club-rankings", (req, res) => {
     res.sendStatus(409);
 });
 
-/*
+
 
 //Recursos Alfonso Bravo
 
@@ -261,7 +261,7 @@ app.get("/api/v1/transfer-stats/docs", (req, res) => {
 // GET /api/v1/transfer-stats/loadInitialData
 
 app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
-    if (transferstats.length == 0) {
+    //if (transferstats.length == 0) {
 
 
         var newtransferstats = [{
@@ -465,7 +465,7 @@ app.post("/api/v1/transfer-stats/:country", (req, res) => {
 app.put("/api/v1/transfer-stats", (req, res) => {
 
     res.sendStatus(409);
-});*/
+});
 
 
 //Recursos Jesús Herrera
