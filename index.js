@@ -245,24 +245,10 @@ clientabl.connect(err => {
         console.error("Error accesing DB " + err);
         process.exit(1);
     }
-    transferstats = clientabl.db("sos1819").collection("contacts");
+    transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
     console.log("Connected!");
 });
 
-/*const urijeg = "mongodb+srv://alf:alf@sos1819-zkg7f.mongodb.net/test?retryWrites=true";
-const clientjeg = new MongoClient(urijeg, { useNewUrlParser: true });
-
-var uefaclubrankings;
-
-clientjeg.connect(err => {
-    if (err) {
-        console.error("Error accesing DB " + err);
-        process.exit(1);
-    }
-    uefaclubrankings = clientjeg.db("sos1819").collection("uefa-club-rankings");
-    console.log("Connected!");
-});
-*/
 
 //GET/api/v1/transfer-stats/docs
 
