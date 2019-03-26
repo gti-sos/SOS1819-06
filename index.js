@@ -317,7 +317,7 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
             res.sendStatus(409);
         }
     });
-    }
+
 
 });
 
