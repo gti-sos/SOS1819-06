@@ -106,23 +106,31 @@ app.get("/api/v1/uefa-club-rankings", (req, res) => {
 app.post("/api/v1/uefa-club-rankings", (req, res) => {
 
     var newuefaclubrankings = req.body;
-    uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
-        if (err)
-            console.log("Error: " + err);
-        if (uefaclubrankingsArray.country == newuefaclubrankings.country || uefaclubrankingsArray.season == newuefaclubrankings.season ||
-            uefaclubrankingsArray.team == newuefaclubrankings.team) {
+
+    if (newuefaclubrankings.length > 6 || !newuefaclubrankings.country || !newuefaclubrankings.season || !newuefaclubrankings.ptsseason ||
+        !newuefaclubrankings.points || !newuefaclubrankings.team || !newuefaclubrankings.ptsbeforeseason) {
+
+        res.sendStatus(400);
+        return;
+    }
+
+    uefaclubrankings.find({ "country": newuefaclubrankings["country"], "season": newuefaclubrankings["season"] }).toArray((err, newuefaclubrankingsArray) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+
+        if (newuefaclubrankingsArray.length > 0) {
             res.sendStatus(409);
             return;
         }
+        else {
+            uefaCountryRankings.insert(newuefaclubrankings);
+            res.sendStatus(201);
+        }
+
     });
-    if (!newuefaclubrankings.country || !newuefaclubrankings.season || !newuefaclubrankings.points ||
-        !newuefaclubrankings.ptsseason || !newuefaclubrankings.ptsbeforeseason || !newuefaclubrankings.team || newuefaclubrankings.length <= 6) {
-        uefaclubrankings.insert(newuefaclubrankings);
-        res.sendStatus(201);
-    }
-    else {
-        res.sendStatus(400);
-    }
 
 });
 
@@ -163,27 +171,32 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
 app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
     var updateduefaclubrankings = req.body;
-    if (!updateduefaclubrankings.country || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
+    var country = req.params.country;
+    
+    if (updateduefaclubrankings.country != country || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
         !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team ||
-        updateduefaclubrankings.length <= 6) {
-        var country = req.params.country;
-        uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
-            if (error) {
-                console.log("Error: " + error);
-            }
-            if (filtereduefaclubrankings.length == 0) {
-                res.sendStatus(400);
-            }
-            else {
-                uefaclubrankings.updateOne({ "country": country }, { $set: updateduefaclubrankings });
-                res.sendStatus(200);
-            }
-        });
-    }
-    else {
-        res.sendStatus(400);
-    }
-
+        updateduefaclubrankings["country"] == null || updateduefaclubrankings["season"] == null ||
+        updateduefaclubrankings["ptsseason"] == null || updateduefaclubrankings["points"] == null || updateduefaclubrankings["team"] == null
+        || updateduefaclubrankings["ptsbeforeseason"] == null) {
+            res.sendStatus(400);
+            return;
+    }    
+    
+    uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
+        if (error) {
+            console.log("Error: " + error);
+            res.sendStatus(500);
+            return;
+        }
+        if (filtereduefaclubrankings.length >= 1) {
+            uefaclubrankings.update({"country": updateduefaclubrankings.country, "season": updateduefaclubrankings.season }, updateduefaclubrankings);
+            res.sendStatus(200);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+    
 });
 
 
