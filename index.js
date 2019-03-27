@@ -408,7 +408,7 @@ app.get("/api/v1/transfer-stats/:country/:team/:season", (req, res) => {
     var team = req.params.team;
     var season = req.params.season;
 
-    transferstats.find({ "country": country }, {"team": team}, {"season":season}).toArray((err, filteredtransferstats) => {
+    transferstats.find({ "country": country , "team": team, "season":parseInt(season, 10)}).toArray((err, filteredtransferstats) => {
         if (err) {
             console.log("Error: " + err);
             res.sendStatus(500);
@@ -675,6 +675,8 @@ app.get("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 });
 
 
+
+
 // PUT /api/v1/uefa-country-rankings/Spain/17-18
 
 app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
@@ -708,12 +710,12 @@ app.put("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
 
 
 
-// DELETE /api/v1/uefa-country-rankings/Spain
+// DELETE /api/v1/uefa-country-rankings/Spain/17-18
 
-app.delete("/api/v1/uefa-country-rankings/:country", (req, res) => {
+app.delete("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
     var country = req.params.country;
-    //var season = req.params.season;
-    uefaCountryRankings.remove({"country":country});
+    var season = req.params.season;
+    uefaCountryRankings.remove({"country":country,"season":season});
 
     res.sendStatus(200);
 
