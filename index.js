@@ -215,7 +215,7 @@ app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
             uefaclubrankings.deleteOne({ "country": country });
             res.sendStatus(200);
         }
-    })
+    });
 });
 
 // POST /api/v1/uefa-club-rankings/ESP
@@ -261,7 +261,7 @@ app.get("/api/v1/transfer-stats/docs", (req, res) => {
 // GET /api/v1/transfer-stats/loadInitialData
 
 app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
-    if (transferstats.length == 0) {
+    //if (transferstats.length == 0) {
 
 
         var newtransferstats = [{
@@ -317,7 +317,7 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
             res.sendStatus(409);
         }
     });
-    }
+
 
 });
 
@@ -325,19 +325,43 @@ app.get("/api/v1/transfer-stats/loadInitialData", (req, res) => {
 // GET /api/v1/transfer-stats
 
 app.get("/api/v1/transfer-stats", (req, res) => {
-    res.send(transferstats);
+    transferstats.find({}).toArray((err, transferstatsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        res.send(transferstatsArray);
+    });
 });
-
 
 // POST /api/v1/transfer-stats
 
 app.post("/api/v1/transfer-stats", (req, res) => {
 
     var newtransferstat = req.body;
+    
+    if (newtransferstat.length > 7 || !newtransferstat.country || !newtransferstat.season || !newtransferstat.team ||
+        !newtransferstat.moneyentered || !newtransferstat.moneyspent || !newtransferstat.numberoffarewells || !newtransferstat.numberofsignings) {
 
-    transferstats.push(newtransferstat);
+        res.sendStatus(400);
+        return;
+    }
 
-    res.sendStatus(201);
+    transferstats.find({ "country": newtransferstat["country"], "season": newtransferstat["season"] }).toArray((err, newtransferstatsArray) => {
+        if (err) {
+            console.error("Error accesing DB");
+            res.sendStatus(500);
+            return;
+        }
+
+        if (newtransferstatsArray.length > 0) {
+            res.sendStatus(409);
+            return;
+        }
+        else {
+            transferstats.insert(newtransferstat);
+            res.sendStatus(201);
+        }
+
+    });
 });
 
 
@@ -345,29 +369,35 @@ app.post("/api/v1/transfer-stats", (req, res) => {
 
 app.delete("/api/v1/transfer-stats", (req, res) => {
 
-    transferstats = [];
+    transferstats.remove({});
 
     res.sendStatus(200);
 });
 
 
-// GET /api/v1/transfer-stats/England
+// GET /api/v1/transfer-stats/England/Chelsea/2018
 
-app.get("/api/v1/transfer-stats/:country", (req, res) => {
+app.get("/api/v1/transfer-stats/:country/:team/:season", (req, res) => {
 
     var country = req.params.country;
+    var team = req.params.team;
+    var season = req.params.season;
 
-    var filteredtransferstats = transferstats.filter((c) => {
-        return c.country == country;
-    });
+    transferstats.find({ "country": country }, {"team": team}, {"season":season}).toArray((err, filteredtransferstats) => {
+        if (err) {
+            console.log("Error: " + err);
+            res.sendStatus(500);
+            return;
+        }
 
     if (filteredtransferstats.length >= 1) {
-        res.send(filteredtransferstats);
+        res.send(filteredtransferstats[0]);
     }
     else {
         res.sendStatus(404);
     }
 
+});
 });
 
 
@@ -377,27 +407,30 @@ app.put("/api/v1/transfer-stats/:country", (req, res) => {
 
     var country = req.params.country;
     var updatedtransferstats = req.body;
-    var found = false;
 
-    var updatedtransferstats2 = transferstats.map((c) => {
-
-        if (c.country == country) {
-            found = true;
-            return updatedtransferstats;
+    if (updatedtransferstats.country != country || !updatedtransferstats.season || !updatedtransferstats.moneyentered ||
+        !updatedtransferstats.moneyspent || !updatedtransferstats.numberoffarewells || !updatedtransferstats.numberofsignings || !updatedtransferstats.team ||
+        updatedtransferstats["country"] == null || updatedtransferstats["season"] == null || updatedtransferstats["numberoffarewells"] == null ||
+        updatedtransferstats["moneyentered"] == null || updatedtransferstats["moneyspent"] == null || updatedtransferstats["team"] == null
+        || updatedtransferstats["numberofsignings"] == null) {
+            res.sendStatus(400);
+            return;
+    }    
+    
+    transferstats.find({ "country": country }).toArray((error, filteredtransferstats) => {
+        if (error) {
+            console.log("Error: " + error);
+            res.sendStatus(500);
+            return;
+        }
+        if (filteredtransferstats.length >= 1) {
+            transferstats.update({"country": updatedtransferstats.country, "season": updatedtransferstats.season }, updatedtransferstats);
+            res.sendStatus(200);
         }
         else {
-            return c;
+            res.sendStatus(404);
         }
-
     });
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        transferstats = updatedtransferstats2;
-        res.sendStatus(200);
-    }
 
 });
 
@@ -407,25 +440,21 @@ app.put("/api/v1/transfer-stats/:country", (req, res) => {
 app.delete("/api/v1/transfer-stats/:country", (req, res) => {
 
     var country = req.params.country;
-    var found = false;
-
-    var updatedCountry = transferstats.filter((c) => {
-
-        if (c.country == country)
-            found = true;
-
-        return c.country != country;
+    transferstats.find({ "country": country }).toArray((error, filteredtransferstats) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredtransferstats.length == 0) {
+            res.sendStatus(404);
+        }
+        else {
+            transferstats.deleteOne({ "country": country });
+            res.sendStatus(200);
+        }
     });
 
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        transferstats = updatedCountry;
-        res.sendStatus(200);
-    }
-
 });
+
 
 // POST /api/v1/transfer-stats/England
 
