@@ -457,13 +457,27 @@ app.put("/api/v1/transfer-stats/:country", (req, res) => {
 
 });
 
+/*// DELETE /api/v1/uefa-country-rankings/Spain/17-18
 
-// DELETE /api/v1/transfer-stats/England
+app.delete("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
+    var country = req.params.country;
+    var season = req.params.season;
+    uefaCountryRankings.remove({"country":country,"season":season});
 
-app.delete("/api/v1/transfer-stats/:country", (req, res) => {
+    res.sendStatus(200);
+
+});
+*/
+
+
+// DELETE /api/v1/transfer-stats/England/Liverpool/2018
+
+app.delete("/api/v1/transfer-stats/:country/:team/:season", (req, res) => {
 
     var country = req.params.country;
-    transferstats.find({ "country": country }).toArray((error, filteredtransferstats) => {
+    var team = req.params.team;
+    var season = req.params.season;
+    transferstats.find({ "country": country , "team" : team , "season" : parseInt(season, 10) }).toArray((error, filteredtransferstats) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -471,7 +485,7 @@ app.delete("/api/v1/transfer-stats/:country", (req, res) => {
             res.sendStatus(404);
         }
         else {
-            transferstats.deleteOne({ "country": country });
+            transferstats.remove({"country":country,"team": team, "season":parseInt(season, 10)});
             res.sendStatus(200);
         }
     });
