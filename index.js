@@ -206,7 +206,7 @@ app.put("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
             return;
     }    
     
-    uefaclubrankings.find({ "country": country, "season": parseInt(season,10) }).toArray((error, filtereduefaclubrankings) => {
+    uefaclubrankings.find({ "team": team, "season": parseInt(season,10) }).toArray((error, filtereduefaclubrankings) => {
         if (error) {
             console.log("Error: " + error);
             res.sendStatus(500);
