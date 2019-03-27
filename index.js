@@ -167,14 +167,14 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
 
 });
 
-// GET /api/v1/uefa-club-rankings/team/2018
+// GET /api/v1/uefa-club-rankings/Madrid/2018
 
 app.get("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
 
     var team = req.params.team;
     var season = req.params.season;
 
-    uefaclubrankings.find({ "team": team, "season": season }).toArray((err, filtereduefaclubrankings) => {
+    uefaclubrankings.find({ "team": team, "season": parseInt(season,10) }).toArray((err, filtereduefaclubrankings) => {
         if (err) {
             console.log("Error: " + err);
             res.sendStatus(500);
