@@ -192,15 +192,15 @@ app.get("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
 
 // PUT /api/v1/uefa-club-rankings/Madrid/2018
 
-app.put("/api/v1/uefa-club-rankings/:country/:season", (req, res) => {
+app.put("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
     var updateduefaclubrankings = req.body;
-    var country = req.params.country;
+    var team = req.params.team;
     var season = req.params.season;
     
-    if (updateduefaclubrankings.country != country ||updateduefaclubrankings.season != parseInt(season,10)  || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
+    if (updateduefaclubrankings.team != team ||updateduefaclubrankings.season != parseInt(season,10)  || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
         !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team ||
-        updateduefaclubrankings["country"] == null || updateduefaclubrankings["season"] == null ||
-        updateduefaclubrankings["ptsseason"] == null || updateduefaclubrankings["points"] == null || updateduefaclubrankings["team"] == null
+        updateduefaclubrankings["team"] == null || updateduefaclubrankings["season"] == null ||
+        updateduefaclubrankings["ptsseason"] == null || updateduefaclubrankings["points"] == null || updateduefaclubrankings["country"] == null
         || updateduefaclubrankings["ptsbeforeseason"] == null) {
             res.sendStatus(400);
             return;
