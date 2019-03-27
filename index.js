@@ -39,38 +39,38 @@ app.get("/api/v1/uefa-club-rankings/loadInitialData", (req, res) => {
 
     var newuefaclubrankings = [{
         country: "ESP",
-        season: "2018/19",
-        points: "146000",
-        ptsseason: "19000",
-        ptsbeforeseason: "32000",
-        team: "Real Madrid"
+        season: 2018,
+        points: 146000,
+        ptsseason: 19000,
+        ptsbeforeseason: 32000,
+        team: "Madrid"
     }, {
         country: "GER",
-        season: "2018/19",
-        points: "128000",
-        ptsseason: "20000",
-        ptsbeforeseason: "29000",
-        team: "FC Bayern München"
+        season: 2018,
+        points: 128000,
+        ptsseason: 20000,
+        ptsbeforeseason: 29000,
+        team: "Bayern"
     }, {
         country: "ESP",
-        season: "2018/19",
-        points: "128000",
-        ptsseason: "20000",
-        ptsbeforeseason: "25000",
+        season: 2018,
+        points: 128000,
+        ptsseason: 20000,
+        ptsbeforeseason: 25000,
         team: "FC Barcelona"
     }, {
         country: "ESP",
-        season: "2018/19",
-        points: "127000",
-        ptsseason: "20000",
-        ptsbeforeseason: "28000",
-        team: "Club Atlético de Madrid"
+        season: 2018,
+        points: 127000,
+        ptsseason: 20000,
+        ptsbeforeseason: 28000,
+        team: "Atlético"
     }, {
         country: "ITA",
-        season: "2018/19",
-        points: "120000",
-        ptsseason: "17000",
-        ptsbeforeseason: "23000",
+        season: 2018,
+        points: 120000,
+        ptsseason: 17000,
+        ptsbeforeseason: 23000,
         team: "Juventus"
     }];
 
@@ -159,6 +159,29 @@ app.get("/api/v1/uefa-club-rankings/:country", (req, res) => {
         }
         if (filtereduefaclubrankings.length >= 1) {
             res.send(filtereduefaclubrankings);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+
+});
+
+// GET /api/v1/uefa-club-rankings/team/2018
+
+app.get("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
+
+    var team = req.params.team;
+    var season = req.params.season;
+
+    uefaclubrankings.find({ "team": team, "season": season }).toArray((err, filtereduefaclubrankings) => {
+        if (err) {
+            console.log("Error: " + err);
+            res.sendStatus(500);
+            return;
+        }
+        if (filtereduefaclubrankings.length >= 1) {
+            res.send(filtereduefaclubrankings[0]);
         }
         else {
             res.sendStatus(404);
