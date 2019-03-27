@@ -391,7 +391,7 @@ app.get("/api/v1/transfer-stats/:country/:team/:season", (req, res) => {
         }
 
     if (filteredtransferstats.length >= 1) {
-        res.send(filteredtransferstats);
+        res.send(filteredtransferstats[0]);
     }
     else {
         res.sendStatus(404);
