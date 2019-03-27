@@ -611,7 +611,7 @@ app.get("/api/v1/uefa-country-rankings/:country/:season", (req, res) => {
             return;
         }
         if (filteredUefaCountryRankings.length >= 1) {
-            res.send(filteredUefaCountryRankings);
+            res.send(filteredUefaCountryRankings[0]);
         }
         else {
             res.sendStatus(404);
