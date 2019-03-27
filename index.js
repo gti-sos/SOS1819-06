@@ -190,13 +190,14 @@ app.get("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
 
 });
 
-// PUT /api/v1/uefa-club-rankings/ESP
+// PUT /api/v1/uefa-club-rankings/Madrid/2018
 
-app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
+app.put("/api/v1/uefa-club-rankings/:country/:season", (req, res) => {
     var updateduefaclubrankings = req.body;
     var country = req.params.country;
+    var season = req.params.season;
     
-    if (updateduefaclubrankings.country != country || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
+    if (updateduefaclubrankings.country != country ||updateduefaclubrankings.season != parseInt(season,10)  || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
         !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team ||
         updateduefaclubrankings["country"] == null || updateduefaclubrankings["season"] == null ||
         updateduefaclubrankings["ptsseason"] == null || updateduefaclubrankings["points"] == null || updateduefaclubrankings["team"] == null
@@ -205,7 +206,7 @@ app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
             return;
     }    
     
-    uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
+    uefaclubrankings.find({ "country": country, "season": parseInt(season,10) }).toArray((error, filtereduefaclubrankings) => {
         if (error) {
             console.log("Error: " + error);
             res.sendStatus(500);
@@ -223,11 +224,12 @@ app.put("/api/v1/uefa-club-rankings/:country", (req, res) => {
 });
 
 
-// DELETE /api/v1/uefa-club-rankings/ESP
+// DELETE /api/v1/uefa-club-rankings/Madrid/2018
 
-app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
-    var country = req.params.country;
-    uefaclubrankings.find({ "country": country }).toArray((error, filtereduefaclubrankings) => {
+app.delete("/api/v1/uefa-club-rankings/:team/:season", (req, res) => {
+    var team = req.params.team;
+    var season = req.params.season;
+    uefaclubrankings.find({ "team": team, "season": parseInt(season,10) }).toArray((error, filtereduefaclubrankings) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -235,7 +237,7 @@ app.delete("/api/v1/uefa-club-rankings/:country", (req, res) => {
             res.sendStatus(404);
         }
         else {
-            uefaclubrankings.deleteOne({ "country": country });
+            uefaclubrankings.remove({"team": team, "season": parseInt(season,10)});
             res.sendStatus(200);
         }
     });
