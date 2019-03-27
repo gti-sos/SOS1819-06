@@ -406,7 +406,7 @@ app.get("/api/v1/transfer-stats/:country/:team/:season", (req, res) => {
     var team = req.params.team;
     var season = req.params.season;
 
-    transferstats.find({ "country": country , "team": team, "season":season}).toArray((err, filteredtransferstats) => {
+    transferstats.find({ "country": country , "team": team, "season":parseInt(season, 10)}).toArray((err, filteredtransferstats) => {
         if (err) {
             console.log("Error: " + err);
             res.sendStatus(500);
