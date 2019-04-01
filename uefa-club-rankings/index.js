@@ -2,7 +2,7 @@ var BASE_PATH = "/api/v1";
 
 module.exports = {
     register: function(app, uefaclubrankings) {
-        
+
         //Get /api/v1/uefa-club-rankings/docs
 
         app.get(BASE_PATH + "/uefa-club-rankings/docs", (req, res) => {
@@ -69,11 +69,145 @@ module.exports = {
         // GET /api/v1/uefa-club-rankings
 
         app.get(BASE_PATH + "/uefa-club-rankings", (req, res) => {
-            uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
-                if (err)
-                    console.log("Error: " + err);
-                res.send(uefaclubrankingsArray);
-            });
+            var limit = parseInt(req.query.limit);
+            var offSet = parseInt(req.query.offset);
+            var fromSeason = parseInt(req.query.from);
+            var toSeason = parseInt(req.query.to);
+            var season = parseInt(req.query.season);
+            var team = req.query.team;
+            var fromptsseason = parseInt(req.query.fromptsseason);
+            var toptsseason = parseInt(req.query.toptsseason);
+            var fromptsbeforeseason = parseInt(req.query.fromptsbeforeseason);
+            var toptsbeforeseason = parseInt(req.query.toptsbeforeseason);
+            var fromPoints = parseInt(req.query.fromPoints);
+            var toPoints = parseInt(req.query.toPoints);
+            if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
+
+                if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
+                    uefaclubrankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+                    });
+                }
+                else if (Number.isInteger(season)) {
+                    uefaclubrankings.find({ season: season }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+                    });
+
+                }
+                else if (team) {
+                    uefaclubrankings.find({ team: team }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+                    });
+
+                }
+                else if (Number.isInteger(fromptsseason) && Number.isInteger(toptsseason)) {
+                    uefaclubrankings.find({ ptsseason: { $gte: fromptsseason, $lte: toptsseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+                    });
+
+                }
+                else if (Number.isInteger(fromptsbeforeseason) && Number.isInteger(toptsbeforeseason)) {
+                    uefaclubrankings.find({ ptsbeforeseason: { $gte: fromptsbeforeseason, $lte: toptsbeforeseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+                    });
+
+                }
+                else if (Number.isInteger(fromPoints) && Number.isInteger(toPoints)) {
+                    uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+                    });
+
+                }
+                else {
+                    uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                        if (err)
+                            console.log("Error: " + err);
+                        if (uefaclubrankingsArray.length == 0) {
+                            res.sendStatus(404);
+                            return;
+                        }
+
+                        else {
+                            res.send(uefaclubrankingsArray.map((o) => {
+                                delete o._id;
+                                return o;
+                            }));
+                        }
+
+                    });
+                }
+            }
         });
 
 
@@ -126,21 +260,47 @@ module.exports = {
         app.get(BASE_PATH + "/uefa-club-rankings/:country", (req, res) => {
 
             var country = req.params.country;
+            var fromSeason = parseInt(req.query.from);
+            var toSeason = parseInt(req.query.to);
+            var limit = parseInt(req.query.limit);
+            var offSet = parseInt(req.query.offset);
 
-            uefaclubrankings.find({ "country": country }).toArray((err, filtereduefaclubrankings) => {
-                if (err) {
-                    console.log("Error: " + err);
-                    res.sendStatus(500);
-                    return;
-                }
-                if (filtereduefaclubrankings.length >= 1) {
-                    res.send(filtereduefaclubrankings);
-                }
-                else {
-                    res.sendStatus(404);
-                }
-            });
-
+            if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
+                uefaclubrankings.find({ "country": country, "season": { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, filtereduefaclubrankings) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    if (filtereduefaclubrankings.length >= 1) {
+                        res.send(filtereduefaclubrankings.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                    else {
+                        res.sendStatus(404);
+                    }
+                });
+            }
+            else {
+                uefaclubrankings.find({ "country": country }).skip(offSet).limit(limit).toArray((err, filtereduefaclubrankings) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    if (filtereduefaclubrankings.length >= 1) {
+                        res.send(filtereduefaclubrankings.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                    else {
+                        res.sendStatus(404);
+                    }
+                });
+            }
         });
 
         // GET /api/v1/uefa-club-rankings/Madrid/2018
@@ -157,7 +317,10 @@ module.exports = {
                     return;
                 }
                 if (filtereduefaclubrankings.length >= 1) {
-                    res.send(filtereduefaclubrankings[0]);
+                    res.send(filtereduefaclubrankings).map((o) => {
+                        delete o._id;
+                        return o;
+                    })[0];
                 }
                 else {
                     res.sendStatus(404);
@@ -223,14 +386,14 @@ module.exports = {
 
         app.post(BASE_PATH + "/uefa-club-rankings/:country", (req, res) => {
 
-            res.sendStatus(409);
+            res.sendStatus(405);
         });
 
         // PUT /api/v1/uefa-club-rankings
 
         app.put(BASE_PATH + "/uefa-club-rankings", (req, res) => {
 
-            res.sendStatus(409);
+            res.sendStatus(405);
         });
 
     }
