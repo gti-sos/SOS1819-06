@@ -291,7 +291,10 @@ module.exports = {
                     return;
                 }
                 if (filteredUefaCountryRankings.length >= 1) {
-                    res.send(filteredUefaCountryRankings[0]);
+                    res.send(filteredUefaCountryRankings.map((o)=>{
+                        delete o._id;
+                        return o;
+                    })[0]);
                 }
                 else {
                     res.sendStatus(404);
