@@ -81,132 +81,130 @@ module.exports = {
             var toptsbeforeseason = parseInt(req.query.toptsbeforeseason);
             var fromPoints = parseInt(req.query.fromPoints);
             var toPoints = parseInt(req.query.toPoints);
+
             if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
+                uefaclubrankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
+            }
+            else if (Number.isInteger(season)) {
+                uefaclubrankings.find({ season: season }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
 
-                if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
-                    uefaclubrankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-                    });
-                }
-                else if (Number.isInteger(season)) {
-                    uefaclubrankings.find({ season: season }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
 
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-                    });
+            }
+            else if (team) {
+                uefaclubrankings.find({ team: team }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
 
-                }
-                else if (team) {
-                    uefaclubrankings.find({ team: team }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
 
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-                    });
+            }
+            else if (Number.isInteger(fromptsseason) && Number.isInteger(toptsseason)) {
+                uefaclubrankings.find({ ptsseason: { $gte: fromptsseason, $lte: toptsseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
 
-                }
-                else if (Number.isInteger(fromptsseason) && Number.isInteger(toptsseason)) {
-                    uefaclubrankings.find({ ptsseason: { $gte: fromptsseason, $lte: toptsseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
 
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-                    });
+            }
+            else if (Number.isInteger(fromptsbeforeseason) && Number.isInteger(toptsbeforeseason)) {
+                uefaclubrankings.find({ ptsbeforeseason: { $gte: fromptsbeforeseason, $lte: toptsbeforeseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
 
-                }
-                else if (Number.isInteger(fromptsbeforeseason) && Number.isInteger(toptsbeforeseason)) {
-                    uefaclubrankings.find({ ptsbeforeseason: { $gte: fromptsbeforeseason, $lte: toptsbeforeseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
 
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-                    });
+            }
+            else if (Number.isInteger(fromPoints) && Number.isInteger(toPoints)) {
+                uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
 
-                }
-                else if (Number.isInteger(fromPoints) && Number.isInteger(toPoints)) {
-                    uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
 
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-                    });
+            }
+            else {
+                uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (uefaclubrankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
 
-                }
-                else {
-                    uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                        if (err)
-                            console.log("Error: " + err);
-                        if (uefaclubrankingsArray.length == 0) {
-                            res.sendStatus(404);
-                            return;
-                        }
+                    else {
+                        res.send(uefaclubrankingsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
 
-                        else {
-                            res.send(uefaclubrankingsArray.map((o) => {
-                                delete o._id;
-                                return o;
-                            }));
-                        }
-
-                    });
-                }
+                });
             }
         });
 
