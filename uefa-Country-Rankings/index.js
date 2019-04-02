@@ -192,7 +192,7 @@ module.exports = {
 
             var newUefaCountryRankings = req.body;
 
-            if (Object.key(newUefaCountryRankings).length > 5 || !newUefaCountryRankings.country || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition ||
+            if (Object.keys(newUefaCountryRankings).length > 5 || !newUefaCountryRankings.country || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition ||
                 !newUefaCountryRankings.points || !newUefaCountryRankings.teams || newUefaCountryRankings["country"] == null || newUefaCountryRankings["season"] == null || newUefaCountryRankings["rankingPosition"] == null || newUefaCountryRankings["points"] == null || newUefaCountryRankings["teams"] == null) {
 
                 res.sendStatus(400);
