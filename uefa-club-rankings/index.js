@@ -223,7 +223,7 @@ module.exports = {
             }
             else {
 
-                uefaclubrankings.find({ "country": newuefaclubrankings["country"], "season": parseInt(newuefaclubrankings["season"], 10) }).toArray((err, newuefaclubrankingsArray) => {
+                uefaclubrankings.find({ "team": newuefaclubrankings["team"], "season": parseInt(newuefaclubrankings["season"], 10) }).toArray((err, newuefaclubrankingsArray) => {
                     if (err) {
                         console.error("Error accesing DB");
                         res.sendStatus(500);
