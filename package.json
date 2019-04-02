@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88, ",
+    "test": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88; https://www.getpostman.com/collections/cc70efe11342a8e14600",
     "test-uefa-club-rankings": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88",
     "test-transfer-stats": "",
-    "test-uefa-country-rankings": ""
+    "test-uefa-country-rankings": "newman run https://www.getpostman.com/collections/cc70efe11342a8e14600"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,6 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongodb": "^3.2.2",
-    "newman": "^4.4.1"
+    "mongodb": "^3.2.2"
   }
 }

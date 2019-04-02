@@ -82,16 +82,16 @@ module.exports = {
                 uefaCountryRankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaCountryRankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    //if (uefaCountryRankingsArray.length == 0) {
-                     //   res.sendStatus(404);
-                      //  return;
-                   // }
-                   // else {
+                    if (uefaCountryRankingsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
+                    else {
                         res.send(uefaCountryRankingsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                   // }
+                    }
                 });
             }else if (Number.isInteger(season)) {
                 uefaCountryRankings.find({ season: season }).skip(offSet).limit(limit).toArray((err, uefaCountryRankingsArray) => {
@@ -169,17 +169,17 @@ module.exports = {
                 uefaCountryRankings.find({}).skip(offSet).limit(limit).toArray((err, uefaCountryRankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaCountryRankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                    //if (uefaCountryRankingsArray.length == 0) {
+                     //   res.sendStatus(404);
+                     //   return;
+                    //}
 
-                    else {
+                    //else {
                         res.send(uefaCountryRankingsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                    }
+                   // }
 
                 });
             }
