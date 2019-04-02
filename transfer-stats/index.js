@@ -1,97 +1,109 @@
-/*var BASE_PATH = "/api/v1";
+var BASE_PATH = "/api/v1";
 
 module.exports = {
     register: function(app, transferstats) {
 
-        //Get /api/v1/uefa-club-rankings/docs
+        //Get /api/v1/transfer-stats/docs
 
-        app.get(BASE_PATH + "/uefa-club-rankings/docs", (req, res) => {
-            res.redirect("https://documenter.getpostman.com/view/7060168/S17tRntb");
+        app.get(BASE_PATH + "/transfer-stats/docs", (req, res) => {
+            res.redirect("https://documenter.getpostman.com/view/6893874/S17tP7Vg");
+            res.sendStatus(200);
         });
 
-        // GET /api/v1/uefa-club-rankings/loadInitialData
+        // GET /api/v1/transfer-stats/loadInitialData
 
-        app.get(BASE_PATH + "/uefa-club-rankings/loadInitialData", (req, res) => {
+        app.get(BASE_PATH + "/transfer-stats/loadInitialData", (req, res) => {
 
-            var newuefaclubrankings = [{
-                country: "ESP",
-                season: 2018,
-                points: 146000,
-                ptsseason: 19000,
-                ptsbeforeseason: 32000,
-                team: "Madrid"
-            }, {
-                country: "GER",
-                season: 2018,
-                points: 128000,
-                ptsseason: 20000,
-                ptsbeforeseason: 29000,
-                team: "Bayern"
-            }, {
-                country: "ESP",
-                season: 2018,
-                points: 128000,
-                ptsseason: 20000,
-                ptsbeforeseason: 25000,
-                team: "FC Barcelona"
-            }, {
-                country: "ESP",
-                season: 2018,
-                points: 127000,
-                ptsseason: 20000,
-                ptsbeforeseason: 28000,
-                team: "Atlético"
-            }, {
-                country: "ITA",
-                season: 2018,
-                points: 120000,
-                ptsseason: 17000,
-                ptsbeforeseason: 23000,
-                team: "Juventus"
-            }];
+            var newtransferstats = [{
+            country: "Italy",
+            team: "Juventus",
+            season: 2018,
+            moneyspent: 261.5,
+            moneyentered: 109.5,
+            numberofsignings: 69,
+            numberoffarewells: 48
+        }, {
+            country: "England",
+            team: "Chelsea",
+            season: 2018,
+            moneyspent: 210.0,
+            moneyentered: 54.75,
+            numberofsignings: 38,
+            numberoffarewells: 30
+        }, {
+            country: "Spain",
+            team: "Madrid",
+            season: 2018,
+            moneyspent: 115.0,
+            moneyentered: 98.75,
+            numberofsignings: 23,
+            numberoffarewells: 24
+        }, {
+            country: "Spain",
+            team: "Barcelona",
+            season: 2018,
+            moneyspent: 340.0,
+            moneyentered: 162.0,
+            numberofsignings: 58,
+            numberoffarewells: 21
+        }, {
+            country: "France",
+            team: "PSG",
+            season: 2018,
+            moneyspent: 422.25,
+            moneyentered: 273.75,
+            numberofsignings: 63,
+            numberoffarewells: 47
+        }];
+        
+        uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
 
-            uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
+        transferstats.find({}).toArray((err, transferstatsArray) => {
 
-                if (uefaclubrankingsArray.length == 0) {
-                    console.log("Empty DB");
-                    uefaclubrankings.insert(newuefaclubrankings);
-                    res.sendStatus(200);
-                }
-                else {
-                    console.log("Error" + err);
-                    res.sendStatus(409);
-                }
-            });
-
+            if (transferstatsArray.length == 0) {
+                console.log("Empty DB");
+                transferstats.insert(newtransferstats);
+                res.sendStatus(200);
+            }else {
+                console.log("Error" + err);
+                res.sendStatus(409);
+            }
         });
 
+    });
+    
+});
+        
+        
+      
+        // GET /api/v1/transfer-stats
 
-        // GET /api/v1/uefa-club-rankings
-
-        app.get(BASE_PATH + "/uefa-club-rankings", (req, res) => {
+        app.get(BASE_PATH + "/transfer-stats", (req, res) => {
             var limit = parseInt(req.query.limit);
             var offSet = parseInt(req.query.offset);
             var fromSeason = parseInt(req.query.from);
             var toSeason = parseInt(req.query.to);
             var season = parseInt(req.query.season);
             var team = req.query.team;
-            var fromptsseason = parseInt(req.query.fromptsseason);
-            var toptsseason = parseInt(req.query.toptsseason);
-            var fromptsbeforeseason = parseInt(req.query.fromptsbeforeseason);
-            var toptsbeforeseason = parseInt(req.query.toptsbeforeseason);
-            var fromPoints = parseInt(req.query.fromPoints);
-            var toPoints = parseInt(req.query.toPoints);
+            var frommoneyspent = parseInt(req.query.frommoneyspent);
+            var tomoneyspent = parseInt(req.query.tomoneyspent);
+            var frommoneyentered = parseInt(req.query.frommoneyentered);
+            var tomoneyentered = parseInt(req.query.tomoneyentered);
+            var fromnumberofsignings = parseInt(req.query.fromnumberofsignings);
+            var tonumberofsignings = parseInt(req.query.tonumberofsignings);
+            var fromnumberoffarewells = parseInt(req.query.fromnumberoffarewells);
+            var tonumberoffarewells = parseInt(req.query.tonumberoffarewells);
 
             if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
-                uefaclubrankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                transferstats.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -99,16 +111,16 @@ module.exports = {
                 });
             }
             else if (Number.isInteger(season)) {
-                uefaclubrankings.find({ season: season }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                transferstatsArray.find({ season: season }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
 
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -117,16 +129,16 @@ module.exports = {
 
             }
             else if (team) {
-                uefaclubrankings.find({ team: team }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                transferstats.find({ team: team }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
 
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -134,17 +146,17 @@ module.exports = {
                 });
 
             }
-            else if (Number.isInteger(fromptsseason) && Number.isInteger(toptsseason)) {
-                uefaclubrankings.find({ ptsseason: { $gte: fromptsseason, $lte: toptsseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+            else if (Number.isInteger(frommoneyspent) && Number.isInteger(tomoneyspent)) {
+                transferstats.find({ moneyspent: { $gte: frommoneyspent, $lte: tomoneyspent } }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
 
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -152,17 +164,17 @@ module.exports = {
                 });
 
             }
-            else if (Number.isInteger(fromptsbeforeseason) && Number.isInteger(toptsbeforeseason)) {
-                uefaclubrankings.find({ ptsbeforeseason: { $gte: fromptsbeforeseason, $lte: toptsbeforeseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+            else if (Number.isInteger(frommoneyentered) && Number.isInteger(tomoneyentered)) {
+                transferstats.find({ moneyentered: { $gte: frommoneyentered, $lte: tomoneyentered } }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
 
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -170,17 +182,35 @@ module.exports = {
                 });
 
             }
-            else if (Number.isInteger(fromPoints) && Number.isInteger(toPoints)) {
-                uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+            else if (Number.isInteger(fromnumberofsignings) && Number.isInteger(tonumberofsignings)) {
+                transferstats.find({ numberofsignings: { $gte: fromnumberofsignings, $lte: tonumberofsignings } }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
 
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
+
+            }
+            else if (Number.isInteger(fromnumberoffarewells) && Number.isInteger(tonumberoffarewells)) {
+                transferstats.find({ numberoffarewells: { $gte: fromnumberoffarewells, $lte: tonumberoffarewells } }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (transferstatsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
+
+                    else {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -189,16 +219,16 @@ module.exports = {
 
             }
             else {
-                uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                transferstats.find({}).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
+                    if (transferstatsArray.length == 0) {
                         res.sendStatus(404);
                         return;
                     }
 
                     else {
-                        res.send(uefaclubrankingsArray.map((o) => {
+                        res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
@@ -209,46 +239,42 @@ module.exports = {
         });
 
 
-        // POST /api/v1/uefa-club-rankings
+        // POST /api/v1/transfer-stats
 
-        app.post(BASE_PATH + "/uefa-club-rankings", (req, res) => {
+        app.post(BASE_PATH + "/transfer-stats", (req, res) => {
 
-            var newuefaclubrankings = req.body;
+        var newtransferstat = req.body;
+    
+        if (newtransferstat.length > 7 || !newtransferstat.country || !newtransferstat.season || !newtransferstat.team ||
+            !newtransferstat.moneyentered || !newtransferstat.moneyspent || !newtransferstat.numberoffarewells || !newtransferstat.numberofsignings) {
 
-            if (newuefaclubrankings.length > 6 || !newuefaclubrankings.country || !newuefaclubrankings.season || !newuefaclubrankings.ptsseason ||
-                !newuefaclubrankings.points || !newuefaclubrankings.team || !newuefaclubrankings.ptsbeforeseason) {
+            res.sendStatus(400);
+            return;
+        }
 
-                res.sendStatus(400);
+        transferstats.find({ "country": newtransferstat["country"], "season": newtransferstat["season"] }).toArray((err, newtransferstatsArray) => {
+            if (err) {
+                console.error("Error accesing DB");
+                res.sendStatus(500);
                 return;
             }
 
-            uefaclubrankings.find({ "country": newuefaclubrankings["country"], "season": newuefaclubrankings["season"] }).toArray((err, newuefaclubrankingsArray) => {
-                if (err) {
-                    console.error("Error accesing DB");
-                    res.sendStatus(500);
-                    return;
-                }
-
-                if (newuefaclubrankingsArray.length > 0) {
-                    res.sendStatus(409);
-                    return;
-                }
-                else {
-                    uefaclubrankings.insert(newuefaclubrankings);
-                    res.sendStatus(201);
-                }
-
-            });
+            if (newtransferstatsArray.length > 0) {
+                res.sendStatus(409);
+                return;
+            }
+            else {
+                transferstats.insert(newtransferstat);
+                res.sendStatus(201);
+            }
 
         });
+    });
 
+        // DELETE /api/v1/transfer-stats
 
-        // DELETE /api/v1/uefa-club-rankings
-
-        app.delete(BASE_PATH + "/uefa-club-rankings", (req, res) => {
-
-            uefaclubrankings.remove({});
-
+        app.delete(BASE_PATH + "/transfer-stats", (req, res) => {
+            transferstats.remove({});
             res.sendStatus(200);
         });
 
@@ -301,99 +327,101 @@ module.exports = {
             }
         });
 
-        // GET /api/v1/uefa-club-rankings/Madrid/2018
+        // GET /api/v1/transfer-stats/England/Chelsea/2018
 
-        app.get(BASE_PATH + "/uefa-club-rankings/:team/:season", (req, res) => {
+        app.get(BASE_PATH + "/transfer-stats/:country/:team/:season", (req, res) => {
 
-            var team = req.params.team;
-            var season = req.params.season;
-
-            uefaclubrankings.find({ "team": team, "season": parseInt(season, 10) }).toArray((err, filtereduefaclubrankings) => {
-                if (err) {
-                    console.log("Error: " + err);
-                    res.sendStatus(500);
-                    return;
-                }
-                if (filtereduefaclubrankings.length >= 1) {
-                    res.send(filtereduefaclubrankings).map((o) => {
-                        delete o._id;
-                        return o;
-                    })[0];
-                }
-                else {
-                    res.sendStatus(404);
-                }
-            });
-
-        });
-
-        // PUT /api/v1/uefa-club-rankings/Madrid/2018
-
-        app.put(BASE_PATH + "/uefa-club-rankings/:team/:season", (req, res) => {
-            var updateduefaclubrankings = req.body;
-            var team = req.params.team;
-            var season = req.params.season;
-
-            if (updateduefaclubrankings.team != team || updateduefaclubrankings.season != parseInt(season, 10) || !updateduefaclubrankings.season || !updateduefaclubrankings.points ||
-                !updateduefaclubrankings.ptsseason || !updateduefaclubrankings.ptsbeforeseason || !updateduefaclubrankings.team ||
-                updateduefaclubrankings["team"] == null || updateduefaclubrankings["season"] == null ||
-                updateduefaclubrankings["ptsseason"] == null || updateduefaclubrankings["points"] == null || updateduefaclubrankings["country"] == null ||
-                updateduefaclubrankings["ptsbeforeseason"] == null) {
-                res.sendStatus(400);
+        var country = req.params.country;
+        var team = req.params.team;
+        var season = req.params.season;
+    
+        transferstats.find({ "country": country , "team": team, "season":parseInt(season, 10)}).toArray((err, filteredtransferstats) => {
+            if (err) {
+                console.log("Error: " + err);
+                res.sendStatus(500);
                 return;
             }
+    
+        if (filteredtransferstats.length >= 1) {
+            res.send(filteredtransferstats[0]);
+        }
+        else {
+            res.sendStatus(404);
+        }
 
-            uefaclubrankings.find({ "team": team, "season": parseInt(season, 10) }).toArray((error, filtereduefaclubrankings) => {
+    });
+});
+
+
+        // PUT /api/v1/transfer-stats/England/Chelsea/2018
+        
+        app.put(BASE_PATH + "/transfer-stats/:country/:season", (req, res) => {
+            var season = req.params.season;
+            var country = req.params.country;
+            var updatedtransferstats = req.body;
+        
+            if (updatedtransferstats.country != country || !updatedtransferstats.season || !updatedtransferstats.moneyentered ||
+                !updatedtransferstats.moneyspent || !updatedtransferstats.numberoffarewells || !updatedtransferstats.numberofsignings || !updatedtransferstats.team ||
+                updatedtransferstats["country"] == null || updatedtransferstats["season"] == null || updatedtransferstats["numberoffarewells"] == null ||
+                updatedtransferstats["moneyentered"] == null || updatedtransferstats["moneyspent"] == null || updatedtransferstats["team"] == null
+                || updatedtransferstats["numberofsignings"] == null) {
+                    res.sendStatus(400);
+                    return;
+            }    
+            
+            transferstats.find({ "country": country, "season": parseInt(season, 10), "team": team}).toArray((error, filteredtransferstats) => {
                 if (error) {
                     console.log("Error: " + error);
                     res.sendStatus(500);
                     return;
                 }
-                if (filtereduefaclubrankings.length >= 1) {
-                    uefaclubrankings.update({ "country": updateduefaclubrankings.country, "season": updateduefaclubrankings.season }, updateduefaclubrankings);
+                if (filteredtransferstats.length >= 1) {
+                    transferstats.update({"country": updatedtransferstats.country, "season": updatedtransferstats.season, "team":updatedtransferstats.team}, updatedtransferstats);
                     res.sendStatus(200);
                 }
                 else {
                     res.sendStatus(404);
                 }
             });
-
+        
         });
+        
 
+        // DELETE /api/v1/transfer-stats/England/Liverpool/2018
 
-        // DELETE /api/v1/uefa-club-rankings/Madrid/2018
-
-        app.delete(BASE_PATH + "/uefa-club-rankings/:team/:season", (req, res) => {
+        app.delete(BASE_PATH + "/transfer-stats/:country/:team/:season", (req, res) => {
+        
+            var country = req.params.country;
             var team = req.params.team;
             var season = req.params.season;
-            uefaclubrankings.find({ "team": team, "season": parseInt(season, 10) }).toArray((error, filtereduefaclubrankings) => {
+            transferstats.find({ "country": country , "team" : team , "season" : parseInt(season, 10) }).toArray((error, filteredtransferstats) => {
                 if (error) {
                     console.log("Error: " + error);
                 }
-                if (filtereduefaclubrankings.length == 0) {
+                if (filteredtransferstats.length == 0) {
                     res.sendStatus(404);
                 }
                 else {
-                    uefaclubrankings.remove({ "team": team, "season": parseInt(season, 10) });
+                    transferstats.remove({"country":country,"team": team, "season":parseInt(season, 10)});
                     res.sendStatus(200);
                 }
             });
+        
         });
 
-        // POST /api/v1/uefa-club-rankings/ESP
+        // POST /api/v1/transfer-stats/England/Chelsea/2018
 
-        app.post(BASE_PATH + "/uefa-club-rankings/:country", (req, res) => {
-
+        app.post("/api/v1/transfer-stats/:country/:team/:season", (req, res) => {
+        
             res.sendStatus(405);
         });
-
-        // PUT /api/v1/uefa-club-rankings
-
-        app.put(BASE_PATH + "/uefa-club-rankings", (req, res) => {
-
-            res.sendStatus(405);
+        
+        // PUT /api/v1/transfer-stats
+        
+        app.put("/api/v1/transfer-stats", (req, res) => {
+        
+            res.sendStatus(409);
         });
 
-    }
-};
-/*
+    
+}};
