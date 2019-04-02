@@ -217,7 +217,8 @@ module.exports = {
                     if (err)
                         console.log("Error: " + err);
                     if (transferstatsArray.length == 0) {
-                        res.sendStatus(404);
+                        //res.sendStatus(404);
+                        //transferstats = [];
                         return;
                     }
 
