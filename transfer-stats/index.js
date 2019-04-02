@@ -1,4 +1,4 @@
-var BASE_PATH = "/api/v1";
+/*var BASE_PATH = "/api/v1";
 
 module.exports = {
     register: function(app, transferstats) {
@@ -396,3 +396,4 @@ module.exports = {
 
     }
 };
+/*
