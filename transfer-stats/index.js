@@ -221,12 +221,12 @@ module.exports = {
                         return;
                     }
 
-                    else {
+                    else {*/
                         res.send(transferstatsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                    }*/
+                    //}
 
                 });
             }
