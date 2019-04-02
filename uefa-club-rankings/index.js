@@ -221,25 +221,25 @@ module.exports = {
                 res.sendStatus(400);
                 return;
             }
+            else {
 
-            uefaclubrankings.find({ "country": newuefaclubrankings["country"], "season": newuefaclubrankings["season"] }).toArray((err, newuefaclubrankingsArray) => {
-                if (err) {
-                    console.error("Error accesing DB");
-                    res.sendStatus(500);
-                    return;
-                }
+                uefaclubrankings.find({ "country": newuefaclubrankings["country"], "season": parseInt(newuefaclubrankings["season"], 10) }).toArray((err, newuefaclubrankingsArray) => {
+                    if (err) {
+                        console.error("Error accesing DB");
+                        res.sendStatus(500);
+                        return;
+                    }
 
-                if (newuefaclubrankingsArray.length > 1) {
-                    res.sendStatus(409);
-                    return;
-                }
-                else {
-                    uefaclubrankings.insert(newuefaclubrankings);
-                    res.sendStatus(201);
-                }
-
-            });
-
+                    if (newuefaclubrankingsArray.length > 0) {
+                        res.sendStatus(409);
+                        return;
+                    }
+                    else {
+                        uefaclubrankings.insert(newuefaclubrankings);
+                        res.sendStatus(201);
+                    }
+                });
+            }
         });
 
 
