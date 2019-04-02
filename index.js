@@ -50,6 +50,7 @@ clientabl.connect(err => {
 
 });
 
+/*
 
 //GET/api/v1/transfer-stats/docs
 
@@ -271,7 +272,7 @@ app.post("/api/v1/transfer-stats/:country", (req, res) => {
 app.put("/api/v1/transfer-stats", (req, res) => {
 
     res.sendStatus(409);
-});
+});*/
 
 
 //Recursos Jesús Herrera

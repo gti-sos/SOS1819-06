@@ -245,7 +245,7 @@ module.exports = {
             res.sendStatus(400);
             return;
         }
-
+        else{
         transferstats.find({ "country": newtransferstat["country"], "season": newtransferstat["season"] }).toArray((err, newtransferstatsArray) => {
             if (err) {
                 console.error("Error accesing DB");
@@ -263,6 +263,7 @@ module.exports = {
             }
 
         });
+        }
     });
 
         // DELETE /api/v1/transfer-stats
