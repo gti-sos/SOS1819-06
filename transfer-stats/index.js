@@ -302,11 +302,12 @@ module.exports = {
 
         // PUT /api/v1/transfer-stats/England/Chelsea/2018
         
-        app.put(BASE_PATH + "/transfer-stats/:country/:season", (req, res) => {
+        app.put(BASE_PATH + "/transfer-stats/:country/:season/:team", (req, res) => {
             var season = req.params.season;
             var country = req.params.country;
             var team = req.params.team;
             var updatedtransferstats = req.body;
+        
         
             if (Object.keys(updatedtransferstats).length > 7 || updatedtransferstats.country != country || updatedtransferstats.season != season || !updatedtransferstats.moneyentered ||
                 !updatedtransferstats.moneyspent || !updatedtransferstats.numberoffarewells || !updatedtransferstats.numberofsignings || updatedtransferstats.team != team||
