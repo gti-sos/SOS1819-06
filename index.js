@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var uefaCountryApi=require("./uefa-Country-Rankings");
 var uefaClubApi = require("./uefa-club-rankings");
-var transferAPI = require("./transfer-stats");
+//var transferAPI = require("./transfer-stats");
 
 var app = express();
 app.use(bodyParser.json());
@@ -32,7 +32,7 @@ clientjeg.connect(err => {
     uefaClubApi.register(app,uefaclubrankings);
 });
 
-
+/*
 //Recursos Alfonso Bravo
 
 const uriabl = "mongodb+srv://alf:alf@cluster0-caxk9.mongodb.net/test?retryWrites=true";
@@ -273,7 +273,7 @@ app.put("/api/v1/transfer-stats", (req, res) => {
     res.sendStatus(409);
 });
 
-
+*/
 //Recursos Jesús Herrera
 
 const uri3 = "mongodb+srv://test:country@sos1819-a0beg.mongodb.net/test?retryWrites=true";
