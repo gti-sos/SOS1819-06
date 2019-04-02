@@ -2,6 +2,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var uefaCountryApi=require("./uefa-Country-Rankings");
 var uefaClubApi = require("./uefa-club-rankings");
+var transferAPI = require("./transfer-stats");
+
 var app = express();
 app.use(bodyParser.json());
 
@@ -44,6 +46,8 @@ clientabl.connect(err => {
     }
     transferstats = clientabl.db("sos1819-abl").collection("transfer-stats");
     console.log("Connected!");
+    transferAPI.register(app,transferstats);
+
 });
 
 
@@ -285,6 +289,9 @@ client3.connect(err => {
     uefaCountryApi.register(app,uefaCountryRankings);
 });
 
+
+
+//Inicializar escucha por el puerto...
 app.listen(port, () => {
     console.log("Magic is happening in port " + port);
 
