@@ -192,7 +192,7 @@ module.exports = {
 
             var newUefaCountryRankings = req.body;
 
-            if (newUefaCountryRankings.length > 5 || !newUefaCountryRankings.country || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition ||
+            if (Object.key(newUefaCountryRankings).length > 5 || !newUefaCountryRankings.country || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition ||
                 !newUefaCountryRankings.points || !newUefaCountryRankings.teams || newUefaCountryRankings["country"] == null || newUefaCountryRankings["season"] == null || newUefaCountryRankings["rankingPosition"] == null || newUefaCountryRankings["points"] == null || newUefaCountryRankings["teams"] == null) {
 
                 res.sendStatus(400);
@@ -314,7 +314,7 @@ module.exports = {
             var season = parseInt(req.params.season, 10);
             var updatedUefaCountry = req.body;
 
-            if (updatedUefaCountry.length > 5 || updatedUefaCountry["country"] != country || updatedUefaCountry["season"] != season || !updatedUefaCountry.rankingPosition || !updatedUefaCountry.points || !updatedUefaCountry.teams ||
+            if (Object.keys(updatedUefaCountry).length > 5 || updatedUefaCountry["country"] != country || updatedUefaCountry["season"] != season || !updatedUefaCountry.rankingPosition || !updatedUefaCountry.points || !updatedUefaCountry.teams ||
                 updatedUefaCountry["country"] == null || updatedUefaCountry["season"] == null || updatedUefaCountry["rankingPosition"] == null || updatedUefaCountry["points"] == null || updatedUefaCountry["teams"] == null) {
                 res.sendStatus(400);
                 return;
