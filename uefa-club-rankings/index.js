@@ -229,7 +229,7 @@ module.exports = {
                     return;
                 }
 
-                if (newuefaclubrankingsArray.length > 0) {
+                if (newuefaclubrankingsArray.length > 1) {
                     res.sendStatus(409);
                     return;
                 }
