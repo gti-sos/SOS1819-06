@@ -308,8 +308,8 @@ module.exports = {
             var team = req.params.team;
             var updatedtransferstats = req.body;
         
-            if (updatedtransferstats.country != country || !updatedtransferstats.season || !updatedtransferstats.moneyentered ||
-                !updatedtransferstats.moneyspent || !updatedtransferstats.numberoffarewells || !updatedtransferstats.numberofsignings || !updatedtransferstats.team ||
+            if (Object.keys(updatedtransferstats).length > 7 || updatedtransferstats.country != country || updatedtransferstats.season != season || !updatedtransferstats.moneyentered ||
+                !updatedtransferstats.moneyspent || !updatedtransferstats.numberoffarewells || !updatedtransferstats.numberofsignings || updatedtransferstats.team != team||
                 updatedtransferstats["country"] == null || updatedtransferstats["season"] == null || updatedtransferstats["numberoffarewells"] == null ||
                 updatedtransferstats["moneyentered"] == null || updatedtransferstats["moneyspent"] == null || updatedtransferstats["team"] == null
                 || updatedtransferstats["numberofsignings"] == null) {
