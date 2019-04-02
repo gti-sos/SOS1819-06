@@ -55,8 +55,6 @@ module.exports = {
             numberofsignings: 63,
             numberoffarewells: 47
         }];
-        
-        uefaclubrankings.find({}).toArray((err, uefaclubrankingsArray) => {
 
         transferstats.find({}).toArray((err, transferstatsArray) => {
 
@@ -72,10 +70,6 @@ module.exports = {
 
     });
     
-});
-        
-        
-      
         // GET /api/v1/transfer-stats
 
         app.get(BASE_PATH + "/transfer-stats", (req, res) => {
@@ -111,7 +105,7 @@ module.exports = {
                 });
             }
             else if (Number.isInteger(season)) {
-                transferstatsArray.find({ season: season }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
+                transferstats.find({ season: season }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
                     if (transferstatsArray.length == 0) {
@@ -279,54 +273,6 @@ module.exports = {
         });
 
 
-        // GET /api/v1/uefa-club-rankings/ESP
-
-        app.get(BASE_PATH + "/uefa-club-rankings/:country", (req, res) => {
-
-            var country = req.params.country;
-            var fromSeason = parseInt(req.query.from);
-            var toSeason = parseInt(req.query.to);
-            var limit = parseInt(req.query.limit);
-            var offSet = parseInt(req.query.offset);
-
-            if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
-                uefaclubrankings.find({ "country": country, "season": { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, filtereduefaclubrankings) => {
-                    if (err) {
-                        console.log("Error: " + err);
-                        res.sendStatus(500);
-                        return;
-                    }
-                    if (filtereduefaclubrankings.length >= 1) {
-                        res.send(filtereduefaclubrankings.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
-                    else {
-                        res.sendStatus(404);
-                    }
-                });
-            }
-            else {
-                uefaclubrankings.find({ "country": country }).skip(offSet).limit(limit).toArray((err, filtereduefaclubrankings) => {
-                    if (err) {
-                        console.log("Error: " + err);
-                        res.sendStatus(500);
-                        return;
-                    }
-                    if (filtereduefaclubrankings.length >= 1) {
-                        res.send(filtereduefaclubrankings.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
-                    else {
-                        res.sendStatus(404);
-                    }
-                });
-            }
-        });
-
         // GET /api/v1/transfer-stats/England/Chelsea/2018
 
         app.get(BASE_PATH + "/transfer-stats/:country/:team/:season", (req, res) => {
@@ -358,6 +304,7 @@ module.exports = {
         app.put(BASE_PATH + "/transfer-stats/:country/:season", (req, res) => {
             var season = req.params.season;
             var country = req.params.country;
+            var team = req.params.team;
             var updatedtransferstats = req.body;
         
             if (updatedtransferstats.country != country || !updatedtransferstats.season || !updatedtransferstats.moneyentered ||
