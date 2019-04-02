@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88, ",
+    "test-uefa-club-rankings": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88",
+    "test-transfer-stats": "",
+    "test-uefa-country-rankings": ""
   },
   "repository": {
     "type": "git",
