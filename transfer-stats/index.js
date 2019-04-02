@@ -75,8 +75,8 @@ module.exports = {
         app.get(BASE_PATH + "/transfer-stats", (req, res) => {
             var limit = parseInt(req.query.limit);
             var offSet = parseInt(req.query.offset);
-            var fromSeason = parseInt(req.query.fromseason);
-            var toSeason = parseInt(req.query.toseason);
+            var fromSeason = parseInt(req.query.from);
+            var toSeason = parseInt(req.query.to);
             var season = parseInt(req.query.season);
             var team = req.query.team;
             var frommoneyspent = parseInt(req.query.frommoneyspent);
@@ -217,8 +217,7 @@ module.exports = {
                     if (err)
                         console.log("Error: " + err);
                     if (transferstatsArray.length == 0) {
-                        //res.sendStatus(404);
-                        //transferstats = [];
+                        res.sendStatus(404);
                         return;
                     }
 
