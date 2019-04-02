@@ -216,7 +216,7 @@ module.exports = {
                 transferstats.find({}).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (transferstatsArray.length == 0) {
+                    /*if (transferstatsArray.length == 0) {
                         //res.sendStatus(404);
                         return;
                     }
@@ -226,7 +226,7 @@ module.exports = {
                             delete o._id;
                             return o;
                         }));
-                    }
+                    }*/
 
                 });
             }
