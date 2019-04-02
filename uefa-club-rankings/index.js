@@ -306,9 +306,9 @@ module.exports = {
         app.get(BASE_PATH + "/uefa-club-rankings/:team/:season", (req, res) => {
 
             var team = req.params.team;
-            var season = req.params.season;
+            var season = parseInt(req.params.season, 10);
 
-            uefaclubrankings.find({ "team": team, "season": parseInt(season, 10) }).toArray((err, filtereduefaclubrankings) => {
+            uefaclubrankings.find({ "team": team, "season": season }).toArray((err, filtereduefaclubrankings) => {
                 if (err) {
                     console.log("Error: " + err);
                     res.sendStatus(500);
