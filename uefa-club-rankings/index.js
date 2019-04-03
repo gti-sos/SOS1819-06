@@ -192,19 +192,19 @@ module.exports = {
                 uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                  //  if (uefaclubrankingsArray.length == 0) {
+                    //    res.sendStatus(404);
+                    //    return;
+                  //  }
 
-                    else {
+                    //else {
                         res.send(uefaclubrankingsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                    }
+                    //}
 
-                });
+               });
             }
         });
 
@@ -288,15 +288,15 @@ module.exports = {
                         res.sendStatus(500);
                         return;
                     }
-                    if (filtereduefaclubrankings.length >= 1) {
+                    //if (filtereduefaclubrankings.length >= 1) {
                         res.send(filtereduefaclubrankings.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                    }
-                    else {
-                        res.sendStatus(404);
-                    }
+                    //}
+                    //else {
+                     //   res.sendStatus(404);
+                   // }
                 });
             }
         });
