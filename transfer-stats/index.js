@@ -309,7 +309,10 @@ module.exports = {
             }
     
         if (filteredtransferstats.length >= 1) {
-            res.send(filteredtransferstats[0]);
+            res.send(filteredtransferstats.map((o)=>{
+                delete o.id;
+                return o;
+            })[0]);
         }
         else {
             res.sendStatus(404);
