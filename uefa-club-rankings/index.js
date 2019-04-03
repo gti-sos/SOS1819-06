@@ -288,15 +288,15 @@ module.exports = {
                         res.sendStatus(500);
                         return;
                     }
-                    if (filtereduefaclubrankings.length >= 1) {
+                    //if (filtereduefaclubrankings.length >= 1) {
                         res.send(filtereduefaclubrankings.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                    }
-                    else {
-                        res.sendStatus(404);
-                    }
+                    //}
+                    //else {
+                     //   res.sendStatus(404);
+                   // }
                 });
             }
         });
