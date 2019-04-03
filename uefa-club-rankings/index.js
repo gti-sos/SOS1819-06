@@ -189,22 +189,22 @@ module.exports = {
 
             }
             else {
-                uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
-                    if (err)
-                        console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
+                uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((uefaclubrankingsArray) => {
+                   // if (err)
+                  //      console.log("Error: " + err);
+                  //  if (uefaclubrankingsArray.length == 0) {
+                    //    res.sendStatus(404);
+                    //    return;
+                  //  }
 
-                    else {
+                    //else {
                         res.send(uefaclubrankingsArray.map((o) => {
                             delete o._id;
                             return o;
                         }));
-                    }
+                    //}
 
-                });
+               });
             }
         });
 
