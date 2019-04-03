@@ -86,33 +86,22 @@ module.exports = {
                 uefaclubrankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
-                    else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
                 });
             }
             else if (Number.isInteger(season)) {
                 uefaclubrankings.find({ season: season }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
 
-                    else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
+
                 });
 
             }
@@ -120,17 +109,12 @@ module.exports = {
                 uefaclubrankings.find({ team: team }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
 
-                    else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
+
                 });
 
             }
@@ -138,17 +122,12 @@ module.exports = {
                 uefaclubrankings.find({ ptsseason: { $gte: fromptsseason, $lte: toptsseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
 
-                    else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
+
                 });
 
             }
@@ -156,55 +135,37 @@ module.exports = {
                 uefaclubrankings.find({ ptsbeforeseason: { $gte: fromptsbeforeseason, $lte: toptsbeforeseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
 
-                    else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
+
                 });
 
             }
             else if (Number.isInteger(fromPoints) && Number.isInteger(toPoints)) {
-                uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+                uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints} }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                    if (uefaclubrankingsArray.length == 0) {
-                        res.sendStatus(404);
-                        return;
-                    }
 
-                    else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
+
                 });
-
             }
             else {
                 uefaclubrankings.find({}).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
-                  //  if (uefaclubrankingsArray.length == 0) {
-                    //    res.sendStatus(404);
-                    //    return;
-                  //  }
+                    res.send(uefaclubrankingsArray.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
 
-                    //else {
-                        res.send(uefaclubrankingsArray.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    //}
-
-               });
+                });
             }
         });
 
@@ -270,15 +231,10 @@ module.exports = {
                         res.sendStatus(500);
                         return;
                     }
-                    if (filtereduefaclubrankings.length >= 1) {
-                        res.send(filtereduefaclubrankings.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    }
-                    else {
-                        res.sendStatus(404);
-                    }
+                    res.send(filtereduefaclubrankings.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
                 });
             }
             else {
@@ -288,15 +244,11 @@ module.exports = {
                         res.sendStatus(500);
                         return;
                     }
-                    //if (filtereduefaclubrankings.length >= 1) {
-                        res.send(filtereduefaclubrankings.map((o) => {
-                            delete o._id;
-                            return o;
-                        }));
-                    //}
-                    //else {
-                     //   res.sendStatus(404);
-                   // }
+                    res.send(filtereduefaclubrankings.map((o) => {
+                        delete o._id;
+                        return o;
+                    }));
+
                 });
             }
         });
@@ -314,15 +266,11 @@ module.exports = {
                     res.sendStatus(500);
                     return;
                 }
-                if (filtereduefaclubrankings.length >= 1) {
-                    res.send(filtereduefaclubrankings.map((o) => {
-                        delete o._id;
-                        return o;
-                    })[0]);
-                }
-                else {
-                    res.sendStatus(404);
-                }
+
+                res.send(filtereduefaclubrankings.map((o) => {
+                    delete o._id;
+                    return o;
+                })[0]);
             });
 
         });
