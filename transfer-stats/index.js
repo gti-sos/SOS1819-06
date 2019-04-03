@@ -307,18 +307,17 @@ module.exports = {
                 res.sendStatus(500);
                 return;
             }
+            if (filteredtransferstats.length >= 1) {
+                res.send(filteredtransferstats.map((o)=>{
+                    delete o.id;
+                    return o;
+                })[0]);
+            }
+            else {
+                res.sendStatus(404);
+            }
     
-        if (filteredtransferstats.length >= 1) {
-            res.send(filteredtransferstats.map((o)=>{
-                delete o.id;
-                return o;
-            })[0]);
-        }
-        else {
-            res.sendStatus(404);
-        }
-
-    });
+        });
 });
 
 
