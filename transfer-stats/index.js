@@ -79,6 +79,7 @@ module.exports = {
             var toSeason = parseInt(req.query.to);
             var season = parseInt(req.query.season);
             var team = req.query.team;
+            var country = req.query.country;
             var frommoneyspent = parseInt(req.query.frommoneyspent);
             var tomoneyspent = parseInt(req.query.tomoneyspent);
             var frommoneyentered = parseInt(req.query.frommoneyentered);
@@ -124,6 +125,24 @@ module.exports = {
             }
             else if (team) {
                 transferstats.find({ team: team }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
+                    if (err)
+                        console.log("Error: " + err);
+                    if (transferstatsArray.length == 0) {
+                        res.sendStatus(404);
+                        return;
+                    }
+
+                    else {
+                        res.send(transferstatsArray.map((o) => {
+                            delete o._id;
+                            return o;
+                        }));
+                    }
+                });
+
+            }
+            else if (country) {
+                transferstats.find({ country: country }).skip(offSet).limit(limit).toArray((err, transferstatsArray) => {
                     if (err)
                         console.log("Error: " + err);
                     if (transferstatsArray.length == 0) {
