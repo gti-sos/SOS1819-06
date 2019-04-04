@@ -71,19 +71,19 @@ module.exports = {
         app.get(BASE_PATH + "/uefa-club-rankings", (req, res) => {
             var limit = parseInt(req.query.limit);
             var offSet = parseInt(req.query.offset);
-            var fromSeason = parseInt(req.query.from);
-            var toSeason = parseInt(req.query.to);
+            var fromseason = parseInt(req.query.fromseason);
+            var toseason = parseInt(req.query.toseason);
             var season = parseInt(req.query.season);
             var team = req.query.team;
             var fromptsseason = parseInt(req.query.fromptsseason);
             var toptsseason = parseInt(req.query.toptsseason);
             var fromptsbeforeseason = parseInt(req.query.fromptsbeforeseason);
             var toptsbeforeseason = parseInt(req.query.toptsbeforeseason);
-            var fromPoints = parseInt(req.query.fromPoints);
-            var toPoints = parseInt(req.query.toPoints);
+            var frompoints = parseInt(req.query.frompoints);
+            var topoints = parseInt(req.query.topoints);
 
-            if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {
-                uefaclubrankings.find({ season: { $gte: fromSeason, $lte: toSeason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+            if (Number.isInteger(fromseason) && Number.isInteger(toseason)) {
+                uefaclubrankings.find({ season: { $gte: fromseason, $lte: toseason } }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
                     res.send(uefaclubrankingsArray.map((o) => {
@@ -144,8 +144,8 @@ module.exports = {
                 });
 
             }
-            else if (Number.isInteger(fromPoints) && Number.isInteger(toPoints)) {
-                uefaclubrankings.find({ points: { $gte: fromPoints, $lte: toPoints} }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
+            else if (Number.isInteger(frompoints) && Number.isInteger(topoints)) {
+                uefaclubrankings.find({ points: { $gte: frompoints, $lte: topoints} }).skip(offSet).limit(limit).toArray((err, uefaclubrankingsArray) => {
                     if (err)
                         console.log("Error: " + err);
 
@@ -219,8 +219,8 @@ module.exports = {
         app.get(BASE_PATH + "/uefa-club-rankings/:country", (req, res) => {
 
             var country = req.params.country;
-            var fromSeason = parseInt(req.query.from);
-            var toSeason = parseInt(req.query.to);
+            var fromSeason = parseInt(req.query.fromseason);
+            var toSeason = parseInt(req.query.toseason);
             var limit = parseInt(req.query.limit);
             var offSet = parseInt(req.query.offset);
 
