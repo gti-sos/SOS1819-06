@@ -43,12 +43,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                 $scope.post = function (){
                     
                     var objeto = ({
-                        Country:  $scope.country,
-                        Season: $scope.season,
-                        Points:  $scope.points,
-                        Pts_season: $scope.ptsseason,
-                        Pts_before_season: $scope.ptsbeforeseason,
-                        Team:  $scope.team
+                        country:  $scope.country,
+                        season: $scope.season,
+                        points:  $scope.points,
+                        ptsseason: $scope.ptsseason,
+                        ptsbeforeseason: $scope.ptsbeforeseason,
+                        team:  $scope.team
                     });
                     
                     $http.post($scope.url, objeto).then(function (response){
@@ -65,12 +65,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                 $scope.put = function (){
                     
                     var objeto = ({
-                        Country:  $scope.country,
-                        Season: $scope.season,
-                        Points:  $scope.points,
-                        Pts_season: $scope.ptsseason,
-                        Pts_before_season: $scope.ptsbeforeseason,
-                        Team:  $scope.team
+                        country:  $scope.country,
+                        season: $scope.season,
+                        points:  $scope.points,
+                        ptsseason: $scope.ptsseason,
+                        ptsbeforeseason: $scope.ptsbeforeseason,
+                        team:  $scope.team
                     });
                     
                     $http.put($scope.url, objeto).then(function (response){
