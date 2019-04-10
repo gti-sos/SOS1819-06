@@ -33,7 +33,7 @@ module.exports = {
                 points: 128000,
                 ptsseason: 20000,
                 ptsbeforeseason: 25000,
-                team: "FC Barcelona"
+                team: "Barcelona"
             }, {
                 country: "ESP",
                 season: 2018,
