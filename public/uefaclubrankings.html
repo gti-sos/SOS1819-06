@@ -14,8 +14,8 @@
         <h1>Uefa Club Rankings</h1>
         <div>
             <label>URL: <input class="form-control text-center"ng-model="url"/></label>
-            <button class="btn btn-primary" ng-click= "get()">Search</button>
-            <button class="btn btn-primary" ng-click= "load()">Load</button>
+            <button class="btn btn-primary" ng-click= "get()">GET</button>
+            <button class="btn btn-primary" ng-click= "load()">LoadInitionalData</button>
             <button class="btn btn-danger" ng-click= "delete()">Delete</button>
             
         </div>
@@ -29,11 +29,11 @@
             <label>ptsseason: <input class="form-control text-center" ng-model= "ptsseason"/></label>
             <label>ptsbeforeseason: <input class="form-control text-center" ng-model= "ptsbeforeseason"/></label>
             <label>team: <input class="form-control text-center" ng-model= "team"/></label>
-            <button class="btn btn-primary" ng-click= "post()">Created</button>
-            <button class="btn btn-primary" ng-click= "put()">Update</button>
+            <button class="btn btn-primary" ng-click= "post()">POST</button>
+            <button class="btn btn-primary" ng-click= "put()">PUT</button>
         </div>
-        <div>
-            <textarea class="form-control" rows="10" ng-model= "data2"></textarea>
+        <div class="row" align="center">
+            <pre>CÓDIGO HTTP: {{status}}</pre>
         </div>
     </body>
 </html>
