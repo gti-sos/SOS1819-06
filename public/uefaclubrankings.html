@@ -15,10 +15,25 @@
         <div>
             <label>URL: <input class="form-control text-center"ng-model="url"/></label>
             <button class="btn btn-primary" ng-click="send()">Send</button>
+            <button class="btn btn-primary" ng-click= "load()">Load</button>
+            <button class="btn btn-danger" ng-click= "delete()">Delete</button>
             
         </div>
         <div>
             <textarea class="form-control" rows="20" ng-model="data"></textarea>
+        </div>
+        <div>
+            <label>Country: <input class="form-control text-center" ng-model= "country"/></label>
+            <label>Season: <input class="form-control text-center" ng-model= "season"/></label>
+            <label>Points: <input class="form-control text-center" ng-model= "points"/></label>
+            <label>Pts season: <input class="form-control text-center" ng-model= "ptsseason"/></label>
+            <label>Pts before season: <input class="form-control text-center" ng-model= "ptsbeforeseason"/></label>
+            <label>Team: <input class="form-control text-center" ng-model= "team"/></label>
+            <button class="btn btn-primary" ng-click= "post()">Created</button>
+            <button class="btn btn-primary" ng-click= "put()">Update</button>
+        </div>
+        <div>
+            <textarea class="form-control" rows="10" ng-model= "data2"></textarea>
         </div>
     </body>
 </html>
