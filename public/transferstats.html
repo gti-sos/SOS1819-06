@@ -24,27 +24,28 @@
                 <h3>TRANSFER STATS</h3>
                 <label>URL : <input class="form-control text-center"ng-model="url"/></label>
 
-                <button class="btn btn-link btn-xs" ng-click="send()">GET</button>
-                <button class="btn btn-link btn-xs" ng-click="post()">POST</button>
-                <button class="btn btn-link btn-xs" ng-click="put()">PUT</button>
-                <button class="btn btn-danger btn-xs" ng-click="delete()">DELETE</button>
+                <button class="btn btn-outline-dark btn-lg" ng-click="send()">GET</button>
+                <button class="btn btn-outline-dark btn-lg" ng-click="post()">POST</button>
+                <button class="btn btn-outline-dark btn-lg" ng-click="put()">PUT</button>
+                <button class="btn btn-danger btn-lg" ng-click="delete()">DELETE</button>
             </div>
         </div>
 
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h4>Body</h4>
-                    <textarea class="form-control" rows="20" ng-model="body"></textarea>
-                </div>
-                <div class="col">
-                    <h4>Response</h4>
+                    <h4>RESPONSE</h4>
                     <textarea class="form-control" rows="20" readonly ng-model="data"></textarea>
                 </div>
+                <div class="col">
+                    <h4>BODY</h4>
+                    <textarea class="form-control" rows="20" ng-model="body"></textarea>
+                </div>
+                
             </div>
         </div>
         <div class="row" align="center">
-            <pre>http status code: {{status}}</pre>
+            <pre>CÓDIGO HTTP: {{status}}</pre>
         </div>
     </div>
 </body>
