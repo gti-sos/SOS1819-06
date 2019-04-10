@@ -1,24 +1,52 @@
 <!DOCTYPE html>
 <html ng-app="MiniPostmanApp">
-    <head>
-        <title>Uefa Country Rankings</title>
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/bower_components/angular/angular.min.js"></script>
-        <script src="/minipostmanuefacountry-app.js"></script>
-        <script src="/uefacountry-ctrl.js"></script>
-        
-    
-    </head>
-    <body ng-controller="MainCtrl">
-        <h1>Uefa Country Rankings</h1>
-        <div>
-            <label>URL: <input class="form-control text-center"ng-model="url"/></label>
-            <button class="btn btn-primary" ng-click="send()">Send</button>
-            
+
+<head>
+    <title>
+        Uefa Country Ranking
+    </title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/bower_components/angular/angular.min.js"></script>
+
+    <script src="minipostmanuefacountry-app.js"></script>
+
+    <script src="uefacountry-ctrl.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+    <div class="container-fluid">
+        <div class=row>
+            <div class="col-sm" style="background-color:green;">
+                <h3>Uefa Country Ranking</h3>
+                <label>URL : <input class="form-control text-center"ng-model="url"/></label>
+
+                <button class="btn btn-primary btn-xs" ng-click="send()">GET</button>
+                <button class="btn btn-primary btn-xs" ng-click="post()">POST</button>
+                <button class="btn btn-primary btn-xs" ng-click="put()">PUT</button>
+                <button class="btn btn-danger" ng-click="delete()">DELETE</button>
+            </div>
         </div>
-        <div>
-            <textarea class="form-control" rows="20" ng-model="data"></textarea>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Body</h4>
+                    <textarea class="form-control" rows="20" ng-model="body"></textarea>
+                </div>
+                <div class="col">
+                    <h4>Response</h4>
+                    <textarea class="form-control" rows="20" readonly ng-model="data"></textarea>
+                </div>
+            </div>
         </div>
-    </body>
+        <div class="row" align="center">
+            <pre>http status code: {{status}}</pre>
+        </div>
+    </div>
+</body>
+
 </html>
