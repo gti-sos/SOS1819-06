@@ -2,7 +2,7 @@ var BASE_PATH = "/api/v1";
 
 module.exports = {
     register: function(app, uefaCountryRankings) {
-
+        
         // GET REDIRECT 
 
         app.get(BASE_PATH + "/uefa-country-rankings/docs", (req, res) => {
