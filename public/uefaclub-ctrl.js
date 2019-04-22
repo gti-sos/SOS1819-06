@@ -19,10 +19,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                     $http.get("/api/v1/uefa-club-rankings/loadInitialData").then(function (response){
                         
                         $scope.data = JSON.stringify(response.data, null, 2);
+                        $scope.status = response.status;
                         
                     }, function (error){
                         
                         $scope.data = JSON.stringify(error.data, null, 2);
+                        $scope.status = error.status;
                         
                     });
                 };
@@ -32,10 +34,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                     $http.get($scope.url).then(function (response){
                         
                         $scope.data = JSON.stringify(response.data, null, 2);
+                        $scope.status = response.status;
                         
                     }, function (error){
                         
                         $scope.data = JSON.stringify(error.data, null, 2);
+                        $scope.status = error.status;
                         
                     });
                 };
@@ -54,10 +58,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                     $http.post($scope.url, objeto).then(function (response){
                         
                         $scope.data2 = JSON.stringify(response.data, null, 2);
+                        $scope.status = response.status;
                         
                     }, function (error){
                         
                         $scope.data2 = JSON.stringify(error.data, null, 2);
+                        $scope.status = error.status;
                         
                     });
                 };
@@ -76,10 +82,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                     $http.put($scope.url, objeto).then(function (response){
                         
                         $scope.data2 = JSON.stringify(response.data, null, 2);
+                        $scope.status = response.status;
                         
                     }, function (error){
                         
                         $scope.data2 = JSON.stringify(error.data, null, 2);
+                        $scope.status = error.status;
                         
                     });
                 };
@@ -89,10 +97,12 @@ app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
                     $http.delete($scope.url).then(function (response){
                         
                         $scope.data = JSON.stringify(response.data, null, 2);
+                        $scope.status = response.status;
                         
                     }, function (error){
                         
                         $scope.data = JSON.stringify(error.data, null, 2);
+                        $scope.status = error.status;
                         
                     });
                 };
