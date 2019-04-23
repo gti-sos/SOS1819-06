@@ -23,6 +23,46 @@ module.exports = {
             numberofsignings: 69,
             numberoffarewells: 48
         }, {
+            country: "Germany",
+            team: "Bayern",
+            season: 2018,
+            moneyspent: 270.0,
+            moneyentered: 24.75,
+            numberofsignings: 48,
+            numberoffarewells: 31
+        }, {
+            country: "Portugal",
+            team: "Oporto",
+            season: 2018,
+            moneyspent: 75.0,
+            moneyentered: 127.75,
+            numberofsignings: 28,
+            numberoffarewells: 64
+        }, {
+            country: "Italy",
+            team: "Inter",
+            season: 2018,
+            moneyspent: 240.0,
+            moneyentered: 163.75,
+            numberofsignings: 37,
+            numberoffarewells: 29
+        }, {
+            country: "Italy",
+            team: "Milan",
+            season: 2018,
+            moneyspent: 122.0,
+            moneyentered: 188.75,
+            numberofsignings: 28,
+            numberoffarewells: 34
+        }, {
+            country: "Spain",
+            team: "Atleti",
+            season: 2018,
+            moneyspent: 244.0,
+            moneyentered: 182.75,
+            numberofsignings: 42,
+            numberoffarewells: 36
+        }, {
             country: "England",
             team: "Chelsea",
             season: 2018,
@@ -265,7 +305,7 @@ module.exports = {
             return;
         }
         else{
-        transferstats.find({ "country": newtransferstat["country"], "season": newtransferstat["season"] }).toArray((err, newtransferstatsArray) => {
+        transferstats.find({ "country": newtransferstat["country"], "team": newtransferstat["team"], "season": newtransferstat["season"] }).toArray((err, newtransferstatsArray) => {
             if (err) {
                 console.error("Error accesing DB");
                 res.sendStatus(500);
