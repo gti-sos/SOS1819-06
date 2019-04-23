@@ -20,49 +20,59 @@
     <div>
         <h1>Uefa Country Rankings</h1>
     </div>
-    
+
     <div class="container">
+        <button class="btn btn-success" ng-click="loadInitial()">Datos Iniciales</button>
+        <button class="btn btn-danger" ng-click="deleteAll()">Borrar Todo</button>
         <button class="btn btn-dark" ng-click="ShowForm()">Mostrar Búsqueda</button>
         <button class="btn btn-dark" ng-click="HideForm()">Ocultar Búsqueda</button>
-        <form ng-show="formVisibility">
-          <div class="form-row">
-    <div class="col-md-4 mb-3">
-      <label for="country">País</label>
-      <input type="text" class="form-control" ng-model="country" id="country" placeholder="País" >
-    </div>
-    <div class="col-md-2 mb-3">
-      <label for="from">Desde</label>
-      <input class="form-control" min=0 type="number" ng-model="from" id="from" placeholder="Desde">
-    </div>
-    <div class="col-md-2 mb-3">
-      <label for="to">Hasta</label>
-        <input class="form-control" min=0 type="number" ng-model="to" id="to" placeholder="Hasta">
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-md-2 mb-3">
-      <label for="position">Posición</label>
-      <input class="form-control" min=0 type="number" ng-model="position" id="position" placeholder="Posición">
-    </div>
-    <div class="col-md-2 mb-3">
-      <label for="points">Puntos</label>
-      <input type="number" min=0 class="form-control" ng-model="points" id="points" placeholder="Puntos">
-    </div>
-    <div class="col-md-2 mb-3">
-      <label for="teams">Equipos</label>
-      <input type="number" min=0 class="form-control" ng-model="teams" id="teams" placeholder="Equipos">
-    </div>
-  </div>
-  <button class="btn btn-primary" ng-click"findCountry()">Buscar</button>
-        </form>
         
+        <form ng-show="formVisibility">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="country">País</label>
+                    <input type="text" class="form-control" ng-model="country" id="uefacountry" placeholder="País">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="season">Temporada Concreta</label>
+                    <input type="number" min=0 class="form-control" readonly ng-model="season" id="season" placeholder="En desarrollo">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="from">Desde</label>
+                    <input class="form-control" min=0 type="number" readonly ng-model="from" id="from" placeholder="En desarrollo">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="to">Hasta</label>
+                    <input class="form-control" min=0 type="number" readonly ng-model="to" id="to" placeholder="En desarrollo">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2 mb-3">
+                    <label for="position">Posición</label>
+                    <input class="form-control" min=0 type="number" readonly ng-model="position" id="position" placeholder="En desarrollo">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="fromPoints">Desde Puntos</label>
+                    <input type="number" min=0 class="form-control" readonly ng-model="fromPoints" id="fromPoints" placeholder="En desarrollo">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="toPoints">Hasta Puntos</label>
+                    <input type="number" min=0 class="form-control" readonly ng-model="toPoints" id="toPoints" placeholder="En desarrollo">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="teams">Equipos</label>
+                    <input type="number" min=0 class="form-control" readonly ng-model="teams" id="teams" placeholder="En desarrollo">
+                </div>
+
+            </div>
+            <button class="btn btn-primary" ng-click="findCountry(country,season,from,to,position,fromPoints,toPoints,teams)">Buscar</button>
+        </form>
+
     </div>
-    
-    <div class="container">
-        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alertMessage}}</alert>
-    </div>
+
+    <div class="alert alert-dismissible alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</div>
     <div>
-        <table class="table table-striped">
+        <table  class="table table-striped">
             <thead class="thead-dark">
                 <tr>
                     <th>País</th>
@@ -74,12 +84,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="uefacountry in uefacountries">
+                <tr ng-repeat="uefacountry in uefacountries | startFrom: currentPage * pageSize | limitTo: pageSize">
                     <td>{{uefacountry.country}}</td>
                     <td>{{uefacountry.season}}</td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.rankingPosition" ></td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.points" ></td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.teams" ></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.rankingPosition"></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.points"></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.teams"></td>
                     <td><button class="btn btn-secondary" ng-click="EditUefaCountry(uefacountry.country,uefacountry.season,uefacountry.rankingPosition,uefacountry.points,uefacountry.teams)">Editar</button>
                         <button class="btn btn-danger" ng-click="deleteUefaCountry(uefacountry.country,uefacountry.season)">Borrar</button>
                     </td>
@@ -104,15 +114,16 @@
                     </td>
                     <td><button class="btn btn-primary" ng-click="addUefaCountry()">Añadir</button></td>
                 </tr>
-                <tr>
-                    <td>
-                        <button class="btn btn-danger" ng-click="deleteAll()">Borrar Todo</button>
-                    </td>
-                </tr>
+                
             </tbody>
 
-
+    
         </table>
+        <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
+                <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+                <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+                <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+            </div>
     </div>
 </body>
 
