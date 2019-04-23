@@ -11,15 +11,52 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
             $scope.transferstats = response.data;
         });
     };
+    
+    $scope.loadInitialData = function() {
+            $http.get(API + "/loadInitialData").then(function(response) {
+                $scope.transferstats = response.data;
+                refresh();
+            });
+        };
+        
+        
     $scope.addTransferStat = function() {
         var newTransferStat = $scope.newTransferStat;
         console.log("Adding a new transfer stat:" + JSON.stringify(newTransferStat, null, 2));
         $http.post(API, newTransferStat).then(function(response) {
             console.log("POST Response:" + response.status + " " + response.data);
+            $scope.message = response.statusText;
+
+            $scope.newPopStat = "";
             refresh();
-        });
+        }).catch(function(data) {
+                    console.log(data.status);
+                    $scope.message = data.statusText + " : Añade un recurso con campos correctos";
+                });
 
     };
+    
+    /*$scope.add = function() {
+            var newUefaClub = $scope.newUefaClub;
+
+            console.log("adding uefaclub " + JSON.stringify(newUefaClub, null, 2));
+
+            $http.post(API, newUefaClub)
+                .then(function(response) {
+
+                    console.log("post response " + response.statusText);
+
+                    $scope.message = response.statusText;
+
+                    $scope.newPopStat = "";
+
+                    refresh();
+                })
+                .catch(function(data) {
+                    console.log(data.status);
+                    $scope.message = data.statusText + " : Añade un recurso con campos correctos";
+                });
+        };*/
     
     $scope.EditTransferStat = function(Ucountry,Useason,Uteam,Umoneyspent,Umoneyentered,Unumberofsignings,Unumberoffarewells){
         console.log("Editing"+" "+Ucountry+" "+Useason+" "+Uteam);
@@ -47,6 +84,15 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
              
         });
     };
+    
+    $scope.deleteall = function() {
+            $http.delete(API)
+                .then(function(response) {
+                    console.log("delete all response" + response.statusText);
+                    $scope.message = response.statusText;
+                    refresh();
+                });
+        };
      
     
 $scope.formVisibility=false;
