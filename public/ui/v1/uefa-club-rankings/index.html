@@ -1,110 +1,93 @@
 <html ng-app="UefaClubApp">
-    <head>
-        
-        <title>Uefa Club Rankings</title>
-        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-        <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/bower_components/angular/angular.min.js"></script>
-        <script src="uefaclub-app.js"></script>
-        <script src="uefaclub-ctrl.js"></script>
-        
-    </head>
-    
-    <body ng-controller="app-ctrl">
-        
-        <h1>Uefa Club Rankigs</h1>
-        <div>{{message}}</div>
-        <div><button class="btn btn-primary" ng-click="loadInitialData()">Carga de datos iniciales</button></div>
-        <div>
-            <label for="">Busqueda por pais</label>
-            <input type="text" name="" ng-model="inputCountry"/>
-            <button class="btn btn-primary" ng-click="buscarCountry()">Buscar</button>
-        </div>
-        <div>
-            <h2> </h2>
-            <label for="">Mostrar equipos desde </label>
-            <input type="text" name="" ng-model="offset"/>
-            <label for=""> hasta </label>
-            <input type="text" name="" ng-model="limit"/>
-            <button class="btn btn-primary" ng-click="ver()">Mostrar</button>
-        </div>
-        <div>
-           <table class="table table-striped">
+
+<head>
+
+    <title>Uefa Club Rankings</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="uefaclub-app.js"></script>
+    <script src="uefaclub-ctrl.js"></script>
+
+</head>
+
+<body ng-controller="UefaClubRankings-ctrl">
+
+    <h1>Uefa Club Rankigs</h1>
+    <div class="alert alert-primary" role="alert">{{message}}</div>
+    <div>
+        <label for="">Busqueda por pais</label>
+        <input type="text" name="" ng-model="inputPais" />
+        <button class="btn btn-primary" ng-click="buscarPais()">Buscar</button>
+    </div>
+    <div>
+        <h2> </h2>
+        <label for="">Mostrar equipos desde </label>
+        <input type="text" name="" ng-model="offset" />
+        <label for=""> hasta </label>
+        <input type="text" name="" ng-model="limit" />
+        <button class="btn btn-primary" ng-click="ver()">Mostrar</button>
+    </div>
+    <div>
+        <table class="table table-striped">
             <thead class="thead-dark">
-                    <tr>
-                        
-                        <th>Equipo</th>
-                        <th>Temporada</th>
-                        <th>Pais</th>
-                        <th>Puntos</th>
-                        <th>Puntos de esta temporada</th>
-                        <th>Puntos pasada temporada</th>
-                        <th>Acciones</th>
-                        
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr ng-repeat="uefaclub in uefaclubrankings">
-                        
-                       <td>{{uefaclub.team}}</td>
-                       <td>{{uefaclub.season}}</td>
-                       <td>{{uefaclub.country}}</td>
-                       <td>{{uefaclub.points}}</td>
-                       <td>{{uefaclub.ptsseason}}</td>
-                       <td>{{uefaclub.ptsbeforeseason}}</td>
-                       <td>
-                           <button class="btn btn-warning" ng-click="update(uefaclub)">Editar</button>
-                           <button class="btn btn-danger" ng-click="delete(uefaclub)">Borrar</button>
-                       </td>
-                    </tr>
-                    
-                    <tr>
-                       <td>
-                           <input type="text" value="nuevo equipo" ng-model="newUefaClub.team" />
-                       </td>
-                       <td>
-                           <input type="number" value="0" ng-model="newUefaClub.season"/>
-                       </td>
-                       <td>
-                           <input type="text" value="nuevo pais" ng-model="newUefaClub.country"/>
-                       </td>
-                       <td>
-                           <input type="number" value="0" ng-model="newUefaClub.points"/>
-                       </td>
-                       <td>
-                           <input type="number" value="0" ng-model="newUefaClub.ptsseason"/>
-                       </td>
-                       <td>
-                           <input type="number" value="0" ng-model="newUefaClub.ptsbeforeseason"/>
-                       </td>
-                       <td><button class="btn btn-primary" ng-click="add()">Añadir</button></td>
-                    </tr>
+                <tr>
+
+                    <th>Equipo</th>
+                    <th>Temporada</th>
+                    <th>Pais</th>
+                    <th>Puntos</th>
+                    <th>Puntos de esta temporada</th>
+                    <th>Puntos pasada temporada</th>
+                    <th>Acciones</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="uefaclub in uefaclubrankings">
+
+                    <td>{{uefaclub.team}}</td>
+                    <td>{{uefaclub.season}}</td>
+                    <td>{{uefaclub.country}}</td>
+                    <td><input type="number" ng-model="uefaclub.points" /></td>
+                    <td><input type="number" ng-model="uefaclub.ptsseason" /></td>
+                    <td><input type="number" ng-model="uefaclub.ptsbeforeseason" /></td>
                     <td>
-                           {{updateUefaClub.team}}
-                       </td>
-                       <td>
-                           {{updateUefaClub.season}}
-                       </td>
-                       <td>
-                           {{updateUefaClub.country}}
-                       </td>
-                       <td>
-                           <input type="number" value=uefaclub.points ng-model="updateUefaClub.points"/>
-                       </td>
-                       <td>
-                           <input type="number" value=uefaclub.ptsseason ng-model="updateUefaClub.ptsseason"/>
-                       </td>
-                       <td>
-                           <input type="number" value=uefaclub.ptsbeforeseason ng-model="updateUefaClub.ptsbeforeseason"/>
-                       </td>
-                       <td><button class="btn btn-primary" ng-click="guardarUpdate(updateUefaClub)">Guardar</button></td>
-                    </tr>
-                </tbody>
-                
-            </table>
-            
-        </div>
-        <div><button class="btn btn-danger" ng-click="deleteall()">Borrar todos los datos</button></div>
-    </body>
+                        <button class="btn btn-warning" ng-click="update(uefaclub)">Editar</button>
+                        <button class="btn btn-danger" ng-click="delete(uefaclub)">Borrar</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" value="nuevo equipo" placeholder="Añadir equipo" ng-model="newUefaClub.team" />
+                    </td>
+                    <td>
+                        <input type="number" value="0" placeholder="Añadir temporada" ng-model="newUefaClub.season" />
+                    </td>
+                    <td>
+                        <input type="text" value="nuevo pais" placeholder="Añadir país" ng-model="newUefaClub.country" />
+                    </td>
+                    <td>
+                        <input type="number" value="0" placeholder="Añadir puntos" ng-model="newUefaClub.points" />
+                    </td>
+                    <td>
+                        <input type="number" value="0" placeholder="Añadir puntos por temporada" ng-model="newUefaClub.ptsseason" />
+                    </td>
+                    <td>
+                        <input type="number" value="0" placeholder="Añadir puntos pasada temporada" ng-model="newUefaClub.ptsbeforeseason" />
+                    </td>
+                    <td><button class="btn btn-primary" ng-click="add()">Añadir</button></td>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <div><button class="btn btn-danger" ng-click="deleteall()">Borrar todos los datos</button>
+        <button class="btn btn-primary" ng-click="loadInitialData()">Carga de datos iniciales</button></div>
+
+</body>
+
 </html>
