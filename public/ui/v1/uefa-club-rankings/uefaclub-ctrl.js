@@ -1,109 +1,58 @@
-/*global angular*/
+/* global angular */
 
-var app = angular.module("MiniPostmanApp");
+angular.module("UefaClubApp").controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
+    console.log("MainCtrl initialized");
+    var API = "/api/v1/uefa-club-rankings";
+    refresh();
+    function refresh() {
+        console.log("Requesting uefa club ranking to <" + API + ">...");
+        $http.get(API).then(function(response) {
+            console.log("Data Received:" + JSON.stringify(response.data, null, 2));
+            $scope.uefaclubs = response.data;
+        });
+    };
+    $scope.addUefaClub = function() {
+        var newUefaClub = $scope.newUefaClub;
+        console.log("Adding a new uefa club:" + JSON.stringify(newUefaClub, null, 2));
+        $http.post(API, newUefaClub).then(function(response) {
+            console.log("POST Response:" + response.status + " " + response.data);
+            refresh();
+        });
 
-app.controller("MainCtrl", ["$scope", "$http", function ($scope, $http){
-                
-                console.log("MainCtrl ready");
-                
-                $scope.url = "/api/v1/uefa-club-rankings";
-                $scope.country = "ESP";
-                $scope.season = 2018;
-                $scope.points = 146000;
-                $scope.ptsseason = 19000;
-                $scope.ptsbeforeseason = 32000;
-                $scope.team = "Madrid";
-                
-                $scope.load = function (){
-                    
-                    $http.get("/api/v1/uefa-club-rankings/loadInitialData").then(function (response){
-                        
-                        $scope.data = JSON.stringify(response.data, null, 2);
-                        $scope.status = response.status;
-                        
-                    }, function (error){
-                        
-                        $scope.data = JSON.stringify(error.data, null, 2);
-                        $scope.status = error.status;
-                        
-                    });
-                };
-                
-                $scope.get = function (){
-                    
-                    $http.get($scope.url).then(function (response){
-                        
-                        $scope.data = JSON.stringify(response.data, null, 2);
-                        $scope.status = response.status;
-                        
-                    }, function (error){
-                        
-                        $scope.data = JSON.stringify(error.data, null, 2);
-                        $scope.status = error.status;
-                        
-                    });
-                };
-                
-                $scope.post = function (){
-                    
-                    var objeto = ({
-                        country:  $scope.country,
-                        season: $scope.season,
-                        points:  $scope.points,
-                        ptsseason: $scope.ptsseason,
-                        ptsbeforeseason: $scope.ptsbeforeseason,
-                        team:  $scope.team
-                    });
-                    
-                    $http.post($scope.url, objeto).then(function (response){
-                        
-                        $scope.data2 = JSON.stringify(response.data, null, 2);
-                        $scope.status = response.status;
-                        
-                    }, function (error){
-                        
-                        $scope.data2 = JSON.stringify(error.data, null, 2);
-                        $scope.status = error.status;
-                        
-                    });
-                };
-                
-                $scope.put = function (){
-                    
-                    var objeto = ({
-                        country:  $scope.country,
-                        season: $scope.season,
-                        points:  $scope.points,
-                        ptsseason: $scope.ptsseason,
-                        ptsbeforeseason: $scope.ptsbeforeseason,
-                        team:  $scope.team
-                    });
-                    
-                    $http.put($scope.url, objeto).then(function (response){
-                        
-                        $scope.data2 = JSON.stringify(response.data, null, 2);
-                        $scope.status = response.status;
-                        
-                    }, function (error){
-                        
-                        $scope.data2 = JSON.stringify(error.data, null, 2);
-                        $scope.status = error.status;
-                        
-                    });
-                };
-                
-                $scope.delete = function (){
-                    
-                    $http.delete($scope.url).then(function (response){
-                        
-                        $scope.data = JSON.stringify(response.data, null, 2);
-                        $scope.status = response.status;
-                        
-                    }, function (error){
-                        
-                        $scope.data = JSON.stringify(error.data, null, 2);
-                        $scope.status = error.status;
-                        
-                    });
-                };
+    };
+    
+    $scope.EditUefaClub = function(EditTeam,EditSeason,EditCountry,EditPoints,EditPtsseason,EditPtsbeforeseason){
+        console.log("Editing"+" "+EditTeam+" "+EditSeason);
+        $http.put(API+"/"+EditTeam+"/"+EditSeason,{
+           points:EditPoints,
+           ptsseason:EditPtsseason,
+           ptsbeforeseason:EditPtsbeforeseason
+        }).then(function(response){
+           console.log("PUT Response:" + response.status + " " + response.data);
+           refresh();
+        });
+    };
+    
+
+    $scope.deleteUefaClub = function(team, season) {
+        console.log("Deleting uefaClub with team:"+team+" and season:"+season);
+        $http.delete(API+"/"+team+"/"+season).then(function(response){
+             console.log("Delete Response:" + response.status + " " + response.data);
+             refresh();
+             
+             
+        });
+    };
+     
+    
+$scope.formVisibility=false;
+$scope.ShowForm=function(){
+    $scope.formVisibility=true;
+    console.log($scope.formVisibility);
+};
+$scope.HideForm=function(){
+    $scope.formVisibility=false;
+    console.log($scope.formVisibility);
+};
+
 }]);
