@@ -72,6 +72,19 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
                 });
         };
      
+    $scope.buscarEquipo = function() {
+            var team = $scope.inputEquipo;
+            console.log("ver recurso : <" + team + ">");
+            $http.get(API + "/" + team)
+                .then(function(response) {
+                    $scope.transferstats = response.data;
+                })
+                .catch(function(data) {
+                    console.log(data.status);
+                    refresh();
+                    $scope.message = data.statusText + " : El recurso " + team + " no existe";
+                });
+        };
     
 $scope.formVisibility=false;
 $scope.ShowForm=function(){

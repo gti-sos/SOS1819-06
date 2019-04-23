@@ -26,6 +26,11 @@
         <button class="btn btn-dark" ng-click="HideForm()">Ocultar Búsqueda</button>
         <form ng-show="formVisibility">
           <div class="form-row">
+              <div>
+        <label for="">Busqueda por equipo</label>
+        <input type="text" name="" ng-model="inputEquipo" />
+        <button class="btn btn-primary" ng-click="buscarEquipo()">Buscar</button>
+    </div>
     <div class="col-md-4 mb-3">
       <label for="country">País</label>
       <input type="text" class="form-control" ng-model="country" id="country" placeholder="País" >
