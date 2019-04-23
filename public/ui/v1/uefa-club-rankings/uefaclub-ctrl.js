@@ -12,8 +12,7 @@ angular
         
         function refresh(){
             $http.get(API).then(function(response){
-            
-                $scope.uefaclub = response.data;
+                $scope.uefaclubrankings = response.data;
             });
         }
         
@@ -69,36 +68,36 @@ angular
             $http.get(API+"?limit="+limit+"?offset="+offset)
                  .then(function(response){
                      refresh();
-                     $scope.uefaclub = response.data;
+                     $scope.uefaclubrankings = response.data;
                      $scope.message = response.statusText;
                      //refresh();
                  });
         };
         
-        $scope.buscarTeam = function () {
-            var team = $scope.inputTeam;
-            console.log("ver recurso : <"+ team + ">");
-            $http.get(API+"/"+team)
+        $scope.buscarCountry = function () {
+            var country = $scope.inputCountry;
+            console.log("ver recurso : <"+ country + ">");
+            $http.get(API+"/"+country)
                  .then(function(response){
-                     $scope.uefaclub = response.data;
+                     $scope.uefaclubrankings = response.data;
                      //refresh();
                  })
                  .catch(function(data){
                         console.log(data.status);
                         refresh();
-                        $scope.message = data.statusText+" : El recurso "+team+" no existe";
+                        $scope.message = data.statusText+" : El recurso "+country+" no existe";
                     });
         };
         
         $scope.update = function (uefaclub){
             console.log("updating stats <"+ uefaclub.team +">");
-            $scope.updateUefacClub = uefaclub;
+            $scope.updateUefaClub = uefaclub;
         };
         
-        $scope.guardarUpdate = function (updateUefacClub) {
-            updateUefacClub = $scope.updateUefacClub;
-            console.log("PUT : "+API+"/"+updateUefacClub.team+"/"+updateUefacClub.season);
-            $http.put(API+"/"+updateUefacClub.country+"/"+updateUefacClub.year,updateUefacClub)
+        $scope.guardarUpdate = function (updateUefaClub) {
+            updateUefaClub = $scope.updateUefacClub;
+            console.log("PUT : "+API+"/"+updateUefaClub.team+"/"+updateUefaClub.season);
+            $http.put(API+"/"+updateUefaClub.country+"/"+updateUefaClub.year,updateUefaClub)
                  .then( function(response){
                      console.log("Put response : "+response.status);
                      $scope.updateUefacClub = "";
@@ -107,5 +106,10 @@ angular
                     
                 });
         };
-        
+        $scope.loadInitialData = function (){
+            $http.get(API + "/loadInitialData").then(function(response){
+                $scope.uefaclubrankings = response.data;
+                refresh();
+            });
+        };
     }]);

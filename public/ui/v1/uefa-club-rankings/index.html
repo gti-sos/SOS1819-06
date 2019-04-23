@@ -14,10 +14,11 @@
         
         <h1>Uefa Club Rankigs</h1>
         <div>{{message}}</div>
+        <div><button class="btn btn-primary" ng-click="loadInitialData()">Carga de datos iniciales</button></div>
         <div>
-            <label for="">Busqueda por equipo</label>
-            <input type="text" name="" ng-model="inputTeam"/>
-            <button class="btn btn-primary" ng-click="buscarTeam()">Buscar</button>
+            <label for="">Busqueda por pais</label>
+            <input type="text" name="" ng-model="inputCountry"/>
+            <button class="btn btn-primary" ng-click="buscarCountry()">Buscar</button>
         </div>
         <div>
             <h2> </h2>
@@ -80,24 +81,24 @@
                        <td><button class="btn btn-primary" ng-click="add()">Añadir</button></td>
                     </tr>
                     <td>
-                           {{updateUefacClub.team}}
+                           {{updateUefaClub.team}}
                        </td>
                        <td>
-                           {{updateUefacClub.season}}
+                           {{updateUefaClub.season}}
                        </td>
                        <td>
-                           {{updateUefacClub.country}}
+                           {{updateUefaClub.country}}
                        </td>
                        <td>
-                           <input type="number" value=uefaclub.points ng-model="updateUefacClub.points"/>
+                           <input type="number" value=uefaclub.points ng-model="updateUefaClub.points"/>
                        </td>
                        <td>
-                           <input type="number" value=uefaclub.ptsseason ng-model="updateUefacClub.ptsseason"/>
+                           <input type="number" value=uefaclub.ptsseason ng-model="updateUefaClub.ptsseason"/>
                        </td>
                        <td>
-                           <input type="number" value=uefaclub.ptsbeforeseason ng-model="updateUefacClub.ptsbeforeseason"/>
+                           <input type="number" value=uefaclub.ptsbeforeseason ng-model="updateUefaClub.ptsbeforeseason"/>
                        </td>
-                       <td><button class="btn btn-primary" ng-click="guardarUpdate(updateUefacClub)">Guardar</button></td>
+                       <td><button class="btn btn-primary" ng-click="guardarUpdate(updateUefaClub)">Guardar</button></td>
                     </tr>
                 </tbody>
                 
