@@ -38,9 +38,9 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
     };
     
 
-    $scope.deleteTransferStat = function(country, season, team) {
+    $scope.deleteTransferStat = function(country, team, season) {
         console.log("Deleting transfer stat with country:"+country+", season:"+season+"and team:"+team);
-        $http.delete(API+"/"+country+"/"+season+"/"+team).then(function(response){
+        $http.delete(API+"/"+country+"/"+team+"/"+season).then(function(response){
              console.log("Delete Response:" + response.status + " " + response.data);
              refresh();
              
