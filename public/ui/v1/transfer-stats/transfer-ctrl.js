@@ -23,7 +23,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
     
     $scope.EditTransferStat = function(Ucountry,Useason,Uteam,Umoneyspent,Umoneyentered,Unumberofsignings,Unumberoffarewells){
         console.log("Editing"+" "+Ucountry+" "+Useason+" "+Uteam);
-        $http.put(API+"/"+Ucountry+"/"+Useason+"/"+Uteam,{
+        $http.put(API+"/"+Ucountry+"/"+Uteam+"/"+Useason,{
            country:Ucountry,
            season:Useason,
            team:Uteam,
