@@ -30,27 +30,27 @@
       <label for="country">País</label>
       <input type="text" class="form-control" ng-model="country" id="country" placeholder="País" >
     </div>
-    <div class="col-md-2 mb-3">
-      <label for="from">Desde</label>
-      <input class="form-control" min=0 type="number" ng-model="from" id="from" placeholder="Desde">
+    <div class="col-md-4 mb-3">
+      <label for="team">Equipo</label>
+      <input type="text" class="form-control" ng-model="team" id="team" placeholder="Equipo" >
     </div>
-    <div class="col-md-2 mb-3">
-      <label for="to">Hasta</label>
-        <input class="form-control" min=0 type="number" ng-model="to" id="to" placeholder="Hasta">
     </div>
-  </div>
   <div class="form-row">
     <div class="col-md-2 mb-3">
-      <label for="position">Posición</label>
-      <input class="form-control" min=0 type="number" ng-model="position" id="position" placeholder="Posición">
+      <label for="numberofsignings">Numero de Jugadores Fichados</label>
+      <input class="form-control" min=0 type="number" ng-model="numberofsignings" id="numberofsignings" placeholder="Numero de Jugadores Fichados">
     </div>
     <div class="col-md-2 mb-3">
-      <label for="points">Puntos</label>
-      <input type="number" min=0 class="form-control" ng-model="points" id="points" placeholder="Puntos">
+      <label for="numberoffarewells">Numero de Jugadores Vendidos</label>
+      <input type="number" min=0 class="form-control" ng-model="numberoffarewells" id="numberoffarewells" placeholder="Numero de Jugadores vendidos">
     </div>
     <div class="col-md-2 mb-3">
-      <label for="teams">Equipos</label>
-      <input type="number" min=0 class="form-control" ng-model="teams" id="teams" placeholder="Equipos">
+      <label for="moneyspent">Dinero Gastado</label>
+      <input type="number" min=0 class="form-control" ng-model="moneyspent" id="moneyspent" placeholder="Dinero Gastado">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="moneyentered">Dinero Ingresado</label>
+      <input type="number" min=0 class="form-control" ng-model="moneyentered" id="moneyentered" placeholder="Dinero Ingresado">
     </div>
   </div>
   <button class="btn btn-primary" ng-click"findCountry()">Buscar</button>
