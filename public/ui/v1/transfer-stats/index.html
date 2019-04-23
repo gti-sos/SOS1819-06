@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="TransferStatsApp">
+
+<head>
+    <title>
+        Transfer Stats
+    </title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/bower_components/angular/angular.min.js"></script>
+
+    <script src="transferstats-app.js"></script>
+
+    <script src="transfer-ctrl.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+    <div>
+        <h1>Transfer Stats</h1>
+    </div>
+    
+    <div class="container">
+        <button class="btn btn-dark" ng-click="ShowForm()">Mostrar Búsqueda</button>
+        <button class="btn btn-dark" ng-click="HideForm()">Ocultar Búsqueda</button>
+        <form ng-show="formVisibility">
+          <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="country">País</label>
+      <input type="text" class="form-control" ng-model="country" id="country" placeholder="País" >
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="from">Desde</label>
+      <input class="form-control" min=0 type="number" ng-model="from" id="from" placeholder="Desde">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="to">Hasta</label>
+        <input class="form-control" min=0 type="number" ng-model="to" id="to" placeholder="Hasta">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-2 mb-3">
+      <label for="position">Posición</label>
+      <input class="form-control" min=0 type="number" ng-model="position" id="position" placeholder="Posición">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="points">Puntos</label>
+      <input type="number" min=0 class="form-control" ng-model="points" id="points" placeholder="Puntos">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="teams">Equipos</label>
+      <input type="number" min=0 class="form-control" ng-model="teams" id="teams" placeholder="Equipos">
+    </div>
+  </div>
+  <button class="btn btn-primary" ng-click"findCountry()">Buscar</button>
+        </form>
+        
+    </div>
+    
+    <div class="container">
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alertMessage}}</alert>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>País</th>
+                    <th>Equipo</th>
+                    <th>Temporada</th>
+                    <th>Número de jugadores fichados</th>
+                    <th>Numero de jugadores vendidos</th>
+                    <th>Dinero Gastado</th>
+                    <th>Dinero ingresado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transferstat in transferstats">
+                    <td>{{transferstat.country}}</td>
+                    <td>{{transferstat.season}}</td>
+                    <td>{{transferstat.team}}</td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.moneyspent" ></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.moneyentered" ></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.numberofsignings" ></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.numberoffarewells" ></td>
+
+                    <td><button class="btn btn-secondary" ng-click="EditTransferStat(transferstat.country,transferstat.season,transferstat.team,transferstat.moneyspent,transferstat.moneyentered,transferstat.numberofsignings,transferstat.numberoffarewells)">Editar</button>
+                        <button class="btn btn-danger" ng-click="deleteTransferStat(transferstat.country,transferstat.season,transferstat.team)">Borrar</button>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.country" value="new country" placeholder="País" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.season" type="number" min="0" placeholder="Temporada" value="new season" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.team" value="new team" placeholder="Equipo" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.moneyspent" value="0" placeholder="Dinero Gastado" type="number" min="0" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.moneyentered" value="0" type="number" placeholder="Dienro Ingresado" min="0" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.numberofsignings" value="0" type="number" placeholder="Numero de Jugadores Fichados" min="0" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Numero de Jugadores Vendidos" min="0" />
+                    </td>
+                    <td><button class="btn btn-primary" ng-click="addTransferStat()">Añadir</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-danger" ng-click="deleteAll()">Borrar Todo</button>
+                    </td>
+                </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+</body>
+
+</html>
