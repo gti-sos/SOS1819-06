@@ -27,8 +27,8 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
            country:Ucountry,
            season:Useason,
            team:Uteam,
-           moneyentered:Umoneyentered,
            moneyspent:Umoneyspent,
+           moneyentered:Umoneyentered,
            numberofsignings:Unumberofsignings,
            numberoffarewells:Unumberoffarewells
         }).then(function(response){
