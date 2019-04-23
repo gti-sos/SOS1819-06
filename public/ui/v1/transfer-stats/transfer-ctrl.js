@@ -36,28 +36,6 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
 
     };
     
-    /*$scope.add = function() {
-            var newUefaClub = $scope.newUefaClub;
-
-            console.log("adding uefaclub " + JSON.stringify(newUefaClub, null, 2));
-
-            $http.post(API, newUefaClub)
-                .then(function(response) {
-
-                    console.log("post response " + response.statusText);
-
-                    $scope.message = response.statusText;
-
-                    $scope.newPopStat = "";
-
-                    refresh();
-                })
-                .catch(function(data) {
-                    console.log(data.status);
-                    $scope.message = data.statusText + " : Añade un recurso con campos correctos";
-                });
-        };*/
-    
     $scope.EditTransferStat = function(Ucountry,Useason,Uteam,Umoneyspent,Umoneyentered,Unumberofsignings,Unumberoffarewells){
         console.log("Editing"+" "+Ucountry+" "+Useason+" "+Uteam);
         $http.put(API+"/"+Ucountry+"/"+Uteam+"/"+Useason,{
@@ -85,7 +63,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
         });
     };
     
-    $scope.deleteall = function() {
+    $scope.deleteAll = function() {
             $http.delete(API)
                 .then(function(response) {
                     console.log("delete all response" + response.statusText);
