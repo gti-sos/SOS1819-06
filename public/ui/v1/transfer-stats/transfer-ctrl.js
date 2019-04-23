@@ -15,6 +15,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
     $scope.loadInitialData = function() {
             $http.get(API + "/loadInitialData").then(function(response) {
                 $scope.transferstats = response.data;
+                $scope.message = "La carga de datos ha sido realizada correctamente";
                 refresh();
             });
         };
@@ -25,7 +26,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
         console.log("Adding a new transfer stat:" + JSON.stringify(newTransferStat, null, 2));
         $http.post(API, newTransferStat).then(function(response) {
             console.log("POST Response:" + response.status + " " + response.data);
-            $scope.message = response.statusText;
+            $scope.message = "El recurso ha sido añadido correctamente";
 
             $scope.newPopStat = "";
             refresh();
@@ -49,6 +50,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
         }).then(function(response){
            console.log("PUT Response:" + response.status + " " + response.data);
            refresh();
+           $scope.message = "El recurso " + Ucountry + Uteam + Useason + " ha sido actualizado";
         });
     };
     
@@ -58,7 +60,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
         $http.delete(API+"/"+country+"/"+team+"/"+season).then(function(response){
              console.log("Delete Response:" + response.status + " " + response.data);
              refresh();
-             
+             $scope.message = "El recurso " + country + team + season +" ha sido borrado";
              
         });
     };
@@ -85,7 +87,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
                     $scope.message = data.statusText + " : El recurso " + team + " no existe";
                 });
         };
-    
+        
 $scope.formVisibility=false;
 $scope.ShowForm=function(){
     $scope.formVisibility=true;
