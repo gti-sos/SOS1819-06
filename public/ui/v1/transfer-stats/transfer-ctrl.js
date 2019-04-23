@@ -98,4 +98,19 @@ $scope.HideForm=function(){
     console.log($scope.formVisibility);
 };
 
+
+$scope.ver = function() {
+            var offset = $scope.offset;
+            var limit = $scope.limit;
+            console.log("ver de " + offset + " a " + limit);
+            console.log("<" + API + "?limit=" + limit + "?offset=" + offset + ">");
+            $http.get(API + "?limit=" + limit + "?offset=" + offset)
+                .then(function(response) {
+                    $scope.transferstats = response.data;
+                    $scope.message = response.statusText;
+                });
+        };
+        
+        
+
 }]);
