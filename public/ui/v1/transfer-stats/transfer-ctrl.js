@@ -75,7 +75,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
     $scope.buscarEquipo = function() {
             var team = $scope.inputEquipo;
             console.log("ver recurso : <" + team + ">");
-            $http.get(API + "/" + team)
+            $http.get(API + "/?team=" + team)
                 .then(function(response) {
                     $scope.transferstats = response.data;
                 })
