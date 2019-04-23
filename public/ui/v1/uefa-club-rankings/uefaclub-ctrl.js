@@ -105,7 +105,6 @@ angular
             console.log("<" + API + "?limit=" + limit + "?offset=" + offset + ">");
             $http.get(API + "?limit=" + limit + "?offset=" + offset)
                 .then(function(response) {
-                    refresh();
                     $scope.uefaclubrankings = response.data;
                     $scope.message = response.statusText;
                 });
