@@ -1,58 +1,111 @@
-/* global angular */
+/* global angular*/
 
-angular.module("UefaClubApp").controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
-    console.log("MainCtrl initialized");
-    var API = "/api/v1/uefa-club-rankings";
-    refresh();
-    function refresh() {
-        console.log("Requesting uefa club ranking to <" + API + ">...");
-        $http.get(API).then(function(response) {
-            console.log("Data Received:" + JSON.stringify(response.data, null, 2));
-            $scope.uefaclubs = response.data;
-        });
-    };
-    $scope.addUefaClub = function() {
-        var newUefaClub = $scope.newUefaClub;
-        console.log("Adding a new uefa club:" + JSON.stringify(newUefaClub, null, 2));
-        $http.post(API, newUefaClub).then(function(response) {
-            console.log("POST Response:" + response.status + " " + response.data);
-            refresh();
-        });
+angular
 
-    };
+    .module("UefaClubApp")
     
-    $scope.EditUefaClub = function(EditTeam,EditSeason,EditCountry,EditPoints,EditPtsseason,EditPtsbeforeseason){
-        console.log("Editing"+" "+EditTeam+" "+EditSeason);
-        $http.put(API+"/"+EditTeam+"/"+EditSeason,{
-           points:EditPoints,
-           ptsseason:EditPtsseason,
-           ptsbeforeseason:EditPtsbeforeseason
-        }).then(function(response){
-           console.log("PUT Response:" + response.status + " " + response.data);
-           refresh();
-        });
-    };
-    
-
-    $scope.deleteUefaClub = function(team, season) {
-        console.log("Deleting uefaClub with team:"+team+" and season:"+season);
-        $http.delete(API+"/"+team+"/"+season).then(function(response){
-             console.log("Delete Response:" + response.status + " " + response.data);
-             refresh();
-             
-             
-        });
-    };
-     
-    
-$scope.formVisibility=false;
-$scope.ShowForm=function(){
-    $scope.formVisibility=true;
-    console.log($scope.formVisibility);
-};
-$scope.HideForm=function(){
-    $scope.formVisibility=false;
-    console.log($scope.formVisibility);
-};
-
-}]);
+    .controller("app-ctrl",["$scope", "$http", function($scope,$http){
+        
+        console.log("ctrl initialized");
+        
+        var API = "/api/v1/uefa-club-rankings";
+        
+        function refresh(){
+            $http.get(API).then(function(response){
+            
+                $scope.uefaclub = response.data;
+            });
+        }
+        
+        refresh();
+        
+        $scope.add = function(){
+            var newUefaClub= $scope.newUefaClub;
+                
+                console.log("adding stats "+JSON.stringify(newUefaClub,null,2));
+                
+                $http.post(API, newUefaClub)
+                     .then(function(response){
+                    
+                    console.log("post response "+ response.statusText);
+                    
+                    $scope.message = response.statusText;
+                    
+                    $scope.newPopStat="";
+                    
+                    refresh();
+                })
+                    .catch(function(data){
+                        console.log(data.status);
+                        $scope.message = data.statusText+" : Añade un recurso con campos correctos";
+                    });
+        };
+        
+        $scope.delete = function(uefaclub){
+            console.log("deleting stats <"+ uefaclub.team + uefaclub.season +">");
+            $http.delete(API+"/"+uefaclub.team+"/"+uefaclub.season)
+                 .then(function(response){
+                     console.log("delete response"+ response.statusText);
+                     $scope.message = response.statusText;
+                     refresh();
+                     
+                 });
+        };
+        
+        $scope.deleteall = function (){
+            $http.delete(API)
+                 .then(function(response){
+                    console.log("delete all response"+ response.statusText);
+                    $scope.message = response.statusText;
+                    refresh();
+                 });
+        };
+        
+        $scope.ver = function () {
+            var offset=$scope.offset;
+            var limit=$scope.limit;
+            console.log("ver de "+ offset +" a " + limit);
+            console.log("<"+API+"?limit="+limit+"?offset="+offset+">");
+            $http.get(API+"?limit="+limit+"?offset="+offset)
+                 .then(function(response){
+                     refresh();
+                     $scope.uefaclub = response.data;
+                     $scope.message = response.statusText;
+                     //refresh();
+                 });
+        };
+        
+        $scope.buscarTeam = function () {
+            var team = $scope.inputTeam;
+            console.log("ver recurso : <"+ team + ">");
+            $http.get(API+"/"+team)
+                 .then(function(response){
+                     $scope.uefaclub = response.data;
+                     //refresh();
+                 })
+                 .catch(function(data){
+                        console.log(data.status);
+                        refresh();
+                        $scope.message = data.statusText+" : El recurso "+team+" no existe";
+                    });
+        };
+        
+        $scope.update = function (uefaclub){
+            console.log("updating stats <"+ uefaclub.team +">");
+            $scope.updateUefacClub = uefaclub;
+        };
+        
+        $scope.guardarUpdate = function (updateUefacClub) {
+            updateUefacClub = $scope.updateUefacClub;
+            console.log("PUT : "+API+"/"+updateUefacClub.team+"/"+updateUefacClub.season);
+            $http.put(API+"/"+updateUefacClub.country+"/"+updateUefacClub.year,updateUefacClub)
+                 .then( function(response){
+                     console.log("Put response : "+response.status);
+                     $scope.updateUefacClub = "";
+                     refresh();
+                    $scope.message = response.statusText;
+                    
+                });
+        };
+        
+    }]);
