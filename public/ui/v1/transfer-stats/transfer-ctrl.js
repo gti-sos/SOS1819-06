@@ -32,7 +32,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
             refresh();
         }).catch(function(data) {
                     console.log(data.status);
-                    $scope.message = data.statusText + " : Añade un recurso con campos correctos";
+                    $scope.message = "Ya existe un recurso con esos datos. Por favor, introduce unos datos correctos";
                 });
 
     };
@@ -69,7 +69,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
             $http.delete(API)
                 .then(function(response) {
                     console.log("delete all response" + response.statusText);
-                    $scope.message = response.statusText;
+                    $scope.message = "Se han borrado todos los datos con éxito";
                     refresh();
                 });
         };
