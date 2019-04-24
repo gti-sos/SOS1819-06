@@ -30,16 +30,7 @@
         <button class="btn btn-primary" ng-click="buscarEquipo()">Buscar</button>
     </div>
     
-    <div>
-        <h2> </h2>
-        <label for="">Mostrar datos desde el nº: </label>
-        <input type="text" name="" ng-model="offset" />
-        <label for=""> con </label>
-        <input type="text" name="" ng-model="limit" />
-        <label for=""> elementos por página </label>
-        <button class="btn btn-primary" ng-click="ver()">Mostrar</button>
-    </div>
-    
+
     <div class="container">
         <form ng-show="formVisibility">
           <div class="form-row">
@@ -55,12 +46,12 @@
     </div>
   <div class="form-row">
     <div class="col-md-2 mb-3">
-      <label for="numberofsignings">Numero de Jugadores Fichados</label>
-      <input class="form-control" min=0 type="number" ng-model="numberofsignings" id="numberofsignings" placeholder="Numero de Jugadores Fichados">
+      <label for="numberofsignings">Jugadores Fichados</label>
+      <input class="form-control" min=0 type="number" ng-model="numberofsignings" id="numberofsignings" placeholder="Jugadores Fichados">
     </div>
     <div class="col-md-2 mb-3">
-      <label for="numberoffarewells">Numero de Jugadores Vendidos</label>
-      <input type="number" min=0 class="form-control" ng-model="numberoffarewells" id="numberoffarewells" placeholder="Numero de Jugadores vendidos">
+      <label for="numberoffarewells">Jugadores Vendidos</label>
+      <input type="number" min=0 class="form-control" ng-model="numberoffarewells" id="numberoffarewells" placeholder="Jugadores vendidos">
     </div>
     <div class="col-md-2 mb-3">
       <label for="moneyspent">Dinero Gastado</label>
@@ -126,10 +117,10 @@
                         <input class="form-control" ng-model="newTransferStat.moneyentered" value="0" type="number" placeholder="Dinero Ingresado" min="0" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.numberofsignings" value="0" type="number" placeholder="Numero de Jugadores Fichados" min="0" />
+                        <input class="form-control" ng-model="newTransferStat.numberofsignings" value="0" type="number" placeholder="Jugadores Fichados" min="0" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Numero de Jugadores Vendidos" min="0" />
+                        <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Jugadores Vendidos" min="0" />
                     </td>
                     <td><button class="btn btn-primary" ng-click="addTransferStat()">Añadir</button></td>
                 </tr>
