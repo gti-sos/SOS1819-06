@@ -4,6 +4,8 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
     console.log("MainCtrl initialized");
     var API = "/api/v1/transfer-stats";
     refresh();
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
     function refresh() {
         console.log("Requesting transfer stats to <" + API + ">...");
         $http.get(API).then(function(response) {
@@ -111,6 +113,17 @@ $scope.ver = function() {
                 });
         };
         
-        
+$scope.setPage = function(index) {
+        $scope.currentPage = index - 1;
+    };
 
-}]);
+
+
+}]).filter("startFrom", function() {
+    return function(input, start) {
+        start = +start;
+        return input.slice(start);
+    };
+
+
+});
