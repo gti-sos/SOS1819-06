@@ -43,9 +43,9 @@
                     <td>{{uefaclub.team}}</td>
                     <td>{{uefaclub.season}}</td>
                     <td>{{uefaclub.country}}</td>
-                    <td><input type="number" ng-model="uefaclub.points" /></td>
-                    <td><input type="number" ng-model="uefaclub.ptsseason" /></td>
-                    <td><input type="number" ng-model="uefaclub.ptsbeforeseason" /></td>
+                    <td><input type="number" min= 1 ng-model="uefaclub.points" /></td>
+                    <td><input type="number" min= 1 ng-model="uefaclub.ptsseason" /></td>
+                    <td><input type="number" min= 1 ng-model="uefaclub.ptsbeforeseason" /></td>
                     <td>
                         <button class="btn btn-warning" ng-click="update(uefaclub)">Editar</button>
                         <button class="btn btn-danger" ng-click="delete(uefaclub)">Borrar</button>
