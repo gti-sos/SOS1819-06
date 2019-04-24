@@ -20,7 +20,7 @@
         <input type="text" name="" placeholder="Inserte un país" ng-model="inputPais" />
         <button class="btn btn-primary" ng-click="buscarPais()">Buscar</button>
     </div>
-    
+
     <div>
         <table class="table table-striped">
             <thead class="thead-dark">
@@ -38,7 +38,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="uefaclub in uefaclubrankings">
+                <tr ng-repeat="uefaclub in uefaclubrankings | startFrom: currentPage * pageSize | limitTo: pageSize">
 
                     <td>{{uefaclub.team}}</td>
                     <td>{{uefaclub.season}}</td>
@@ -76,7 +76,11 @@
             </tbody>
 
         </table>
-
+        <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
+            <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+            <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+            <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+        </div>
     </div>
     <div><button class="btn btn-danger" ng-click="deleteall()">Borrar todos los datos</button>
         <button class="btn btn-primary" ng-click="loadInitialData()">Carga de datos iniciales</button></div>

@@ -9,6 +9,8 @@ angular
         console.log("ctrl initialized");
 
         var API = "/api/v1/uefa-club-rankings";
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
 
         function refresh() {
             $http.get(API).then(function(response) {
@@ -21,6 +23,7 @@ angular
         $scope.loadInitialData = function() {
             $http.get(API + "/loadInitialData").then(function(response) {
                 $scope.uefaclubrankings = response.data;
+                $scope.message = "Datos cargados con exito";
                 refresh();
             });
         };
@@ -31,6 +34,7 @@ angular
             $http.get(API + "/" + country)
                 .then(function(response) {
                     $scope.uefaclubrankings = response.data;
+                    $scope.message = "Busqueda con exito";
                 })
                 .catch(function(data) {
                     console.log(data.status);
@@ -51,7 +55,7 @@ angular
             }).then(function(response) {
                 console.log("Put response : " + response.status + " " + response.data);
                 refresh();
-                $scope.message = response.statusText;
+                $scope.message = "Equipo editado con éxito";
 
             });
         };
@@ -61,7 +65,7 @@ angular
             $http.delete(API + "/" + uefaclub.team + "/" + uefaclub.season)
                 .then(function(response) {
                     console.log("delete response" + response.statusText);
-                    $scope.message = response.statusText;
+                    $scope.message = "Equipo borrado con exito";
                     refresh();
 
                 });
@@ -77,9 +81,7 @@ angular
 
                     console.log("post response " + response.statusText);
 
-                    $scope.message = response.statusText;
-
-                    $scope.newPopStat = "";
+                    $scope.message = "Equipo añadido con exito";
 
                     refresh();
                 })
@@ -93,21 +95,28 @@ angular
             $http.delete(API)
                 .then(function(response) {
                     console.log("delete all response" + response.statusText);
-                    $scope.message = response.statusText;
+                    $scope.message = "Datos borrados con exito";
                     refresh();
                 });
         };
 
-        $scope.ver = function() {
-            var offset = $scope.offset;
-            var limit = $scope.limit;
-            console.log("ver de " + offset + " a " + limit);
-            console.log("<" + API + "?limit=" + limit + "?offset=" + offset + ">");
-            $http.get(API + "?limit=" + limit + "?offset=" + offset)
-                .then(function(response) {
-                    $scope.uefaclubrankings = response.data;
-                    $scope.message = response.statusText;
-                });
+        // $scope.ver = function() {
+        //     var offset = $scope.offset;
+        //   var limit = $scope.limit;
+        // console.log("ver de " + offset + " a " + limit);
+        //     console.log("<" + API + "?limit=" + limit + "?offset=" + offset + ">");
+        //   $http.get(API + "?limit=" + limit + "?offset=" + offset)
+        //      .then(function(response) {
+        //           $scope.uefaclubrankings = response.data;
+        //          $scope.message = response.statusText;
+        //      });
+        //};
+        $scope.setPage = function(index) {
+            $scope.currentPage = index - 1;
         };
-
-    }]);
+    }]).filter("startFrom", function() {
+        return function(input, start) {
+            start = +start;
+            return input.slice(start);
+        };
+    });
