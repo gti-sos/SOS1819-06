@@ -14,10 +14,10 @@
 <body ng-controller="UefaClubRankings-ctrl">
 
     <h1>Uefa Club Rankigs</h1>
-    <div class="alert alert-primary" role="alert">{{message}}</div>
+    <div class="alert alert-dismissible alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</div>
     <div>
         <label for="">Busqueda por pais</label>
-        <input type="text" name="" ng-model="inputPais" />
+        <input type="text" name="" placeholder="Añadir un país" ng-model="inputPais" />
         <button class="btn btn-primary" ng-click="buscarPais()">Buscar</button>
     </div>
     <div>

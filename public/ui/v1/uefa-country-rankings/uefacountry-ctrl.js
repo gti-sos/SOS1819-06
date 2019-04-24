@@ -6,7 +6,7 @@ angular.module("UefaCountryApp").controller("MainCtrl", ["$scope", "$http", func
     refresh();
     $scope.currentPage = 0;
     $scope.pageSize = 10;
-    $scope.alerts=[];
+    $scope.alerts = [];
     function refresh() {
         console.log("Requesting uefa country ranking to <" + API + ">...");
         $http.get(API).then(function(response) {
