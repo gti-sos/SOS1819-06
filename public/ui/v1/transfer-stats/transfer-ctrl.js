@@ -12,7 +12,7 @@ angular.module("TransferStatsApp").controller("MainCtrl", ["$scope", "$http", fu
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
             $scope.transferstats = response.data;
         });
-    };
+    }
     
     $scope.loadInitialData = function() {
             $http.get(API + "/loadInitialData").then(function(response) {
