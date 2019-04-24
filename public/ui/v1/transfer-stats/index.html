@@ -89,10 +89,10 @@
                     <td>{{transferstat.country}}</td>
                     <td>{{transferstat.season}}</td>
                     <td>{{transferstat.team}}</td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.moneyspent" ></td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.moneyentered" ></td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.numberofsignings" ></td>
-                    <td><input class="form-control text-center" min=0 type="number" ng-model="transferstat.numberoffarewells" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.moneyspent" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.moneyentered" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.numberofsignings" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.numberoffarewells" ></td>
 
                     <td><button class="btn btn-secondary" ng-click="EditTransferStat(transferstat.country,transferstat.season,transferstat.team,transferstat.moneyspent,transferstat.moneyentered,transferstat.numberofsignings,transferstat.numberoffarewells)">Editar</button>
                         <button class="btn btn-danger" ng-click="deleteTransferStat(transferstat.country,transferstat.team,transferstat.season)">Borrar</button>
@@ -108,19 +108,19 @@
                         <input class="form-control" ng-model="newTransferStat.team" value="new team" placeholder="Equipo" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.season" type="number" min="0" placeholder="Temporada" value="new season" />
+                        <input class="form-control" ng-model="newTransferStat.season" type="number" min="1" placeholder="Temporada" value="new season" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.moneyspent" value="0" placeholder="Dinero Gastado" type="number" min="0" />
+                        <input class="form-control" ng-model="newTransferStat.moneyspent" value="0" placeholder="Dinero Gastado" type="number" min="1" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.moneyentered" value="0" type="number" placeholder="Dinero Ingresado" min="0" />
+                        <input class="form-control" ng-model="newTransferStat.moneyentered" value="0" type="number" placeholder="Dinero Ingresado" min="1" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.numberofsignings" value="0" type="number" placeholder="Jugadores Fichados" min="0" />
+                        <input class="form-control" ng-model="newTransferStat.numberofsignings" value="0" type="number" placeholder="Jugadores Fichados" min="1" />
                     </td>
                     <td>
-                        <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Jugadores Vendidos" min="0" />
+                        <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Jugadores Vendidos" min="1" />
                     </td>
                     <td><button class="btn btn-primary" ng-click="addTransferStat()">Añadir</button></td>
                 </tr>
