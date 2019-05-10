@@ -1,0 +1,31 @@
+ <div>
+        <h1>Edit Uefa Country Rankings</h1>
+    </div>
+
+    <div class="alert alert-dismissible alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</div>
+    <div>
+        <table  class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>País</th>
+                    <th>Temporada</th>
+                    <th>Posición Ranking</th>
+                    <th>Puntos</th>
+                    <th>Equipos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    
+                    <td>{{uefacountry.country}}</td>
+                    <td>{{uefacountry.season}}</td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.rankingPosition"></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.points"></td>
+                    <td><input class="form-control text-center" min=0 type="number" ng-model="uefacountry.teams"></td>
+                    <td><button class="btn btn-primary" ng-click="EditUefaCountry(uefacountry.country,uefacountry.season,uefacountry.rankingPosition,uefacountry.points,uefacountry.teams)">Editar</button>
+            
+                </tr>
+            </tbody>
+        </table>
+    </div>
