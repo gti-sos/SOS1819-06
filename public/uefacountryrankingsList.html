@@ -5,19 +5,24 @@
     <div class="container">
         <button class="btn btn-success" ng-click="loadInitial()">Datos Iniciales</button>
         <button class="btn btn-danger" ng-click="deleteAll()">Borrar Todo</button>
-        <button class="btn btn-dark" ng-click="ShowForm()">Mostrar Búsqueda</button>
-        <button class="btn btn-dark" ng-click="HideForm()">Ocultar Búsqueda</button>
+        <button class="btn btn-dark" ng-click="showForm()">Mostrar Búsqueda</button>
+        <button class="btn btn-dark" ng-click="hideForm()">Ocultar Búsqueda</button>
+        <button class="btn btn-primary" ng-click="showData()">Mostrar todo</button>
         
         <form ng-show="formVisibility">
             <div class="form-row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-2 mb-3">
                     <label for="country">País</label>
-                    <input type="text" class="form-control" ng-model="country" id="uefacountry" placeholder="País">
+                    <input type="text" class="form-control" ng-model="uf.country" id="uefacountry" placeholder="País">
                 </div>
                 <div class="col-md-2 mb-3">
                     <label for="season">Temporada Concreta</label>
-                    <input type="number" min=0 class="form-control" readonly ng-model="season" id="season" placeholder="En desarrollo">
+                    <input type="number" min=0 class="form-control"  ng-model="uf.season" id="season">
+                    
                 </div>
+            </div>
+            <button class="btn btn-primary" ng-click="findCountrySeason(uf.country,uf.season)">Buscar</button>
+            <div class="form-row">
                 <div class="col-md-2 mb-3">
                     <label for="from">Desde</label>
                     <input class="form-control" min=0 type="number" readonly ng-model="from" id="from" placeholder="En desarrollo">
@@ -65,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="uefacountry in uefacountries | startFrom: currentPage * pageSize | limitTo: pageSize">
+                <tr ng-repeat="uefacountry in uefacountries">
                     <td><a href="#!/uefa-country-rankings/edit/{{uefacountry.country}}/{{uefacountry.season}}">{{uefacountry.country}}</a></td>
                     <td>{{uefacountry.season}}</td>
                     <td>{{uefacountry.rankingPosition}}</td>
@@ -100,9 +105,4 @@
 
     
         </table>
-        <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
-                <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
-                <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
-                <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
-            </div>
     </div>
