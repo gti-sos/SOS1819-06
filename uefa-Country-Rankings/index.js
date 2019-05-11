@@ -236,6 +236,7 @@ module.exports = {
             var country = req.params.country;
             var fromSeason = parseInt(req.query.from);
             var toSeason = parseInt(req.query.to);
+            
             var limit = parseInt(req.query.limit);
             var offSet = parseInt(req.query.offset);
             if (Number.isInteger(fromSeason) && Number.isInteger(toSeason)) {

@@ -36,7 +36,8 @@ angular.module("ManagerApp").controller("uefacountryListCtrl", ["$scope", "$http
 
         });
     };
-
+    
+    /////////////////////////////////////////////Searchs//////////////////////////////////////////////////////
     $scope.findCountrySeason = function(country, season) {
         var url = "/" + country + "/" + season;
         console.log("Requesting uefa country ranking to <" + url + ">...");
@@ -63,6 +64,97 @@ angular.module("ManagerApp").controller("uefacountryListCtrl", ["$scope", "$http
         });
     };
 
+    $scope.fromTo = function(from, to) {
+        console.log("Requesting uefa country ranking to <" + API + "/" + "?from=" + from + "&to=" + to + ">...");
+        $http.get(API + "/" + "?from=" + from + "&to=" + to).then(function(response) {
+            if (typeof from == 'undefined' || from == "" || from == null || typeof to == 'undefined' || to == "" || to == null) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Busque por ambos campos o se mostrarán todos los datos" });
+                refresh();
+            }
+            else {
+                console.log(response.status);
+                console.log("Data Received:" + JSON.stringify(response.data, null, 2));
+                $scope.uefacountries = response.data;
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Operación realizada con éxito" });
+            }
+        }, function(response) {
+            console.log(response.status);
+            refresh();
+            $scope.alerts = [];
+            $scope.alerts.push({ msg: "Error: No hay estadísticas desde " + from + " hasta " + to });
+        });
+    };
+
+    $scope.fromToPoints = function(fromPoints, toPoints) {
+        console.log("Requesting uefa country ranking to <" + API + "/" + "?fromPoints=" + fromPoints + "&toPoints=" + toPoints + ">...");
+        $http.get(API + "/" + "?fromPoints=" + fromPoints + "&toPoints=" + toPoints).then(function(response) {
+            if (typeof fromPoints == 'undefined' || fromPoints == "" || fromPoints == null || typeof toPoints == 'undefined' || toPoints == "" || toPoints == null) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Busque por ambos campos o se mostrarán todos los datos" });
+                refresh();
+            }else{
+            console.log(response.status);
+            console.log("Data Received:" + JSON.stringify(response.data, null, 2));
+            $scope.uefacountries = response.data;
+            $scope.alerts = [];
+            $scope.alerts.push({ msg: "Operación realizada con éxito" });
+        }
+        }, function(response) {
+                console.log(response.status);
+                refresh();
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error: No hay países con un rango de puntos desde " + fromPoints + " hasta " + toPoints });
+        });
+    };
+    
+    $scope.numberTeams = function(teams) {
+        console.log("Requesting uefa country ranking to <" +API + "/" + "?numberOfTeams=" + teams+ ">...");
+        $http.get(API + "/" + "?numberOfTeams=" + teams).then(function(response) {
+            if (typeof teams == 'undefined' || teams == "" || teams == null) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Busque por el número de equipos o se mostrarán todos los datos" });
+                refresh();
+            }else{
+            console.log(response.status);
+            console.log("Data Received:" + JSON.stringify(response.data, null, 2));
+            $scope.uefacountries = response.data;
+            $scope.alerts = [];
+            $scope.alerts.push({ msg: "Operación realizada con éxito" });
+        }
+        }, function(response) {
+                console.log(response.status);
+                refresh();
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error: No hay países con " + teams + " equipos "});
+        });
+    };
+    
+    $scope.findPosition = function(position) {
+        console.log("Requesting uefa country ranking to <" +API + "/" + "?rankingPosition=" + position+ ">...");
+        $http.get(API + "/" + "?rankingPosition=" + position).then(function(response) {
+            if (typeof position == 'undefined' || position == "" || position == null) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Busque por la posición en el ranking o se mostrarán todos los datos" });
+                refresh();
+            }else{
+            console.log(response.status);
+            console.log("Data Received:" + JSON.stringify(response.data, null, 2));
+            $scope.uefacountries = response.data;
+            $scope.alerts = [];
+            $scope.alerts.push({ msg: "Operación realizada con éxito" });
+        }
+        }, function(response) {
+                console.log(response.status);
+                refresh();
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error: No hay países en la posición " + position});
+        });
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     $scope.addUefaCountry = function() {
         var newUefaCountry = $scope.newUefaCountry;
         console.log("Adding a new uefa country:" + JSON.stringify(newUefaCountry, null, 2));

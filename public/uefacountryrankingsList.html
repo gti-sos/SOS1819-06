@@ -9,49 +9,53 @@
         <button class="btn btn-dark" ng-click="hideForm()">Ocultar Búsqueda</button>
         <button class="btn btn-primary" ng-click="showData()">Mostrar todo</button>
         
-        <form ng-show="formVisibility">
+        <form ng-show="formVisibility" >
             <div class="form-row">
                 <div class="col-md-2 mb-3">
-                    <label for="country">País</label>
                     <input type="text" class="form-control" ng-model="uf.country" id="uefacountry" placeholder="País">
                 </div>
                 <div class="col-md-2 mb-3">
-                    <label for="season">Temporada Concreta</label>
-                    <input type="number" min=0 class="form-control"  ng-model="uf.season" id="season">
-                    
+                    <input type="number" min=0 class="form-control"  ng-model="uf.season" id="season" placeholder="Temporada">
                 </div>
+                <div class="col-md-2 mb-3">
+                    <button class="btn btn-primary" ng-click="findCountrySeason(uf.country,uf.season)">Buscar</button>
+                </div>
+                
             </div>
-            <button class="btn btn-primary" ng-click="findCountrySeason(uf.country,uf.season)">Buscar</button>
+            
             <div class="form-row">
                 <div class="col-md-2 mb-3">
-                    <label for="from">Desde</label>
-                    <input class="form-control" min=0 type="number" readonly ng-model="from" id="from" placeholder="En desarrollo">
+                    <input class="form-control" min=0 type="number"  ng-model="from" id="from" placeholder="Desde">
                 </div>
                 <div class="col-md-2 mb-3">
-                    <label for="to">Hasta</label>
-                    <input class="form-control" min=0 type="number" readonly ng-model="to" id="to" placeholder="En desarrollo">
+                    <input class="form-control" min=0 type="number"  ng-model="to" id="to" placeholder="Hasta">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <button class="btn btn-primary" ng-click="fromTo(from,to)">Buscar</button>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-2 mb-3">
-                    <label for="position">Posición</label>
-                    <input class="form-control" min=0 type="number" readonly ng-model="position" id="position" placeholder="En desarrollo">
+                    <input type="number" min=0 class="form-control"  ng-model="fromPoints" id="fromPoints" placeholder="Desde Puntos">
                 </div>
                 <div class="col-md-2 mb-3">
-                    <label for="fromPoints">Desde Puntos</label>
-                    <input type="number" min=0 class="form-control" readonly ng-model="fromPoints" id="fromPoints" placeholder="En desarrollo">
+                    <input type="number" min=0 class="form-control"  ng-model="toPoints" id="toPoints" placeholder="Hasta Puntos">
                 </div>
                 <div class="col-md-2 mb-3">
-                    <label for="toPoints">Hasta Puntos</label>
-                    <input type="number" min=0 class="form-control" readonly ng-model="toPoints" id="toPoints" placeholder="En desarrollo">
+                    <button class="btn btn-primary" ng-click="fromToPoints(fromPoints,toPoints)">Buscar</button>
                 </div>
-                <div class="col-md-2 mb-3">
-                    <label for="teams">Equipos</label>
-                    <input type="number" min=0 class="form-control" readonly ng-model="teams" id="teams" placeholder="En desarrollo">
-                </div>
-
             </div>
-            <button class="btn btn-primary" ng-click="findCountry(country,season,from,to,position,fromPoints,toPoints,teams)">Buscar</button>
+                
+             <div class="form-row">
+                <div class="col-md-2 mb-4">
+                    <input type="number" min=0 class="form-control"  ng-model="teams" id="teams" placeholder="Nº Equipos">
+                    <button class="btn btn-primary" ng-click="numberTeams(teams)">Buscar</button>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <input class="form-control" min=0 type="number"  ng-model="position" id="position" placeholder="Posición">
+                    <button class="btn btn-primary" ng-click="findPosition(position)">Buscar</button>
+                </div>
+            </div>  
         </form>
 
     </div>
