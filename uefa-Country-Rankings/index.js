@@ -192,8 +192,16 @@ module.exports = {
 
             var newUefaCountryRankings = req.body;
 
-            if (Object.keys(newUefaCountryRankings).length > 5 || !newUefaCountryRankings.country || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition ||
-                !newUefaCountryRankings.points || !newUefaCountryRankings.teams || newUefaCountryRankings["country"] == null || newUefaCountryRankings["season"] == null || newUefaCountryRankings["rankingPosition"] == null || newUefaCountryRankings["points"] == null || newUefaCountryRankings["teams"] == null) {
+            if (Object.keys(newUefaCountryRankings).length > 5 || !newUefaCountryRankings.country 
+                || parseInt(newUefaCountryRankings.season)!=newUefaCountryRankings.season
+                || !newUefaCountryRankings.season || !newUefaCountryRankings.rankingPosition
+                || parseInt(newUefaCountryRankings.rankingPosition)!=newUefaCountryRankings.rankingPosition
+                || parseInt(newUefaCountryRankings.points)!=newUefaCountryRankings.points
+                || !newUefaCountryRankings.points || !newUefaCountryRankings.teams
+                || parseInt(newUefaCountryRankings.teams)!=newUefaCountryRankings.teams
+                || newUefaCountryRankings["country"] == null || newUefaCountryRankings["season"] == null 
+                || newUefaCountryRankings["rankingPosition"] == null || newUefaCountryRankings["points"] == null 
+                || newUefaCountryRankings["teams"] == null) {
 
                 res.sendStatus(400);
                 return;
@@ -231,7 +239,7 @@ module.exports = {
 
 
         // GET /api/v1/uefa-country-rankings/Spain
-
+        
         app.get(BASE_PATH + "/uefa-country-rankings/:country", (req, res) => {
             var country = req.params.country;
             var fromSeason = parseInt(req.query.from);
@@ -284,8 +292,10 @@ module.exports = {
 
             var country = req.params.country;
             var season = parseInt(req.params.season, 10);
-
-            uefaCountryRankings.find({ "country": country, "season": season }).toArray((err, filteredUefaCountryRankings) => {
+            var limit = parseInt(req.query.limit);
+            var offSet = parseInt(req.query.offset);
+            
+            uefaCountryRankings.find({ "country": country, "season": season }).skip(offSet).limit(limit).toArray((err, filteredUefaCountryRankings) => {
                 if (err) {
                     console.log("Error: " + err);
                     res.sendStatus(500);
@@ -315,8 +325,12 @@ module.exports = {
             var season = parseInt(req.params.season, 10);
             var updatedUefaCountry = req.body;
 
-            if (Object.keys(updatedUefaCountry).length > 5 || updatedUefaCountry["country"] != country || updatedUefaCountry["season"] != season || !updatedUefaCountry.rankingPosition || !updatedUefaCountry.points || !updatedUefaCountry.teams ||
-                updatedUefaCountry["country"] == null || updatedUefaCountry["season"] == null || updatedUefaCountry["rankingPosition"] == null || updatedUefaCountry["points"] == null || updatedUefaCountry["teams"] == null) {
+            if (Object.keys(updatedUefaCountry).length > 5 || updatedUefaCountry["country"] != country 
+                || updatedUefaCountry["season"] != season || parseInt(updatedUefaCountry.rankingPosition)!=updatedUefaCountry.rankingPosition 
+                || !updatedUefaCountry.rankingPosition || parseInt(updatedUefaCountry.points)!=updatedUefaCountry.points 
+                || !updatedUefaCountry.points || parseInt(updatedUefaCountry.teams)!=updatedUefaCountry.teams
+                || !updatedUefaCountry.teams || updatedUefaCountry["country"] == null || updatedUefaCountry["season"] == null 
+                || updatedUefaCountry["rankingPosition"] == null || updatedUefaCountry["points"] == null || updatedUefaCountry["teams"] == null) {
                 res.sendStatus(400);
                 return;
             }
