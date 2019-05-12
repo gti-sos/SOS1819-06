@@ -65,7 +65,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     };
 
     $scope.fromTo = function(from, to) {
-        console.log("Requesting uefa country ranking to <" + API + "/" + "?from=" + from + "&to=" + to + ">...");
+        console.log("Requesting transfer stats to <" + API + "/" + "?from=" + from + "&to=" + to + ">...");
         $http.get(API + "/" + "?from=" + from + "&to=" + to).then(function(response) {
             if (typeof from == 'undefined' || from == "" || from == null || typeof to == 'undefined' || to == "" || to == null) {
                 $scope.alerts = [];
@@ -75,7 +75,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
             else {
                 console.log(response.status);
                 console.log("Data Received:" + JSON.stringify(response.data, null, 2));
-                $scope.uefacountries = response.data;
+                $scope.transferstats = response.data;
                 $scope.alerts = [];
                 $scope.alerts.push({ msg: "Operación realizada con éxito" });
             }
