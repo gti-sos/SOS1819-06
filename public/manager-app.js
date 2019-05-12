@@ -24,11 +24,11 @@
                    templateUrl: "transferstatsEdit.html"
                 })
                 .when("/uefa-club-rankings",{
-                   controller: "uefaclubListCtrl",
+                   controller: "UefaClubRankingsList-ctrl",
                    templateUrl: "uefaclubList.html"
                 })
                 .when("/uefa-club-rankings/edit/:team/:season",{
-                   controller : "uefaclubEditCtrl",
+                   controller : "UefaClubRankingsEdit-ctrl",
                    templateUrl: "uefaclubEdit.html"
                 })
                 ;

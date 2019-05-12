@@ -1,5 +1,5 @@
 <h1>Uefa Club Rankigs</h1>
-    <div class="alert alert-primary" role="alert">{{message}}</div>
+    <div class="alert alert-dismissible alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</div>
     <div>
         <label for="">Busqueda por pais</label>
         <input type="text" name="" placeholder="Inserte un país" ng-model="inputPais" />
