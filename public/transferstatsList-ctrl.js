@@ -17,8 +17,8 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     };
     $scope.showData = function() {
         refresh()
-        $scope.formVisibility = false;
-        console.log($scope.formVisibility);
+        //$scope.formVisibility = false;
+        //console.log($scope.formVisibility);
         $scope.alerts = [];
         $scope.alerts.push({ msg: "Mostrando todos los datos" });
     };
