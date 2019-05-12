@@ -1,9 +1,6 @@
 <div>
         <h1>Transfer Stats</h1>
-    </div>
-    <div class="alert alert-primary" role="alert">
-        {{message}}
-    </div>
+</div>
     
     <div>
         <label for="">Busqueda por equipo</label>
@@ -49,7 +46,7 @@
     </div>
     
     <div class="container">
-        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alertMessage}}</alert>
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</alert>
     </div>
     <div>
         <table class="table table-striped">
