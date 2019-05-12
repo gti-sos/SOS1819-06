@@ -1,0 +1,32 @@
+ <div>
+        <h1>Edit Transfer Stats</h1>
+</div>
+
+    <div class="alert alert-dismissible alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</div>
+    <div>
+        <table  class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>País</th>
+                    <th>Temporada</th>
+                    <th>Equipo</th>
+                    <th>Dinero Gastado</th>
+                    <th>Dinero ingresado</th>
+                    <th>Número de jugadores fichados</th>
+                    <th>Numero de jugadores vendidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{transferstat.country}}</td>
+                    <td>{{transferstat.season}}</td>
+                    <td>{{transferstat.team}}</td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.moneyspent" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.moneyentered" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.numberofsignings" ></td>
+                    <td><input class="form-control text-center" min=1 type="number" ng-model="transferstat.numberoffarewells" ></td>
+                    <td><button class="btn btn-secondary" ng-click="EditTransferStat(transferstat.country,transferstat.season,transferstat.team,transferstat.moneyspent,transferstat.moneyentered,transferstat.numberofsignings,transferstat.numberoffarewells)">Editar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

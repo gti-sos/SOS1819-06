@@ -1,0 +1,124 @@
+<div>
+        <h1>Transfer Stats</h1>
+    </div>
+    <div class="alert alert-primary" role="alert">
+        {{message}}
+    </div>
+    
+    <div>
+        <label for="">Busqueda por equipo</label>
+        <input type="text" name="" ng-model="inputEquipo" />
+        <button class="btn btn-primary" ng-click="buscarEquipo()">Buscar</button>
+    </div>
+    
+
+    <div class="container">
+        <form ng-show="formVisibility">
+          <div class="form-row">
+              
+    <div class="col-md-4 mb-3">
+      <label for="country">País</label>
+      <input type="text" class="form-control" ng-model="country" id="country" placeholder="País" >
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="team">Equipo</label>
+      <input type="text" class="form-control" ng-model="team" id="team" placeholder="Equipo" >
+    </div>
+    </div>
+  <div class="form-row">
+    <div class="col-md-2 mb-3">
+      <label for="numberofsignings">Jugadores Fichados</label>
+      <input class="form-control" min=0 type="number" ng-model="numberofsignings" id="numberofsignings" placeholder="Jugadores Fichados">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="numberoffarewells">Jugadores Vendidos</label>
+      <input type="number" min=0 class="form-control" ng-model="numberoffarewells" id="numberoffarewells" placeholder="Jugadores vendidos">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="moneyspent">Dinero Gastado</label>
+      <input type="number" min=0 class="form-control" ng-model="moneyspent" id="moneyspent" placeholder="Dinero Gastado">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="moneyentered">Dinero Ingresado</label>
+      <input type="number" min=0 class="form-control" ng-model="moneyentered" id="moneyentered" placeholder="Dinero Ingresado">
+    </div>
+  </div>
+  <button class="btn btn-primary" ng-click"findCountry()">Buscar</button>
+        </form>
+        
+    </div>
+    
+    <div class="container">
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alertMessage}}</alert>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>País</th>
+                    <th>Temporada</th>
+                    <th>Equipo</th>
+                    <th>Dinero Gastado</th>
+                    <th>Dinero ingresado</th>
+                    <th>Número de jugadores fichados</th>
+                    <th>Numero de jugadores vendidos</th>
+                    
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transferstat in transferstats| startFrom: currentPage * pageSize | limitTo: pageSize">
+                    <td>{{transferstat.country}}</td>
+                    <td>{{transferstat.season}}</td>
+                    <td><a href="#!/transfer-stats/edit/{{transferstat.country}}/{{transferstat.team}}/{{transferstat.season}}">{{transferstat.team}}</a></td>
+                    <td>{{transferstat.moneyspent}}</td>
+                    <td>{{transferstat.moneyentered}}</td>
+                    <td>{{transferstat.numberofsignings}}</td>
+                    <td>{{transferstat.numberoffarewells}}</td>
+
+                    <td>
+                        <button class="btn btn-danger" ng-click="deleteTransferStat(transferstat.country,transferstat.team,transferstat.season)">Borrar</button>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.country" value="new country" placeholder="País" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.team" value="new team" placeholder="Equipo" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.season" type="number" min="1" placeholder="Temporada" value="new season" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.moneyspent" value="0" placeholder="Dinero Gastado" type="number" min="1" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.moneyentered" value="0" type="number" placeholder="Dinero Ingresado" min="1" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.numberofsignings" value="0" type="number" placeholder="Jugadores Fichados" min="1" />
+                    </td>
+                    <td>
+                        <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Jugadores Vendidos" min="1" />
+                    </td>
+                    <td><button class="btn btn-primary" ng-click="addTransferStat()">Añadir</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-danger" ng-click="deleteAll()">Borrar Todo</button>
+                        <button class="btn btn-primary" ng-click="loadInitialData()">Carga de datos iniciales</button>
+                    </td>
+                </tr>
+            </tbody>
+
+
+        </table>
+        <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
+                <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+                <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+                <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+            </div>
+    </div>
