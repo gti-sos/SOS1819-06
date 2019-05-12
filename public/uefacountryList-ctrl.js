@@ -4,13 +4,12 @@ angular.module("ManagerApp").controller("uefacountryListCtrl", ["$scope", "$http
     console.log("uefacountryListCtrl initialized");
     var API = "/api/v1/uefa-country-rankings";
     refresh();
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
     $scope.alerts = [];
 
     function refresh() {
         console.log("Requesting uefa country ranking to <" + API + ">...");
-        $http.get(API).then(function(response) {
+        $http.get(API+"?limit=10&offset=0").then(function(response) {
+            $scope.offset = 0;
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
             $scope.uefacountries = response.data;
         });
@@ -39,9 +38,8 @@ angular.module("ManagerApp").controller("uefacountryListCtrl", ["$scope", "$http
     
     /////////////////////////////////////////////Searchs//////////////////////////////////////////////////////
     $scope.findCountrySeason = function(country, season) {
-        var url = "/" + country + "/" + season;
-        console.log("Requesting uefa country ranking to <" + url + ">...");
-        $http.get(API + url).then(function(response) {
+        console.log("Requesting uefa country ranking to <" + API+"/" + country + "/" + season + ">...");
+        $http.get(API+"/" + country + "/" + season).then(function(response) {
             console.log(response.status);
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
             var data = [];
@@ -209,15 +207,47 @@ angular.module("ManagerApp").controller("uefacountryListCtrl", ["$scope", "$http
         console.log($scope.formVisibility);
     };
 
-    $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
-    };
+
+    $scope.next = function() {
+            if($scope.offset>$scope.uefacountries.length){
+                
+            }else{
+            $scope.offset = $scope.offset + 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.uefacountries = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
+
+        };
+
+    $scope.back = function() {
+            if ($scope.offset < 10) {
+                $scope.offset = 0;
+            }
+            else {
+                $scope.offset = $scope.offset - 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.uefacountries = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
 
 
+        };
+    
 
-}]).filter("startFrom", function() {
-    return function(input, start) {
-        start = +start;
-        return input.slice(start);
-    };
-});
+
+}]);
