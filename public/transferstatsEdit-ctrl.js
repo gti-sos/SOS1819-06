@@ -27,7 +27,7 @@ angular.module("ManagerApp").controller("transferstatsEditCtrl",
             .then(function(response) {
                 console.log("PUT Response:" + response.status + " " + response.data);
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: $scope.transferstat.country + " " + $scope.uefacountry.team + " " + $scope.uefacountry.season + " editado correctamente" });
+                $scope.alerts.push({ msg: $scope.transferstat.country + " " + $scope.transferstat.team + " " + $scope.transferstat.season + " editado correctamente" });
             
                 $location.path("/transfer-stats");
             }, 
