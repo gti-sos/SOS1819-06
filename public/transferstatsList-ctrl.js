@@ -38,28 +38,28 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     };
     
     /////////////////////////////////////////////Searchs//////////////////////////////////////////////////////
-    $scope.findCountrySeason = function(country, season) {
-        var url = "/" + country + "/" + season;
-        console.log("Requesting uefa country ranking to <" + url + ">...");
+    $scope.findCountryTeamSeason = function(country, team, season) {
+        var url = "/" + country + "/" + team + "/" + season;
+        console.log("Requesting transfer stats to <" + url + ">...");
         $http.get(API + url).then(function(response) {
             console.log(response.status);
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
             var data = [];
             data.push(response.data);
-            $scope.uefacountries = data;
+            $scope.transferstats = data;
             $scope.alerts = [];
             $scope.alerts.push({ msg: "Operación realizada con éxito" });
         }, function(response) {
-            if (typeof country == 'undefined' || country == "" || country == null || typeof season == 'undefined' || season == "" || season == null) {
+            if (typeof country == 'undefined' || country == "" || country == null || typeof season == 'undefined' || season == "" || season == null ||typeof team == 'undefined' || team == "" || team == null) {
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: "Busque por ambos campos o se mostrarán todos los datos" });
+                $scope.alerts.push({ msg: "Busque por los tres campos o se mostrarán todos los datos" });
                 refresh();
             }
             else {
                 console.log(response.status);
                 refresh();
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: "Error: El dato con los campos: " + country + " " + season + " no fue encontrado" });
+                $scope.alerts.push({ msg: "Error: El dato con los campos: " + country + " " + team + " " + season + " no fue encontrado" });
             }
         });
     };
