@@ -23,6 +23,14 @@
                    controller : "transferstatsEditCtrl",
                    templateUrl: "transferstatsEdit.html"
                 })
+                .when("/uefa-club-rankings",{
+                   controller: "uefaclubListCtrl",
+                   templateUrl: "uefaclubList.html"
+                })
+                .when("/uefa-club-rankings/edit/:team/:season",{
+                   controller : "uefaclubEditCtrl",
+                   templateUrl: "uefaclubEdit.html"
+                })
                 ;
         });
 
