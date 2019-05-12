@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat="uefaclub in uefaclubrankings">
 
-                    <td>{{uefaclub.team}}</td>
+                    <td><a href="#!/uefa-club-rankings/edit/{{uefaclub.team}}/{{uefaclub.season}}">{{uefaclub.team}}</a></td>
                     <td>{{uefaclub.season}}</td>
                     <td>{{uefaclub.country}}</td>
                     <td>{{uefaclub.points}}</td>

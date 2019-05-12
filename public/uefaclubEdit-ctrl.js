@@ -2,7 +2,7 @@
 
 angular
 
-    .module("UefaClubApp")
+    .module("ManagerApp")
 
     .controller("UefaClubRankingsEdit-ctrl", ["$scope", "$http", function($scope, $http) {
 
