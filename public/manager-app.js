@@ -15,6 +15,14 @@
                    controller : "uefacountryEditCtrl",
                    templateUrl: "uefacountryrankingsEdit.html"
                 })
+                .when("/transfer-stats",{
+                   controller: "transferstatsListCtrl",
+                   templateUrl: "transferstatsList.html"
+                })
+                .when("/transfer-stats/edit/:country/:team/:season",{
+                   controller : "transferstatsEditCtrl",
+                   templateUrl: "transferstatsEdit.html"
+                })
                 ;
         });
 
