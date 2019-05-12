@@ -11,7 +11,8 @@ angular
         var API = "/api/v1/uefa-club-rankings";
 
         function refresh() {
-            $http.get(API).then(function(response) {
+            $http.get(API+"?limit=10&offset=0").then(function(response) {
+                $scope.offset = 0;
                 $scope.uefaclubrankings = response.data;
             });
         }
@@ -26,7 +27,7 @@ angular
             });
         };
 
-        $scope.buscarPais = function() {
+        $scope.searchCountry = function() {
             var country = $scope.inputPais;
             console.log("ver recurso : <" + country + ">");
             $http.get(API + "/" + country)
@@ -80,4 +81,43 @@ angular
                     refresh();
                 });
         };
+
+        $scope.next = function() {
+            if ($scope.offset > $scope.uefaclubrankings.length) {
+            }else {
+                $scope.offset = $scope.offset + 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.uefaclubrankings = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
+
+        };
+
+        $scope.back = function() {
+            if ($scope.offset < 10) {
+                $scope.offset = 0;
+            }else {
+                $scope.offset = $scope.offset - 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.uefaclubrankings = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
+
+
+        };
+
     }]);
