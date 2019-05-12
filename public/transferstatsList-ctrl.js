@@ -22,7 +22,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
         $scope.alerts = [];
         $scope.alerts.push({ msg: "Mostrando todos los datos" });
     };
-    $scope.loadInitial = function() {
+    $scope.loadInitialData = function() {
         console.log("Load Initial Data");
         $http.get(API + "/loadInitialData").then(function(response) {
             console.log("Load Initial data:" + JSON.stringify(response.status, null, 2));
