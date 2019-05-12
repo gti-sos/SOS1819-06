@@ -17,12 +17,12 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     };
     $scope.showData = function() {
         refresh()
-        $scope.formVisibility = false;
-        console.log($scope.formVisibility);
+        //$scope.formVisibility = false;
+        //console.log($scope.formVisibility);
         $scope.alerts = [];
         $scope.alerts.push({ msg: "Mostrando todos los datos" });
     };
-    $scope.loadInitial = function() {
+    $scope.loadInitialData = function() {
         console.log("Load Initial Data");
         $http.get(API + "/loadInitialData").then(function(response) {
             console.log("Load Initial data:" + JSON.stringify(response.status, null, 2));
@@ -63,6 +63,20 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
             }
         });
     };
+    
+    $scope.buscarEquipo = function() {
+            var team = $scope.inputEquipo;
+            console.log("ver recurso : <" + team + ">");
+            $http.get(API + "/?team=" + team)
+                .then(function(response) {
+                    $scope.transferstats = response.data;
+                })
+                .catch(function(data) {
+                    console.log(data.status);
+                    refresh();
+                    $scope.message = data.statusText + " : El recurso " + team + " no existe";
+                });
+        };
 
     $scope.fromTo = function(from, to) {
         console.log("Requesting transfer stats to <" + API + "/" + "?from=" + from + "&to=" + to + ">...");
