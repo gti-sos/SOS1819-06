@@ -20,7 +20,7 @@ angular.module("ManagerApp").controller("transferstatsEditCtrl",
             $scope.transferstat = response.data;
         });
 
-        $scope.EditTransferStat = function(country, team, season, ) {
+        $scope.EditTransferStat = function(country, season , team, ) {
             console.log("Editing" + " " + country + " " + team + " " + season);
 
             $http.put(API + "/" + country + "/" + team + "/" + season, $scope.transferstat)
