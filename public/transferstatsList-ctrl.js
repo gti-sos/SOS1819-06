@@ -155,14 +155,14 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    $scope.addUefaCountry = function() {
-        var newUefaCountry = $scope.newUefaCountry;
-        console.log("Adding a new uefa country:" + JSON.stringify(newUefaCountry, null, 2));
-        $http.post(API, newUefaCountry).then(function(response) {
+    $scope.addTransferStat = function() {
+        var newTransferStat = $scope.newTransferStat;
+        console.log("Adding a new transfer stat:" + JSON.stringify(newTransferStat, null, 2));
+        $http.post(API, newTransferStat).then(function(response) {
             console.log("POST Response:" + response.status + " " + response.data);
             refresh();
             $scope.alerts = [];
-            $scope.alerts.push({ msg: "Elemento: " + newUefaCountry.country + " " + newUefaCountry.season + " creado con éxito" });
+            $scope.alerts.push({ msg: "Elemento: " + newTransferStat.country + " " + newTransferStat.team + " " + newTransferStat.season + " creado con éxito" });
 
         }, function(response) {
             console.log(response.status);
@@ -174,14 +174,14 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     };
 
 
-    $scope.deleteUefaCountry = function(country, season) {
+    $scope.deleteTransferStat = function(country, team, season) {
 
-        console.log("Deleting uefaCountry with country:" + country + " and season:" + season);
-        $http.delete(API + "/" + country + "/" + season).then(function(response) {
+        console.log("Deleting transferStat with country:" + country + "team: " + team + " and season:" + season);
+        $http.delete(API + "/" + country + "/" + team + "/" + season).then(function(response) {
             console.log("Delete Response:" + response.status + " " + response.data);
             refresh();
             $scope.alerts = [];
-            $scope.alerts.push({ msg: country + " de la temporada " + season + " " + "borrado correctamente" });
+            $scope.alerts.push({ msg: country + " " + team + " de la temporada " + season + " " + "borrado correctamente" });
 
         });
     };
