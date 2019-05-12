@@ -1,19 +1,4 @@
-<html ng-app="UefaClubApp">
-
-<head>
-
-    <title>Uefa Club Rankings</title>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="uefaclub-app.js"></script>
-    <script src="uefaclub-ctrl.js"></script>
-
-</head>
-
-<body ng-controller="UefaClubRankings-ctrl">
-
-    <h1>Uefa Club Rankigs</h1>
+<h1>Uefa Club Rankigs</h1>
     <div class="alert alert-primary" role="alert">{{message}}</div>
     <div>
         <label for="">Busqueda por pais</label>
@@ -38,16 +23,15 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="uefaclub in uefaclubrankings | startFrom: currentPage * pageSize | limitTo: pageSize">
+                <tr ng-repeat="uefaclub in uefaclubrankings">
 
                     <td>{{uefaclub.team}}</td>
                     <td>{{uefaclub.season}}</td>
                     <td>{{uefaclub.country}}</td>
-                    <td><input type="number" min= 1 ng-model="uefaclub.points" /></td>
-                    <td><input type="number" min= 1 ng-model="uefaclub.ptsseason" /></td>
-                    <td><input type="number" min= 1 ng-model="uefaclub.ptsbeforeseason" /></td>
+                    <td>{{uefaclub.points}}</td>
+                    <td>{{uefaclub.ptsseason}}</td>
+                    <td>{{uefaclub.ptsbeforeseason}}</td>
                     <td>
-                        <button class="btn btn-warning" ng-click="update(uefaclub)">Editar</button>
                         <button class="btn btn-danger" ng-click="delete(uefaclub)">Borrar</button>
                     </td>
                 </tr>
@@ -76,15 +60,6 @@
             </tbody>
 
         </table>
-        <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
-            <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
-            <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
-            <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
-        </div>
     </div>
     <div><button class="btn btn-danger" ng-click="deleteall()">Borrar todos los datos</button>
         <button class="btn btn-primary" ng-click="loadInitialData()">Carga de datos iniciales</button></div>
-
-</body>
-
-</html>

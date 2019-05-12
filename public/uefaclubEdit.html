@@ -1,0 +1,37 @@
+<div>
+    <h1>Edit Uefa Club Rankings</h1>
+</div>
+
+<div class="alert alert-dismissible alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</div>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+
+                <th>Equipo</th>
+                <th>Temporada</th>
+                <th>Pais</th>
+                <th>Puntos</th>
+                <th>Puntos de esta temporada</th>
+                <th>Puntos pasada temporada</th>
+                <th>Acciones</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <td>{{uefaclub.team}}</td>
+            <td>{{uefaclub.season}}</td>
+            <td>{{uefaclub.country}}</td>
+            <td><input type="number" min=1 ng-model="uefaclub.points" /></td>
+            <td><input type="number" min=1 ng-model="uefaclub.ptsseason" /></td>
+            <td><input type="number" min=1 ng-model="uefaclub.ptsbeforeseason" /></td>
+            <td>
+                <button class="btn btn-warning" ng-click="update(uefaclub)">Editar</button>
+                <button class="btn btn-danger" ng-click="delete(uefaclub)">Borrar</button>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+ 
