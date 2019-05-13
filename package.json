@@ -8,7 +8,8 @@
     "test": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88;newman run https://www.getpostman.com/collections/cc70efe11342a8e14600;newman run https://www.getpostman.com/collections/a09d890ce843a1f4dfb5",
     "test-uefa-club-rankings": "newman run https://www.getpostman.com/collections/943dd8eee2543deaee88",
     "test-transfer-stats": "newman run https://www.getpostman.com/collections/a09d890ce843a1f4dfb5",
-    "test-uefa-country-rankings": "newman run https://www.getpostman.com/collections/cc70efe11342a8e14600"
+    "test-uefa-country-rankings": "newman run https://www.getpostman.com/collections/cc70efe11342a8e14600",
+    "testFrontEnd": "protractor tests/tests.js"
   },
   "repository": {
     "type": "git",
