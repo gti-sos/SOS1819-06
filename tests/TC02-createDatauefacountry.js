@@ -5,11 +5,11 @@ describe("Check if a new uefa country can be created",function () {
             .all(by.repeater("uefacountry in uefacountries"))
             .then( function (initialCountry) {
                 
-                element(by.model('newUefaCountry.country')).sendKeys('Portugal');
-                element(by.model('newUefaCountry.season')).sendKeys(2017);
-                element(by.model('newUefaCountry.rankingPosition')).sendKeys(3);
+                element(by.model('newUefaCountry.country')).sendKeys('Ukranie');
+                element(by.model('newUefaCountry.season')).sendKeys(2016);
+                element(by.model('newUefaCountry.rankingPosition')).sendKeys(20);
                 element(by.model('newUefaCountry.points')).sendKeys(12342);
-                element(by.model('newUefaCountry.teams')).sendKeys(4);
+                element(by.model('newUefaCountry.teams')).sendKeys(3);
                 
                 element(by.css('[value="addCountry"]')).click();
                 
