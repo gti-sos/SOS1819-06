@@ -6,6 +6,8 @@ exports.config = {
 		'TC02-createDatauefacountry.js',
 		'TC03-removeDatauefacountry.js',
 		'TC04-loadDatatransferstats.js',
+		'TC05-createDatatransferstats.js',
+		'TC06-removeDatatransferstats.js',
 		'TC07-loadDatauefaclub.js',
 		'TC08-createDatauefaclub.js',
 		'TC09-removeDatauefaclub.js'
