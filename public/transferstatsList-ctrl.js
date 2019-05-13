@@ -228,10 +228,42 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     };
 
 
+    $scope.next = function() {
+            if($scope.offset>$scope.uefacountries.length){
+                
+            }else{
+            $scope.offset = $scope.offset + 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.uefacountries = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
 
-}]).filter("startFrom", function() {
-    return function(input, start) {
-        start = +start;
-        return input.slice(start);
+        };
+
+    $scope.back = function() {
+            if ($scope.offset < 10) {
+                $scope.offset = 0;
+            }
+            else {
+                $scope.offset = $scope.offset - 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.uefacountries = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
     };
-});
+
+}]);

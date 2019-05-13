@@ -3,8 +3,8 @@ exports.config = {
 	chromeOnly: true,
 	specs: [
 		'TC01-loadDatauefacountry.js',
-		'TC01-loadDatatransferstats.js',
-		'TC01-loadDatauefaclub.js'
+		'TC04-loadDatatransferstats.js',
+		'TC07-loadDatauefaclub.js'
 	]
 
 };
