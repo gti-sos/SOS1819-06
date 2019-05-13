@@ -22,15 +22,16 @@ module.exports = {
             moneyentered: 109.5,
             numberofsignings: 69,
             numberoffarewells: 48
-        }, {
-            country: "Germany",
-            team: "Bayern",
-            season: 2018,
-            moneyspent: 270.0,
-            moneyentered: 24.75,
-            numberofsignings: 48,
-            numberoffarewells: 31
-        }, {
+        }//, {
+         //   country: "Germany",
+           // team: "Bayern",
+        //    season: 2018,
+          //  moneyspent: 270.0,
+          //  moneyentered: 24.75,
+        //    numberofsignings: 48,
+          //  numberoffarewells: 31
+        //}
+        , {
             country: "Portugal",
             team: "Oporto",
             season: 2018,
