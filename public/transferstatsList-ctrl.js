@@ -9,6 +9,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     function refresh() {
         console.log("Requesting transfer stats to <" + API + ">...");
         $http.get(API).then(function(response) {
+            $scope.offset = 0;
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
             $scope.transferstats = response.data;
         });
