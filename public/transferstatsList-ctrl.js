@@ -224,7 +224,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
 
 
     $scope.next = function() {
-            if($scope.offset>$scope.uefacountries.length){
+            if($scope.offset>$scope.transferstats.length){
                 
             }else{
             $scope.offset = $scope.offset + 10;
@@ -232,7 +232,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
             console.log($scope.offset);
             $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
                 $scope.status = "Status: All is ok";
-                $scope.uefacountries = response.data;
+                $scope.transferstats = response.data;
                 $scope.error = "";
             }, function(response) {
                 console.log(response.status);
@@ -252,7 +252,7 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
             console.log($scope.offset);
             $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
                 $scope.status = "Status: All is ok";
-                $scope.uefacountries = response.data;
+                $scope.transferstats = response.data;
                 $scope.error = "";
             }, function(response) {
                 console.log(response.status);
