@@ -12,13 +12,13 @@ describe("Check if a new uefa club can be created",function () {
                 element(by.model('newUefaClub.ptsseason')).sendKeys(1000);
                 element(by.model('newUefaClub.ptsbeforeseason')).sendKeys(15000);
                 
-                element(by.css('[value="addClub"]')).click();
+                element(by.css('[value="addClub"]')).click().then(function(){
                 
                 element
                     .all(by.repeater("uefaclub in uefaclubrankings"))
                     .then( function (finalClub) {
                         expect(finalClub.length).toEqual(initialClub.length+1);
-                    });
+                    })});
             });
     });
 });

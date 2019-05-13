@@ -11,13 +11,13 @@ describe("Check if a new uefa country can be created",function () {
                 element(by.model('newUefaCountry.points')).sendKeys(12342);
                 element(by.model('newUefaCountry.teams')).sendKeys(3);
                 
-                element(by.css('[value="addCountry"]')).click();
+                element(by.css('[value="addCountry"]')).click().then(function(){
                 
                 element
                     .all(by.repeater("uefacountry in uefacountries"))
                     .then( function (finalCountry) {
                         expect(finalCountry.length).toEqual(initialCountry.length+1);
-                    });
+                    })});
             });
     });
 });
