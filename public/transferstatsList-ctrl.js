@@ -4,8 +4,6 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     console.log("transferstatsListCtrl initialized");
     var API = "/api/v1/transfer-stats";
     refresh();
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
     $scope.alerts = [];
 
     function refresh() {
@@ -221,10 +219,6 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     $scope.hideForm = function() {
         $scope.formVisibility = false;
         console.log($scope.formVisibility);
-    };
-
-    $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
     };
 
 
