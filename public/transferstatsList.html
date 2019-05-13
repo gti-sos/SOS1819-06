@@ -65,7 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="transferstat in transferstats| startFrom: currentPage * pageSize | limitTo: pageSize">
+                <tr ng-repeat="transferstat in transferstats>
                     <td>{{transferstat.country}}</td>
                     <td>{{transferstat.season}}</td>
                     <td><a href="#!/transfer-stats/edit/{{transferstat.country}}/{{transferstat.team}}/{{transferstat.season}}">{{transferstat.team}}</a></td>
