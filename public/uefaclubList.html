@@ -38,7 +38,7 @@
                 <td>{{uefaclub.ptsseason}}</td>
                 <td>{{uefaclub.ptsbeforeseason}}</td>
                 <td>
-                    <button class="btn btn-danger" ng-click="delete(uefaclub)">Borrar</button>
+                    <button class="btn btn-danger" ng-click="delete(uefaclub)" value= "deleteClub" >Borrar</button>
                 </td>
             </tr>
 
@@ -61,7 +61,7 @@
                 <td>
                     <input type="number" value="0" min=1 placeholder="Añadir puntos pasada temporada" ng-model="newUefaClub.ptsbeforeseason" />
                 </td>
-                <td><button class="btn btn-primary" ng-click="add()">Añadir</button></td>
+                <td><button class="btn btn-primary" ng-click="add()" value="addClub" >Añadir</button></td>
 
         </tbody>
 

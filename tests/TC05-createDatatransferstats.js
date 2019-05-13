@@ -1,25 +1,20 @@
-describe('Data is created', function() {
-  it('should add one register to the database', function() {
-    browser.get('http://localhost:8080');
-    
-    var transferstats= element.all(by.repeater('transferstat in transferstats'));
-	var n = transferstats.count();
-		
-    element(by.model('newTransferStat.country')).sendKeys("a");
-    element(by.model('newTransferStat.team')).sendKeys("a");
-    element(by.model('newTransferStat.season')).sendKeys(1);
-    element(by.model('newTransferStat.moneyentered')).sendKeys(1);
-    element(by.model('newTransferStat.moneyspent')).sendKeys(1);
-    element(by.model('newTransferStat.numberoffarewells')).sendKeys(1);
-    element(by.model('newTransferStat.numberofsignings')).sendKeys(1);
-
-
-
-    element(by.id('add')).click();
-
-    var transferstats2= element.all(by.repeater('transferstat in transferstats'));
-	var m = transferstats2.count();
-	
-	expect(m-n).toBeEqual(1);
-  });
+describe("Check if a new transferstat can be created",function () {
+    it("List should grow after the transferstat creation", function (){
+        browser.get("http://localhost:8080/#!/uefa-transfer-stat");
+        element
+            .all(by.repeater("transferstat in transferstats"))
+            .then( function (initialContacts) {
+                
+                element(by.model('newContact.name')).sendKeys('pepe');
+                element(by.model('newContact.phone')).sendKeys('1111');
+                
+                element(by.css('[value="add"]')).click();
+                
+                element
+                    .all(by.repeater("contact in contacts"))
+                    .then( function (finalContacts) {
+                        expect(finalContacts.length).toEqual(initialContacts.length+1);
+                    });
+            });
+    });
 });

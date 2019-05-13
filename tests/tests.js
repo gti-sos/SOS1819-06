@@ -1,10 +1,14 @@
 exports.config = {
-	seleniumAddress: 'http://localhost:8080/wd/hub',
+	seleniumAddress: 'http://localhost:4444/wd/hub',
 	chromeOnly: true,
 	specs: [
 		'TC01-loadDatauefacountry.js',
+		'TC02-createDatauefacountry.js',
+		'TC03-removeDatauefacountry.js',
 		'TC04-loadDatatransferstats.js',
-		'TC07-loadDatauefaclub.js'
+		'TC07-loadDatauefaclub.js',
+		'TC08-createDatauefaclub.js',
+		'TC09-removeDatauefaclub.js'
 	]
 
 };
