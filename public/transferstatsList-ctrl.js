@@ -4,21 +4,20 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
     console.log("transferstatsListCtrl initialized");
     var API = "/api/v1/transfer-stats";
     refresh();
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
     $scope.alerts = [];
 
     function refresh() {
         console.log("Requesting transfer stats to <" + API + ">...");
-        $http.get(API).then(function(response) {
+        $http.get(API+"?limit=10&offset=0").then(function(response) {
+            $scope.offset = 0;
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
             $scope.transferstats = response.data;
         });
     };
     $scope.showData = function() {
         refresh()
-        //$scope.formVisibility = false;
-        //console.log($scope.formVisibility);
+        $scope.formVisibility = false;
+        console.log($scope.formVisibility);
         $scope.alerts = [];
         $scope.alerts.push({ msg: "Mostrando todos los datos" });
     };
@@ -223,15 +222,43 @@ angular.module("ManagerApp").controller("transferstatsListCtrl", ["$scope", "$ht
         console.log($scope.formVisibility);
     };
 
-    $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
+
+    $scope.next = function() {
+            if($scope.offset>$scope.transferstats.length){
+                
+            }else{
+            $scope.offset = $scope.offset + 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.transferstats = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
+
+        };
+
+    $scope.back = function() {
+            if ($scope.offset < 10) {
+                $scope.offset = 0;
+            }
+            else {
+                $scope.offset = $scope.offset - 10;
+            }
+            console.log($scope.offset);
+            $http.get(API + "?limit=10" + "&offset=" + $scope.offset).then(function(response) {
+                $scope.status = "Status: All is ok";
+                $scope.transferstats = response.data;
+                $scope.error = "";
+            }, function(response) {
+                console.log(response.status);
+                $scope.status = response.status;
+                $scope.error = "Ups, something was wrong. Try it later";
+            });
     };
 
-
-
-}]).filter("startFrom", function() {
-    return function(input, start) {
-        start = +start;
-        return input.slice(start);
-    };
-});
+}]);
