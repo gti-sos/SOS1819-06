@@ -1,19 +1,24 @@
 describe("Check if a new transferstat can be created",function () {
     it("List should grow after the transferstat creation", function (){
-        browser.get("http://localhost:8080/#!/uefa-transfer-stat");
+        browser.get("http://localhost:8080/#!/transfer-stats");
         element
             .all(by.repeater("transferstat in transferstats"))
-            .then( function (initialContacts) {
+            .then( function (initialStats) {
                 
-                element(by.model('newContact.name')).sendKeys('pepe');
-                element(by.model('newContact.phone')).sendKeys('1111');
-                
-                element(by.css('[value="add"]')).click();
+                element(by.model('newTransferStat.country')).sendKeys('zzz');
+                element(by.model('newTransferStat.team')).sendKeys('zzz');
+                element(by.model('newTransferStat.season')).sendKeys(2018);
+                element(by.model('newTransferStat.moneyspent')).sendKeys(1);
+                element(by.model('newTransferStat.moneyentered')).sendKeys(1);
+                element(by.model('newTransferStat.numberofsignings')).sendKeys(1);
+                element(by.model('newTransferStat.numberoffarewells')).sendKeys(1);
+
+                element(by.css('[value="addStat"]')).click();
                 
                 element
-                    .all(by.repeater("contact in contacts"))
-                    .then( function (finalContacts) {
-                        expect(finalContacts.length).toEqual(initialContacts.length+1);
+                    .all(by.repeater("transferstat in transferstats"))
+                    .then( function (finalStats) {
+                        expect(finalStats.length).toEqual(initialStats.length+1);
                     });
             });
     });

@@ -1,13 +1,14 @@
-describe('Data are removed', function() {
-  it('should remove all the registers of the database', function() {
-    browser.get('http://localhost:8080');
-    
+describe("Check if a transfer stat can be deleted", function() {
+    it("List decrease after the stat deletion", function() {
+        browser.get("http://localhost:8080/#!/transfer-stats");
+        var initialCountry = element.all(by.repeater("transferstat in transferstats"))
+            .then(function(initialStat) {
+                element.all(by.css('[value="deleteStat"]')).last().click();
 
-    element(by.id('remove')).click();
-
-    var transferstats= element.all(by.repeater('transferstat in transferstats'));
-	var n = transferstats.count();
-	
-	expect(n).toBeEqual(0);
-  });
+                element.all(by.repeater("transferstat in transferstats"))
+                    .then(function(finalStat) {
+                        expect(finalStat.length).toEqual(initialStat.length - 1);
+                    });
+            });
+    });
 });

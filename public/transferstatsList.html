@@ -75,7 +75,7 @@
                     <td>{{transferstat.numberoffarewells}}</td>
 
                     <td>
-                        <button class="btn btn-danger" ng-click="deleteTransferStat(transferstat.country,transferstat.team,transferstat.season)">Borrar</button>
+                        <button class="btn btn-danger" ng-click="deleteTransferStat(transferstat.country,transferstat.team,transferstat.season)" value="deleteStat">Borrar</button>
                     </td>
 
                 </tr>
@@ -102,7 +102,7 @@
                     <td>
                         <input class="form-control" ng-model="newTransferStat.numberoffarewells" value="0" type="number" placeholder="Jugadores Vendidos" min="1" />
                     </td>
-                    <td><button id = "add" class="btn btn-primary" ng-click="addTransferStat()">Añadir</button></td>
+                    <td><button id = "add" class="btn btn-primary" ng-click="addTransferStat()" value="addStat">Añadir</button></td>
                 </tr>
                 <tr>
                     <td>
