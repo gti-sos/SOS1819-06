@@ -32,6 +32,10 @@ angular.module("ManagerApp").controller("UefaClubRankingsEdit-ctrl",
                 console.log("Put response : " + response.status + " " + response.data);
                 $location.path("/uefa-club-rankings");
                 $scope.message = "Equipo editado con éxito";
+            },
+            function(response) {
+                console.log(response.status);
+                $scope.message = "Error: Datos introducidos incorrectamente." ;
             });
 
         };
