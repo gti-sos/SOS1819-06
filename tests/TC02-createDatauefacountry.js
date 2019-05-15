@@ -11,7 +11,8 @@ describe("Check if a new uefa country can be created",function () {
                 element(by.model('newUefaCountry.points')).sendKeys(12342);
                 element(by.model('newUefaCountry.teams')).sendKeys(3);
                 
-                element(by.css('[value="addCountry"]')).click().then(function(){
+                element(by.css('[value="addCountry"]')).click();
+                browser.sleep(1000).then(function(){
                 
                 element
                     .all(by.repeater("uefacountry in uefacountries"))

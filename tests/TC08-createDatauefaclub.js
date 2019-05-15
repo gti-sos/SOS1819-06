@@ -12,7 +12,8 @@ describe("Check if a new uefa club can be created",function () {
                 element(by.model('newUefaClub.ptsseason')).sendKeys(1000);
                 element(by.model('newUefaClub.ptsbeforeseason')).sendKeys(15000);
                 
-                element(by.css('[value="addClub"]')).click().then(function(){
+                element(by.css('[value="addClub"]')).click();
+                browser.sleep(1000).then(function(){
                 
                 element
                     .all(by.repeater("uefaclub in uefaclubrankings"))

@@ -13,7 +13,8 @@ describe("Check if a new transferstat can be created",function () {
                 element(by.model('newTransferStat.numberofsignings')).sendKeys(1);
                 element(by.model('newTransferStat.numberoffarewells')).sendKeys(1);
 
-                element(by.css('[value="addStat"]')).click().then(function(){
+                element(by.css('[value="addStat"]')).click();
+                browser.sleep(1000).then(function(){
                 
                 element
                     .all(by.repeater("transferstat in transferstats"))
