@@ -14,35 +14,35 @@ module.exports = {
         app.get(BASE_PATH + "/uefa-club-rankings/loadInitialData", (req, res) => {
 
             var newuefaclubrankings = [{
-                country: "ESP",
+                country: "Spain",
                 season: 2018,
                 points: 146000,
                 ptsseason: 19000,
                 ptsbeforeseason: 32000,
                 team: "Madrid"
             }, {
-                country: "GER",
+                country: "Germany",
                 season: 2018,
                 points: 128000,
                 ptsseason: 20000,
                 ptsbeforeseason: 29000,
                 team: "Bayern"
             }, {
-                country: "ESP",
+                country: "Spain",
                 season: 2018,
                 points: 128000,
                 ptsseason: 20000,
                 ptsbeforeseason: 25000,
                 team: "Barcelona"
             }, {
-                country: "ESP",
+                country: "Spain",
                 season: 2018,
                 points: 127000,
                 ptsseason: 20000,
                 ptsbeforeseason: 28000,
                 team: "Atlético"
             }, {
-                country: "ITA",
+                country: "Italy",
                 season: 2018,
                 points: 120000,
                 ptsseason: 17000,
