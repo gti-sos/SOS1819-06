@@ -31,6 +31,18 @@
                    controller : "UefaClubRankingsEdit-ctrl",
                    templateUrl: "uefaclubEdit.html"
                 })
+                .when("/uefa-club-rankings/analytics",{
+                   controller : "UefaClubAnalytics-ctrl",
+                   templateUrl: "uefaclubAnalytics.html"
+                })
+                .when("/transfer-stats/analytics",{
+                   controller : "transferStatsAnalytics-ctrl",
+                   templateUrl: "transferStatsAnalytics.html"
+                })
+                .when("/uefa-country-rankings/analytics",{
+                   controller : "UefaCountryAnalytics-ctrl",
+                   templateUrl: "UefaCountryAnalytics.html"
+                })
                 ;
         });
 
