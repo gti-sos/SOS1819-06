@@ -20,33 +20,61 @@ module.exports = {
                 ptsseason: 19000,
                 ptsbeforeseason: 32000,
                 team: "Madrid"
-            }, {
+            },{
+                country: "Spain",
+                season: 2017,
+                points: 136000,
+                ptsseason: 18000,
+                ptsbeforeseason: 30000,
+                team: "Madrid"
+            },{
+                country: "Spain",
+                season: 2016,
+                points: 128000,
+                ptsseason: 20000,
+                ptsbeforeseason: 24000,
+                team: "Madrid"
+            },{
                 country: "Germany",
                 season: 2018,
                 points: 128000,
                 ptsseason: 20000,
                 ptsbeforeseason: 29000,
                 team: "Bayern"
-            }, {
-                country: "Spain",
-                season: 2018,
-                points: 128000,
+            },{
+                country: "Germany",
+                season: 2017,
+                points: 125000,
                 ptsseason: 20000,
                 ptsbeforeseason: 25000,
-                team: "Barcelona"
+                team: "Bayern"
+            },{
+                country: "Germany",
+                season: 2016,
+                points: 123000,
+                ptsseason: 15000,
+                ptsbeforeseason: 22000,
+                team: "Bayern"
             }, {
-                country: "Spain",
-                season: 2018,
+                country: "Italy",
+                season: 2017,
                 points: 127000,
                 ptsseason: 20000,
                 ptsbeforeseason: 28000,
-                team: "Atlético"
+                team: "Juventus"
             }, {
                 country: "Italy",
                 season: 2018,
                 points: 120000,
                 ptsseason: 17000,
                 ptsbeforeseason: 23000,
+                team: "Juventus"
+            },{
+                country: "Italy",
+                season: 2016,
+                points: 110000,
+                ptsseason: 15000,
+                ptsbeforeseason: 20000,
                 team: "Juventus"
             }];
 
