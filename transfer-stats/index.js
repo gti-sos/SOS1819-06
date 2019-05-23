@@ -18,81 +18,72 @@ module.exports = {
             country: "Italy",
             team: "Juventus",
             season: 2018,
-            moneyspent: 261.5,
-            moneyentered: 109.5,
+            moneyspent: 261,
+            moneyentered: 109,
             numberofsignings: 69,
             numberoffarewells: 48
-        }//, {
-         //   country: "Germany",
-           // team: "Bayern",
-        //    season: 2018,
-          //  moneyspent: 270.0,
-          //  moneyentered: 24.75,
-        //    numberofsignings: 48,
-          //  numberoffarewells: 31
-        //}
-        , {
-            country: "Portugal",
-            team: "Oporto",
+        }, {
+            country: "Germany",
+            team: "Bayern",
             season: 2018,
-            moneyspent: 75.0,
-            moneyentered: 127.75,
-            numberofsignings: 28,
-            numberoffarewells: 64
+            moneyspent: 270,
+            moneyentered: 24,
+            numberofsignings: 48,
+            numberoffarewells: 31
         }, {
             country: "Italy",
             team: "Inter",
             season: 2018,
-            moneyspent: 240.0,
-            moneyentered: 163.75,
+            moneyspent: 240,
+            moneyentered: 163,
             numberofsignings: 37,
             numberoffarewells: 29
         }, {
             country: "Italy",
             team: "Milan",
             season: 2018,
-            moneyspent: 122.0,
-            moneyentered: 188.75,
+            moneyspent: 122,
+            moneyentered: 188,
             numberofsignings: 28,
             numberoffarewells: 34
         }, {
             country: "Spain",
             team: "Atleti",
             season: 2018,
-            moneyspent: 244.0,
-            moneyentered: 182.75,
+            moneyspent: 244,
+            moneyentered: 182,
             numberofsignings: 42,
             numberoffarewells: 36
         }, {
             country: "England",
             team: "Chelsea",
             season: 2018,
-            moneyspent: 210.0,
-            moneyentered: 54.75,
+            moneyspent: 210,
+            moneyentered: 54,
             numberofsignings: 38,
             numberoffarewells: 30
         }, {
             country: "Spain",
             team: "Madrid",
             season: 2018,
-            moneyspent: 115.0,
-            moneyentered: 98.75,
+            moneyspent: 115,
+            moneyentered: 98,
             numberofsignings: 23,
             numberoffarewells: 24
         }, {
             country: "Spain",
             team: "Barcelona",
             season: 2018,
-            moneyspent: 340.0,
-            moneyentered: 162.0,
+            moneyspent: 340,
+            moneyentered: 162,
             numberofsignings: 58,
             numberoffarewells: 21
         }, {
             country: "France",
             team: "PSG",
             season: 2018,
-            moneyspent: 422.25,
-            moneyentered: 273.75,
+            moneyspent: 422,
+            moneyentered: 273,
             numberofsignings: 63,
             numberoffarewells: 47
         }];
