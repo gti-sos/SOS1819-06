@@ -31,8 +31,8 @@ module.exports = {
             numberofsignings: 48,
             numberoffarewells: 31
         }, {
-            country: "Japan",
-            team: "Kobe",
+            country: "Greece",
+            team: "Olympiakos",
             season: 2018,
             moneyspent: 240,
             moneyentered: 163,
@@ -47,15 +47,15 @@ module.exports = {
             numberofsignings: 28,
             numberoffarewells: 34
         }, {
-            country: "USA",
-            team: "Galaxy",
+            country: "Netherlands",
+            team: "Ajax",
             season: 2018,
             moneyspent: 244,
             moneyentered: 182,
             numberofsignings: 42,
             numberoffarewells: 36
         }, {
-            country: "England",
+            country: "GB",
             team: "Chelsea",
             season: 2018,
             moneyspent: 210,
