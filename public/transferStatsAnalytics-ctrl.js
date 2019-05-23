@@ -15,7 +15,7 @@ Highcharts.chart('transferstatsanalytics', {
         text: 'Source: <a href="https://www.transfermarkt.es/transfers/einnahmenausgaben/statistik/a/ids/a/sa//saison_id/2018/saison_id_bis/2018/land_id/0/nat/0/pos//w_s//intern/0/plus/1">Transfermarkt.com</a>'
     },
     xAxis: {
-        categories: ['Juventus', 'Oporto', 'Inter', 'Milan', 'Atleti', 'Chelsea', 'Madrid', 'Barcelona', 'PSG'],
+        categories: response.data.map(function(d) { return d["team"] }),
         title: {
             text: null
         }
@@ -56,10 +56,10 @@ Highcharts.chart('transferstatsanalytics', {
     },
     series: [{
         name: 'Dinero Gastado',
-        data: [261, 270, 240,  122, 244, 210, 115, 340, 422]
+        data: response.data.map(function(d) { return d["moneyspent"] })
     }, {
         name: 'Dinero Ingresado',
-        data: [109, 24, 163, 188, 182, 54, 98, 162, 273]
+        data: response.data.map(function(d) { return d["moneyentered"] })
     }]
 });        });
     }]);
