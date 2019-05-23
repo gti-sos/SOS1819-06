@@ -31,24 +31,24 @@ module.exports = {
             numberofsignings: 48,
             numberoffarewells: 31
         }, {
-            country: "Italy",
-            team: "Inter",
+            country: "Japan",
+            team: "Kobe",
             season: 2018,
             moneyspent: 240,
             moneyentered: 163,
             numberofsignings: 37,
             numberoffarewells: 29
         }, {
-            country: "Italy",
-            team: "Milan",
+            country: "Ukraine",
+            team: "Shaktar",
             season: 2018,
             moneyspent: 122,
             moneyentered: 188,
             numberofsignings: 28,
             numberoffarewells: 34
         }, {
-            country: "Spain",
-            team: "Atleti",
+            country: "USA",
+            team: "Galaxy",
             season: 2018,
             moneyspent: 244,
             moneyentered: 182,
@@ -71,8 +71,8 @@ module.exports = {
             numberofsignings: 23,
             numberoffarewells: 24
         }, {
-            country: "Spain",
-            team: "Barcelona",
+            country: "Portugal",
+            team: "Benfica",
             season: 2018,
             moneyspent: 340,
             moneyentered: 162,
