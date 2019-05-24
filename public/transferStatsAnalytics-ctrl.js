@@ -1,8 +1,18 @@
+/*global angular*/
+/*global Chartist*/
 angular
     .module("ManagerApp")
     .controller("transferStatsAnalytics-ctrl", ["$scope", "$http", function($scope, $http) {
         console.log("Transfer Stats Analytics Controller initialized");
         $http.get("/api/v1/transfer-stats").then(function(response) {
+            new Chartist.Line('.ct-chart', {
+                  labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                  series: [
+                    [12, 9, 7, 8, 5],
+                    [2, 1, 3.5, 7, 3],
+                    [1, 3, 4, 5, 6]
+                  ]
+                });
         
             Highcharts.chart('transferstatsanalytics', {
                 chart: {
@@ -88,6 +98,8 @@ angular
                     var chart = new google.visualization.GeoChart(document.getElementById('transfermap'));
             
                     chart.draw(data, options);
-                  }            
+                  } 
+                  
+                
                     });
     }]);
