@@ -87,6 +87,10 @@ angular
                       [paises[7], fichajes[7]],
                       [paises[8], fichajes[8]],
                       [paises[9], fichajes[9]],
+                      [paises[10], fichajes[10]],
+
+                      [paises[11], fichajes[11]]
+
                     ]);
                     
                     var options = {region: 150};
