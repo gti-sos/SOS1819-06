@@ -4,21 +4,13 @@ angular
     console.log("Group Analytics Controller initialized");
     var response = [];
     $http.get("/api/v1/uefa-club-rankings").then(function(responseClub) {
-      for (var i = 0; i < responseClub.data.length; i++) {
-        response.push(responseClub.data.map(function(d) { return d["team"] + " " + d["season"] })[i]);
-      }
-    });
-    $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
-      for (var i = 0; i < responseCountry.data.length; i++) {
-        response.push(responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i]);
-      }
-    });
+      $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
+        $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+    
 
-    $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
-      for (var i = 0; i < responseTransfer.data.length; i++) {
-        response.push(responseTransfer.data.map(function(d) { return d["team"] + " " + d["season"] })[i])
-      }
-    });
+    var response=[];
+    response.push(responseClub.data.map(function(d) { return d["country"] +" "+d["season"]}));
+    console.log(response);
     Highcharts.chart('groupal', {
       chart: {
         type: 'bar'
@@ -28,7 +20,7 @@ angular
       },
       xAxis: {
         categories: response,
-        title: {
+        title:{
           text: null
         }
       },
@@ -68,13 +60,18 @@ angular
       },
       series: [{
         name: 'Uefa Club Puntos',
-        data: responseClub.data.map(function(d) { return d["points"] })
+        data:20 //response.data.map(function(d) { return d["points"] })
       }, {
         name: 'Transfer Stat Dinero Gastado',
-        data: responseTransfer.data.map(function(d) { return d["moneyspent"] })
+        data:20 //response.data.map(function(d) { return d["moneyspent"] })
       }, {
         name: 'Uefa Country Puntos',
-        data: responseCountry.data.map(function(d) { return d["points"] })
+        data:20 //response.data.map(function(d) { return d["points"] })
       }]
     });
+        });
+        
+      });
+    });
+  
   }]);

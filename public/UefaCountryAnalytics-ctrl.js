@@ -58,17 +58,18 @@ angular
             });
             
             //GOOGLE CHARTS
-        var tabla=[];
-      
-        for (var i in response.data) {
-                var dataChart=" [ "+'"'+response.data.map(function(d) { return d["country"] })[i]+'"'+","+
-                response.data.map(function(d) { return d["teams"] })[i]+" ] ";
-                tabla.replace('" ',"");
-                tabla.replace('" ',"");
-                 console.log(dataChart);   
-                tabla.push(dataChart);
+            var coun;
+            var points = [];
+            var googleChartData = [
+                ["Country", "Teams"]
+            ];
+            for (var i in response.data) {
+                
+                coun = response.data[i].country;
+                points = response.data[i].teams;
+                googleChartData.push([coun, points]);
             }
-              console.log(tabla);   
+              console.log(googleChartData);   
               google.charts.load('current', {
         'packages':['geochart'],
         // Note: you will need to get a mapsApiKey for your project.
@@ -80,9 +81,9 @@ angular
       
 
       function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable(tabla);
+        var data = google.visualization.arrayToDataTable(googleChartData);
 
-        var options = {};
+        var options = {region:150};
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
@@ -91,9 +92,6 @@ angular
             
 
         });
-        
-        
-        
         
 
     }]);
