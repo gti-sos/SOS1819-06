@@ -45,6 +45,11 @@
                 }).when("/analytics",{
                         controller: "groupAnalytics-ctrl",
                         templateUrl: "analytics.html"
+                }).when("/integrations",{
+                        templateUrl: "integration.html"
+                }).when("/integrations-uefa-club-rankings",{
+                        controller: "integrations-uefa-club-ctrl",
+                        templateUrl: "integrations-uefa-club.html"
                 })
                 ;
         });
