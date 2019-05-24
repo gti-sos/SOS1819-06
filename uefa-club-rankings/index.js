@@ -15,10 +15,10 @@ module.exports = {
 
             var newuefaclubrankings = [{
                 country: "Spain",
-                season: 2018,
-                points: 146000,
-                ptsseason: 19000,
-                ptsbeforeseason: 32000,
+                season: 2016,
+                points: 128000,
+                ptsseason: 20000,
+                ptsbeforeseason: 24000,
                 team: "Madrid"
             },{
                 country: "Spain",
@@ -29,17 +29,17 @@ module.exports = {
                 team: "Madrid"
             },{
                 country: "Spain",
-                season: 2016,
-                points: 128000,
-                ptsseason: 20000,
-                ptsbeforeseason: 24000,
+                season: 2018,
+                points: 146000,
+                ptsseason: 19000,
+                ptsbeforeseason: 32000,
                 team: "Madrid"
             },{
                 country: "Germany",
-                season: 2018,
-                points: 128000,
-                ptsseason: 20000,
-                ptsbeforeseason: 29000,
+                season: 2016,
+                points: 123000,
+                ptsseason: 15000,
+                ptsbeforeseason: 22000,
                 team: "Bayern"
             },{
                 country: "Germany",
@@ -50,12 +50,19 @@ module.exports = {
                 team: "Bayern"
             },{
                 country: "Germany",
-                season: 2016,
-                points: 123000,
-                ptsseason: 15000,
-                ptsbeforeseason: 22000,
+                season: 2018,
+                points: 128000,
+                ptsseason: 20000,
+                ptsbeforeseason: 29000,
                 team: "Bayern"
-            }, {
+            },{
+                country: "Italy",
+                season: 2016,
+                points: 110000,
+                ptsseason: 15000,
+                ptsbeforeseason: 20000,
+                team: "Juventus"
+            },{
                 country: "Italy",
                 season: 2017,
                 points: 127000,
@@ -68,13 +75,6 @@ module.exports = {
                 points: 120000,
                 ptsseason: 17000,
                 ptsbeforeseason: 23000,
-                team: "Juventus"
-            },{
-                country: "Italy",
-                season: 2016,
-                points: 110000,
-                ptsseason: 15000,
-                ptsbeforeseason: 20000,
                 team: "Juventus"
             }];
 
