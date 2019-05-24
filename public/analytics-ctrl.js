@@ -3,78 +3,56 @@ angular
   .controller("groupAnalytics-ctrl", ["$scope", "$http", function($scope, $http) {
     console.log("Group Analytics Controller initialized");
     var response = [];
+    var dataAll = [];
     $http.get("/api/v1/uefa-club-rankings").then(function(responseClub) {
-      for (var i = 0; i < responseClub.data.length; i++) {
-        response.push(responseClub.data.map(function(d) { return d["team"] + " " + d["season"] })[i]);
+      for (var i in responseClub.data) {
+        response.push("Uefa Club: " + responseClub.data.map(function(d) { return d["team"] + " " + d["season"] })[i]);
+        dataAll.push(responseClub.data.map(function(d) { return d["points"] })[i]);
       }
-    });
-    $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
-      for (var i = 0; i < responseCountry.data.length; i++) {
-        response.push(responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i]);
-      }
-    });
-
-    $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
-      for (var i = 0; i < responseTransfer.data.length; i++) {
-        response.push(responseTransfer.data.map(function(d) { return d["team"] + " " + d["season"] })[i])
-      }
-    });
-    Highcharts.chart('groupal', {
-      chart: {
-        type: 'bar'
-      },
-      title: {
-        text: 'Group Analytics'
-      },
-      xAxis: {
-        categories: response,
-        title: {
-          text: null
+      $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
+        for (var i in responseCountry.data) {
+          response.push("Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i]);
+          dataAll.push(responseCountry.data.map(function(d) { return d["points"] })[i]);
         }
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Money (millions)',
-          align: 'high'
-        },
-        labels: {
-          overflow: 'justify'
-        }
-      },
-      tooltip: {
-        valueSuffix: ' millions'
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
+        $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+          for (var i in responseTransfer.data) {
+            response.push("Transfer-stats: " + responseTransfer.data.map(function(d) { return d["team"] + " " + d["season"] })[i])
+            dataAll.push(responseTransfer.data.map(function(d) { return d["moneyspent"] })[i]);
           }
-        }
-      },
-      legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-        shadow: true
-      },
-      credits: {
-        enabled: false
-      },
-      series: [{
-        name: 'Uefa Club Puntos',
-        data: responseClub.data.map(function(d) { return d["points"] })
-      }, {
-        name: 'Transfer Stat Dinero Gastado',
-        data: responseTransfer.data.map(function(d) { return d["moneyspent"] })
-      }, {
-        name: 'Uefa Country Puntos',
-        data: responseCountry.data.map(function(d) { return d["points"] })
-      }]
+
+
+          console.log(response);
+          console.log(dataAll);
+          Highcharts.chart('groupal', {
+            chart: {
+              type: 'bar',
+              height: 100+"%"
+            },
+            title: {
+              text: 'Group Analytics'
+            },
+            xAxis: {
+              categories: response,
+              title: {
+                text: null
+              }
+            },
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'Quantity',
+                align: 'high'
+              },
+              labels: {
+                overflow: 'justify'
+              }
+            },
+            series: [{
+              name: "Uefa Data",
+              data: dataAll
+            }]
+          });
+        });
+      });
     });
   }]);
