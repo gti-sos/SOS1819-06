@@ -43,7 +43,7 @@
                    controller : "UefaCountryAnalytics-ctrl",
                    templateUrl: "UefaCountryAnalytics.html"
                 }).when("/analytics",{
-                        controller: "analytics-ctrl",
+                        controller: "groupAnalytics-ctrl",
                         templateUrl: "analytics.html"
                 })
                 ;
