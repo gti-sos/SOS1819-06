@@ -18,13 +18,13 @@ angular
                 title: {
                     text: 'Uefa Club Rankings'
                 },
-                xAxis:{
-                    categories: response.data.map(function(d){return d["team"]+" "+d["season"]})
+                xAxis: {
+                    categories: response.data.map(function(d) { return d["team"] + " " + d["season"] })
                 },
-                yAxis:{
-                    title:{text:null}
+                yAxis: {
+                    title: { text: null }
                 },
-                    
+
                 subtitle: {
                     text: 'Source: uefa.com'
                 },
@@ -34,8 +34,8 @@ angular
                     }
                 },
                 series: [{
-                    name:"Puntos",
-                    data: response.data.map(function(d){return d["points"]})
+                    name: "Puntos",
+                    data: response.data.map(function(d) { return d["points"] })
                 }]
             });
 
@@ -55,6 +55,7 @@ angular
             showValues();
         });
 
+        ////////////////////////////////////////////////////////////////////////////////
         $http.get("/api/v1/uefa-club-rankings").then(function(response2) {
 
             var coun;
@@ -91,4 +92,28 @@ angular
                 chart.draw(data, options);
             }
         });
+
+        ////////////////////////////////////////////////////////////////////////////////
+
+        $http.get("/api/v1/uefa-club-rankings").then(function(response) {
+            var datos = [];
+            for (var i in response.data) {
+                var dato = {
+                    y: response.data.map(function(d) { return d["team"] })[i] + " " + response.data.map(function(d) { return d["season"] })[i],
+                    a: response.data.map(function(d) { return d["points"] })[i]
+                };
+                datos.push(dato);
+            }
+            console.log(datos);
+
+            new Morris.Bar({
+                element: 'morris',
+
+                data: datos,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Series A', 'Series B']
+            });
+        });
+        
     }]);
