@@ -3,60 +3,56 @@ angular
     .controller("UefaClubAnalytics-ctrl", ["$scope", "$http", function($scope, $http) {
         console.log("Analytics Controller initialized");
         $http.get("/api/v1/uefa-club-rankings").then(function(response) {
-            Highcharts.chart('uefaclubanalytics', {
-
-                title: {
-                    text: 'Uefa Clubs Ranking by poitns, 2016-2018'
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'uefaClubAnalytic',
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        depth: 50,
+                        viewDistance: 25
+                    }
                 },
-
+                title: {
+                    text: 'Uefa Club Rankings'
+                },
+                xAxis:{
+                    categories: response.data.map(function(d){return d["team"]+" "+d["season"]})
+                },
+                yAxis:{
+                    title:{text:null}
+                },
+                    
                 subtitle: {
                     text: 'Source: uefa.com'
                 },
-                xAxis: {
-                    categories: response.data.map(function(d) { return d["team"]+d["season"] }),
-                    title: {
-                        text: null
+                plotOptions: {
+                    column: {
+                        depth: 25
                     }
                 },
-
-                yAxis: {
-                    title: {
-                        text: 'Points'
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-
                 series: [{
-                    name: 'Madrid',
-                    data: response.data.filter(function(d) { return d["team"] == "Madrid" }).map(function(d) { return d["points"] })
-                }, {
-                    name: 'Bayern',
-                    data: response.data.filter(function(d) { return d["team"] == "Bayern" }).map(function(d) { return d["points"] })
-                }, {
-                    name: 'Juventus',
-                    data: response.data.filter(function(d) { return d["team"] == "Juventus" }).map(function(d) { return d["points"] })
-                }],
-
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
-
+                    name:"Puntos",
+                    data: response.data.map(function(d){return d["points"]})
+                }]
             });
+
+            function showValues() {
+                $('#alpha-value').html(chart.options.chart.options3d.alpha);
+                $('#beta-value').html(chart.options.chart.options3d.beta);
+                $('#depth-value').html(chart.options.chart.options3d.depth);
+            }
+
+            // Activate the sliders
+            $('#sliders input').on('input change', function() {
+                chart.options.chart.options3d[this.id] = parseFloat(this.value);
+                showValues();
+                chart.redraw(false);
+            });
+
+            showValues();
         });
 
         $http.get("/api/v1/uefa-club-rankings").then(function(response2) {
@@ -67,13 +63,13 @@ angular
                 ["Region", "Points"]
             ];
             for (var i = 0; i < response2.data.length; i++) {
-                if(response2.data[i].season==2018){
-                coun = response2.data[i].country;
-                points = response2.data[i].points;
-                googleChartData.push([coun, points]);
-            }}
+                if (response2.data[i].season == 2018) {
+                    coun = response2.data[i].country;
+                    points = response2.data[i].points;
+                    googleChartData.push([coun, points]);
+                }
+            }
             console.log(googleChartData);
-
 
             google.charts.load('current', {
                 'packages': ['geochart'],
@@ -84,15 +80,14 @@ angular
 
             function drawRegionsMap() {
                 var data = google.visualization.arrayToDataTable(googleChartData);
-
                 var options = {
                     colorAxis: {
                         minValue: 0,
                         maxValue: 10
-                    }
+                    },
+                    region: 150
                 };
                 var chart = new google.visualization.GeoChart(document.getElementById('uefaclubmap'));
-
                 chart.draw(data, options);
             }
         });

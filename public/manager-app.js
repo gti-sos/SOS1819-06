@@ -42,6 +42,9 @@
                 .when("/uefa-country-rankings/analytics",{
                    controller : "UefaCountryAnalytics-ctrl",
                    templateUrl: "UefaCountryAnalytics.html"
+                }).when("/analytics",{
+                        controller: "analytics-ctrl",
+                        templateUrl: "analytics.html"
                 })
                 ;
         });
