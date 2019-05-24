@@ -15,7 +15,7 @@ angular
                     text: 'Source: <a href="https://www.transfermarkt.es/transfers/einnahmenausgaben/statistik/a/ids/a/sa//saison_id/2018/saison_id_bis/2018/land_id/0/nat/0/pos//w_s//intern/0/plus/1">Transfermarkt.com</a>'
                 },
                 xAxis: {
-                    categories: response.data.map(function(d) { return d["team"] }),
+                    categories: response.data.map(function(d) { return d["team"] + " " + d["season"] }),
                     title: {
                         text: null
                     }
@@ -72,26 +72,16 @@ angular
                   google.charts.setOnLoadCallback(drawRegionsMap);
             
                   function drawRegionsMap() {
-                    var paises = response.data.map(function(d) { return d["country"] })
-                    var fichajes = response.data.map(function(d) { return d["numberofsignings"] })
+                    var paises = response.data.map(function(d) { return d["country"] });
+                    var fichajes = response.data.map(function(d) { return d["numberofsignings"] });
                     
-                    var data = google.visualization.arrayToDataTable([
-                      ['Country', 'Signed Players'],
-                      [paises[0], fichajes[0]],
-                      [paises[1], fichajes[1]],
-                      [paises[2], fichajes[2]],
-                      [paises[3], fichajes[3]],
-                      [paises[4], fichajes[4]],
-                      [paises[5], fichajes[5]],
-                      [paises[6], fichajes[6]],
-                      [paises[7], fichajes[7]],
-                      [paises[8], fichajes[8]],
-                      [paises[9], fichajes[9]],
-                      [paises[10], fichajes[10]],
-
-                      [paises[11], fichajes[11]]
-
-                    ]);
+                    var a = [];
+                    a.push(['Country', 'Signed Players']);
+                    for (var i = 0; i < paises.length; i++) {
+                        a.push([paises[i], fichajes[i]]);
+                    }
+                    
+                    var data = google.visualization.arrayToDataTable(a);
                     
                     var options = {region: 150};
             
