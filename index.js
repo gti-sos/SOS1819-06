@@ -3,9 +3,11 @@ var bodyParser = require("body-parser");
 var uefaCountryApi=require("./uefa-Country-Rankings");
 var uefaClubApi = require("./uefa-club-rankings");
 var transferAPI = require("./transfer-stats");
+var cors = require("cors");
 
 var app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 
 var port = process.env.PORT || 8080;
