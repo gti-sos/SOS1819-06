@@ -2,10 +2,6 @@
 /*global Highcharts*/
 /*global google*/
 /*global uv*/
-//import Chartkick from "chartkick";
-//import Chart from "chart.js";
-
-//Chartkick.use(Chart);
 angular
     .module("ManagerApp")
     .controller("UefaCountryAnalytics-ctrl", ["$scope", "$http", function($scope, $http) {
@@ -60,7 +56,7 @@ angular
                 }]
 
             });
-            
+
             //GOOGLE CHARTS
             var coun;
             var points = [];
@@ -68,42 +64,62 @@ angular
                 ["Country", "Teams"]
             ];
             for (var i in response.data) {
-                
+
                 coun = response.data[i].country;
-                if(coun=="England" || coun=="Scotland" || coun=="Wales" || coun=="Northern Ireland"){
-                    coun="United Kingdom";
+                if (coun == "England" || coun == "Scotland" || coun == "Wales" || coun == "Northern Ireland") {
+                    coun = "United Kingdom";
                 }
                 points = response.data[i].teams;
                 googleChartData.push([coun, points]);
             }
-              console.log(googleChartData);   
-              google.charts.load('current', {
-        'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
-      
-      
+            console.log(googleChartData);
+            google.charts.load('current', {
+                'packages': ['geochart'],
+                // Note: you will need to get a mapsApiKey for your project.
+                // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+                'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+            });
+            google.charts.setOnLoadCallback(drawRegionsMap);
 
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable(googleChartData);
 
-        var options = {region:150};
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+            function drawRegionsMap() {
+                var data = google.visualization.arrayToDataTable(googleChartData);
 
-        chart.draw(data, options);
-      }
+                var options = { region: 150 };
+
+                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+                chart.draw(data, options);
+            }
+
+
+            //TauChart
+            var datos1 = [];
+
+            for (var i in response.data) {
+                var dato1 = {
+                    country: response.data.map(function(d) { return d["country"] })[i] + " " + response.data.map(function(d) { return d["season"] })[i],
+                    points: response.data.map(function(d) { return d["points"] })[i]
+                };
+                datos1.push(dato1);
+            }
             
-            
-        //ChartKick    
-        
-        //new Chartkick.PieChart("chart-1", [["Blueberry", 44], ["Strawberry", 23]]);
-            
+            var datasource = datos1;
+
+            var chart = new Taucharts.Chart({
+                
+                data: datasource,
+                type: 'bar',
+                x: 'country',
+                y: 'points',
+                color: 'type' // there will be two lines with different colors on the chart
+            });
+
+            chart.renderTo('#bar');
+
 
         });
-        
+
 
     }]);
