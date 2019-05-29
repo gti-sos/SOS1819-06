@@ -2,6 +2,10 @@
 /*global Highcharts*/
 /*global google*/
 /*global uv*/
+//import Chartkick from "chartkick";
+//import Chart from "chart.js";
+
+//Chartkick.use(Chart);
 angular
     .module("ManagerApp")
     .controller("UefaCountryAnalytics-ctrl", ["$scope", "$http", function($scope, $http) {
@@ -66,6 +70,9 @@ angular
             for (var i in response.data) {
                 
                 coun = response.data[i].country;
+                if(coun=="England" || coun=="Scotland" || coun=="Wales" || coun=="Northern Ireland"){
+                    coun="United Kingdom";
+                }
                 points = response.data[i].teams;
                 googleChartData.push([coun, points]);
             }
@@ -89,6 +96,11 @@ angular
 
         chart.draw(data, options);
       }
+            
+            
+        //ChartKick    
+        
+        //new Chartkick.PieChart("chart-1", [["Blueberry", 44], ["Strawberry", 23]]);
             
 
         });
