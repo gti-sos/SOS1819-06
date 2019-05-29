@@ -18,7 +18,7 @@ angular
                 var Integration1 = {
                     "type": "radar",
                     "title": {
-                        "text": "Integration Api Externa 2"
+                        "text": "Integration Api Externa 1"
                     },
                     "plot": {
                         "value-box": {
@@ -117,7 +117,7 @@ angular
                 var Integration2 = {
                     "type": "area",
                     "title": {
-                        "text": "Integration Api Externa 1"
+                        "text": "Integration Api Externa 2"
                     },
                     "legend": {
                         "toggle-action": "hide",
