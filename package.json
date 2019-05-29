@@ -11,7 +11,7 @@
     "test-transfer-stats": "newman run https://www.getpostman.com/collections/a09d890ce843a1f4dfb5",
     "test-uefa-country-rankings": "newman run https://www.getpostman.com/collections/cc70efe11342a8e14600",
     "testFrontEnd": "protractor tests/tests.js",
-    "posttest":"killall phantomjs"
+    "posttest": "killall phantomjs"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/gti-sos/SOS1819-06#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongodb": "^3.2.2"
   }
