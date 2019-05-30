@@ -4,7 +4,7 @@ var uefaCountryApi=require("./uefa-Country-Rankings");
 var uefaClubApi = require("./uefa-club-rankings");
 var transferAPI = require("./transfer-stats");
 var cors = require("cors");
-
+console.log("a");
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -70,10 +70,11 @@ client3.connect(err => {
 });
 
 
-
+console.log("b");
 //Inicializar escucha por el puerto...
 app.listen(port, () => {
     console.log("Magic is happening in port " + port);
-
+console.log("c");
 
 });
+console.log("d");

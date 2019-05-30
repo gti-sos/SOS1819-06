@@ -51,6 +51,10 @@
                         controller: "integrations-uefa-club-ctrl",
                         templateUrl: "integrations-uefa-club.html"
                 })
+                .when("/integrations-uefa-country-rankings",{
+                        controller: "uefa-country-integrations-ctrl",
+                        templateUrl: "uefa-country-integrations.html"
+                })
                 ;
         });
 

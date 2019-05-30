@@ -1,0 +1,192 @@
+<h1>Integrations Uefa-Country-Rankings</h1>
+<hr><hr>
+
+<h3>Uso API SOS 1 - Country Stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Población</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS1 in SOS1s">
+                <td>{{SOS1.country}}</td>
+                <td>{{SOS1.year}}</td>
+                <td>{{SOS1.population}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+<h3>Uso API SOS 2 - Biofuels-Production</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Biodiesel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS2 in SOS2s">
+                <td>{{SOS2.country}}</td>
+                <td>{{SOS2.year}}</td>
+                <td>{{SOS2.biodiesel}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+
+<h3>Integración API SOS 3 - Transfer-stats</h3>
+<div id="transferStats"></div>
+<div id="sliders">
+    <table>
+        <tr>
+        	<td>Alpha Angle</td>
+        	<td><input id="alpha" type="range" min="0" max="45" value="15"/> <span id="alpha-value" class="value"></span></td>
+        </tr>
+        <tr>
+        	<td>Beta Angle</td>
+        	<td><input id="beta" type="range" min="-45" max="45" value="15"/> <span id="beta-value" class="value"></span></td>
+        </tr>
+        <tr>
+        	<td>Depth</td>
+        	<td><input id="depth" type="range" min="20" max="100" value="50"/> <span id="depth-value" class="value"></span></td>
+        </tr>
+    </table>
+</div>
+<hr>
+
+
+<h3>Uso API SOS 4 - Beer-Consumed-Stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Ratio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS4 in SOS4s">
+                <td>{{SOS4.country}}</td>
+                <td>{{SOS4.year}}</td>
+                <td>{{SOS4.rating}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+
+<h3>Uso API SOS 5 - Companies-Stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Empresa</th>
+                <th>Empleados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS5 in SOS5s">
+                <td>{{SOS5.country}}</td>
+                <td>{{SOS5.year}}</td>
+                <td>{{SOS5.company}}</td>
+                <td>{{SOS5.employee}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+
+<h3>Uso API SOS 6 - Deceaseds</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Provinvia</th>
+                <th>Año</th>
+                <th>Vida</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS6 in SOS6s">
+                <td>{{SOS6.province}}</td>
+                <td>{{SOS6.year}}</td>
+                <td>{{SOS6.life}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+
+<h3>Uso API SOS 7 - Public-Expenditure-Educations</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Gasto Educación</th>
+                <th>Gasto Educación (% Pub)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS7 in SOS7s">
+                <td>{{SOS7.country}}</td>
+                <td>{{SOS7.year}}</td>
+                <td>{{SOS7.educationExpense}}</td>
+                <td>{{SOS7.educationExpensePub}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+
+<h3>Uso API SOS 8 - Tourist-by-Contries</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Salidas de turistas</th>
+                <th>Entradas de tursitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS8 in SOS8s">
+                <td>{{SOS8.country}}</td>
+                <td>{{SOS8.year}}</td>
+                <td>{{SOS8.touristDeparture}}</td>
+                <td>{{SOS8.arrivalTourist}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+
+
+<h3>Integration Api Externa 1</h3>
+<div id="ExternalIntegration1"></div>
+<hr>
+
+
+<h3>Integration Api Externa 2</h3>
+<div id="ExternalIntegration2"></div>
+<hr> 

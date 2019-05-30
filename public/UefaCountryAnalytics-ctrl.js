@@ -2,17 +2,18 @@
 /*global Highcharts*/
 /*global google*/
 /*global uv*/
+//E
 angular
     .module("ManagerApp")
     .controller("UefaCountryAnalytics-ctrl", ["$scope", "$http", function($scope, $http) {
-
+//F
         console.log("main Controller initialized");
 
         var API = "/api/v1/uefa-country-rankings";
         console.log("Requesting uefa country ranking to <" + API + ">...");
         $http.get(API).then(function(response) {
             console.log("Data Received:" + JSON.stringify(response.data, null, 2));
-
+//G
             var datos = [];
 
             for (var i in response.data) {
@@ -81,11 +82,11 @@ angular
             });
             google.charts.setOnLoadCallback(drawRegionsMap);
 
-
+//H
 
             function drawRegionsMap() {
                 var data = google.visualization.arrayToDataTable(googleChartData);
-
+//I
                 var options = { region: 150 };
 
                 var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
@@ -117,9 +118,10 @@ angular
             });
 
             chart.renderTo('#bar');
-
+//J
 
         });
-
+//K
 
     }]);
+//L
