@@ -8,8 +8,8 @@ angular
            
              // Initialize a Line chart in the container with the ID chart1
              new Chartist.Line('#chart1', {
-                labels: [1, 2, 3, 4],
-                series: [[100, 120, 180, 200]]
+                labels: response.data.map(function(d) { return d["team"] }),
+                series: [response.data.map(function(d) { return d["numberofsignings"] })]
              });
             
             Highcharts.chart('transferstatsanalytics', {
