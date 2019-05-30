@@ -1,4 +1,48 @@
 <h1>Integrations Uefa-Club-Rankings</h1>
+<hr><hr>
 
+<h3>Uso API SOS 1 - Country Stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Población</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS1 in SOS1s">
+                <td>{{SOS1.country}}</td>
+                <td>{{SOS1.year}}</td>
+                <td>{{SOS1.population}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+<h3>Uso API SOS 2 - Biofuels-Production</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Biodiesel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS2 in SOS2s">
+                <td>{{SOS2.country}}</td>
+                <td>{{SOS2.year}}</td>
+                <td>{{SOS2.biodiesel}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr> 
+
+   
 <div id="ExternalIntegration1"></div>
 <div id="ExternalIntegration2"></div>

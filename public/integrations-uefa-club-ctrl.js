@@ -2,6 +2,16 @@ angular
     .module("ManagerApp")
     .controller("integrations-uefa-club-ctrl", ["$scope", "$http", function($scope, $http) {
         console.log("Integrations Controller initialized");
+        
+        /////////////////////APIs Compañeros SOS/////////////////////
+         $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response) {
+            $scope.SOS1s = response.data;
+         });
+         
+         $http.get("https://sos1819-10.herokuapp.com/api/v1/biofuels-production").then(function(response) {
+            $scope.SOS2s = response.data;
+         });
+        
 
         /////////////////////APIs Externas/////////////////////
         //Api externa 1
