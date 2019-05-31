@@ -110,33 +110,51 @@ angular
         var datos2 = [];
         $http.get("https://restcountries.eu/rest/v2/region/europe").then(function(response) {
             $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
-                for (var i = 0; i < 5; i++) {
+                for (var i in responseCountry.data) {
 
                     var dato2 = {
-                        country: response.data[i].name,
-                        PopulationOrPoints: response.data[i].population
+                        y: response.data[i].population,
+                        label: response.data[i].name
                     };
                     datos2.push(dato2);
                 }
                 for (var i in responseCountry.data) {
                     var dato1 = {
-                        country: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
-                        PopulationOrPoints: responseCountry.data.map(function(d) { return d["points"] })[i]
+                        y: responseCountry.data.map(function(d) { return d["points"] })[i],
+                        label: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i]
                     };
                     datos2.push(dato1);
                 }
                 console.log(datos2);
 
-                var chart = new Taucharts.Chart({
+                /*var chart = new Taucharts.Chart({
                     data: datos2,
-                    type: 'scatterplot',
-                    x: 'country',
+                   type: 'scatterplot',
+                   x: 'country',
                     y: 'PopulationOrPoints',
                     color: 'country',
                     size: 'PopulationOrPoints',
                     plugins: [Taucharts.api.plugins.get('tooltip')(), Taucharts.api.plugins.get('legend')()]
                 });
-                chart.renderTo('#externa1');
+                chart.renderTo('#externa1');*/
+
+                var chart = new CanvasJS.Chart("externa1", {
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    theme: "light1",
+                    title: {
+                        text: "Uefa Points and Europe Population"
+                    },
+                    data: [{
+                        type: "pyramid",
+                        yValueFormatString: "#\"\"",
+                        indexLabelFontColor: "black",
+                        indexLabelFontSize: 16,
+                        indexLabel: "{label} - {y}",
+                        dataPoints: datos2
+                    }]
+                });
+                chart.render();
 
 
             });
@@ -144,84 +162,72 @@ angular
 
 
         //API externa 2
-        var goals = {
-            method: 'GET',
-            url: "https://montanaflynn-fifa-world-cup.p.mashape.com/goals",
-            headers: {
-                "X-Mashape-Key": "0uC0eKCfqkmsh8caooJtABP2PuXVp1Vxp36jsnZXumtItm27QN",
-                "Accept": "application/json"
-            }
-        };
-        $http(goals).then(function(responseGoals) {
-            $http.get("/api/v1/uefa-club-rankings").then(function(responseUefa) {
-                var ejex = [];
-                for (var i in responseUefa.data) {
-                    ejex.push(responseUefa.data.map(function(d) { return d["team"] })[i] + " " + responseUefa.data.map(function(d) { return d["season"] })[i]);
+        var datos3 = [];
+        $http.get("https://api.discogs.com/artists/1/releases").then(function(response) {
+            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
+                for (var i in responseCountry.data) {
+
+                    var dato3 = {
+                       name: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
+                       y: responseCountry.data.map(function(d) { return d["points"] })[i]
+                    };
+                    datos3.push(dato3);
                 }
-                var Integration2 = {
-                    "type": "area",
-                    "legend": {
-                        "toggle-action": "hide",
-                        "header": {
-                            "text": "Legend Header"
-                        },
-                        "item": {
-                            "cursor": "pointer"
-                        },
-                        "draggable": true,
-                        "drag-handler": "icon"
+                for (var i in responseCountry.data) {
+
+                    var dato4 = {
+                       name: response.data.releases[i].title,
+                       y: response.data.releases[i].id
+                    };
+                    datos3.push(dato4);
+                }
+                console.log(datos3);
+
+                Highcharts.chart('externa2', {
+                    chart: {
+                        type: 'waterfall'
                     },
-                    "scale-x": {
-                        "values": ejex,
+
+                    title: {
+                        text: 'Uefa Country Points and Artist Title Id'
                     },
-                    "series": [{
-                            "values": [responseGoals.data[0].minute,
-                                responseGoals.data[1].minute,
-                                responseGoals.data[2].minute,
-                                responseGoals.data[3].minute,
-                                responseGoals.data[4].minute,
-                                responseGoals.data[5].minute,
-                                responseGoals.data[6].minute,
-                                responseGoals.data[7].minute,
-                                responseGoals.data[8].minute
-                            ],
-                            "text": "Minutos"
-                        },
-                        {
-                            "values": [responseGoals.data[0].team_id,
-                                responseGoals.data[1].team_id,
-                                responseGoals.data[2].team_id,
-                                responseGoals.data[3].team_id,
-                                responseGoals.data[4].team_id,
-                                responseGoals.data[5].team_id,
-                                responseGoals.data[6].team_id,
-                                responseGoals.data[7].team_id,
-                                responseGoals.data[8].team_id
-                            ],
-                            "text": "Team id"
-                        },
-                        {
-                            "values": [
-                                responseUefa.data[0].points / 1000,
-                                responseUefa.data[1].points / 1000,
-                                responseUefa.data[2].points / 1000,
-                                responseUefa.data[3].points / 1000,
-                                responseUefa.data[4].points / 1000,
-                                responseUefa.data[5].points / 1000,
-                                responseUefa.data[6].points / 1000,
-                                responseUefa.data[7].points / 1000,
-                                responseUefa.data[8].points / 1000,
-                            ],
-                            "text": "Puntos/1000"
+
+                    xAxis: {
+                        type: 'category'
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'Points and IDs'
                         }
-                    ]
-                };
-                zingchart.render({
-                    id: "ExternalIntegration2",
-                    data: Integration2,
-                    height: "480",
-                    width: "100%"
+                    },
+
+                    legend: {
+                        enabled: false
+                    },
+
+                    tooltip: {
+                        pointFormat: '<b>{point.y}</b>'
+                    },
+
+                    series: [{
+                        upColor: Highcharts.getOptions().colors[2],
+                        color: Highcharts.getOptions().colors[3],
+                        data: datos3,
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function() {
+                                return Highcharts.numberFormat(this.y / 1000, 0, ',') + 'k';
+                            },
+                            style: {
+                                fontWeight: 'bold'
+                            }
+                        },
+                        pointPadding: 0
+                    }]
                 });
+
+
             });
         });
     }]);
