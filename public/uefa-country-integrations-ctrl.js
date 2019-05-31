@@ -4,207 +4,141 @@ angular
         console.log("Integrations Controller initialized");
 
         /////////////////////APIs Compañeros SOS/////////////////////
-        ///API Country Stats
-        $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response) {
+        ///API Companies
+        $http.get("https://sos1819-03.herokuapp.com/api/v1/companies/").then(function(response) {
             $scope.SOS1s = response.data;
         });
 
 
-        //API Biofuels-production
-        $http.get("https://sos1819-10.herokuapp.com/api/v2/biofuels-production").then(function(response) {
+        //API Suicide-rates
+        $http.get("https://sos1819-04.herokuapp.com/api/v1/suicide-rates").then(function(response) {
             $scope.SOS2s = response.data;
         });
 
+        ///API expenses-of-countries-in-education-and-culture
+        $http.get("https://sos1819-08.herokuapp.com/api/v1/expenses-of-countries-in-education-and-culture").then(function(response) {
+            $scope.SOS3s = response.data;
+        });
 
-        //API Transfer-stats
-        $http.get("/api/v1/uefa-club-rankings").then(function(responseClub) {
-            $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
-                var response = [];
-                var dataAll = [];
+        ///API scorers-stats
+        $http.get("https://sos1819-02.herokuapp.com/api/v1/scorers-stats").then(function(response) {
+            $scope.SOS4s = response.data;
+        });
+
+        ///API Elements
+        //$http.get("https://sos1819-14.herokuapp.com/api/v1/scorers-stats").then(function(response) {
+        //    $scope.SOS5s = response.data;
+        // });
+
+        //API Uefa-club Integraction
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings").then(function(responseClub) {
+            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
+                var datos = [];
+
                 for (var i in responseClub.data) {
-                    response.push("Uefa Club: " + responseClub.data.map(function(d) { return d["team"] + " " + d["season"] })[i]);
-                    dataAll.push(responseClub.data.map(function(d) { return d["points"] })[i]);
+                    var dato = {
+                        name: "Uefa Club: " + responseClub.data.map(function(d) { return d["team"] + " " + d["season"] })[i],
+                        y: responseClub.data.map(function(d) { return d["points"] })[i]
+                    };
+                    datos.push(dato);
                 }
-                for (var i in responseTransfer.data) {
-                    response.push("Transfer-stats: " + responseTransfer.data.map(function(d) { return d["team"] + " " + d["season"] })[i])
-                    dataAll.push(responseTransfer.data.map(function(d) { return d["moneyspent"] })[i]);
+
+                for (var i in responseCountry.data) {
+                    var dato1 = {
+                        name: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
+                        y: responseCountry.data.map(function(d) { return d["points"] })[i]
+                    };
+                    datos.push(dato1);
                 }
-                console.log(response)
-                console.log(dataAll)
-                var chart = new Highcharts.Chart({
+                console.log(datos)
+
+                Highcharts.chart('clubRanking', {
                     chart: {
-                        renderTo: 'transferStats',
-                        type: 'column',
-                        options3d: {
-                            enabled: true,
-                            alpha: 15,
-                            beta: 15,
-                            depth: 50,
-                            viewDistance: 25
-                        }
+                        plotBackgroundColor: null,
+                        plotBorderWidth: 0,
+                        plotShadow: false
                     },
                     title: {
-                        text: 'Transfer Stats y Uefa Club Rankings'
+                        text: '<br>Points<br>',
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        y: 40
                     },
-                    xAxis: {
-                        categories: response
-                    },
-                    yAxis: {
-                        title: { text: null }
-                    },
-
-                    subtitle: {
-                        text: 'Source: uefa.com'
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.y}</b>'
                     },
                     plotOptions: {
-                        column: {
-                            depth: 25
+                        pie: {
+                            dataLabels: {
+                                enabled: true,
+                                distance: -50,
+                                style: {
+                                    fontWeight: 'bold',
+                                    color: 'white'
+                                }
+                            },
+                            startAngle: -90,
+                            endAngle: 90,
+                            center: ['50%', '75%'],
+                            size: '110%'
                         }
                     },
                     series: [{
-                        name: "Points and money spent",
-                        data: dataAll
+                        type: 'pie',
+                        name: 'Points',
+                        innerSize: '50%',
+                        data: datos
                     }]
                 });
 
-                function showValues() {
-                    $('#alpha-value').html(chart.options.chart.options3d.alpha);
-                    $('#beta-value').html(chart.options.chart.options3d.beta);
-                    $('#depth-value').html(chart.options.chart.options3d.depth);
-                }
-
-                // Activate the sliders
-                $('#sliders input').on('input change', function() {
-                    chart.options.chart.options3d[this.id] = parseFloat(this.value);
-                    showValues();
-                    chart.redraw(false);
-                });
-
-                showValues();
             });
         });
 
-
-        ///API Beer-consumed-stats
-        $http.get("https://sos1819-04.herokuapp.com/api/v1/beer-consumed-stats").then(function(response) {
-            $scope.SOS4s = response.data;
-        });
-        
-        
-        ///API Beer-consumed-stats
-        $http.get("https://sos1819-02.herokuapp.com/api/v1/companies-stats/").then(function(response) {
-            $scope.SOS5s = response.data;
-        });
-        
-        
-        ///API Beer-consumed-stats
-        $http.get("https://sos1819-14.herokuapp.com/api/v1/deceaseds").then(function(response) {
-            $scope.SOS6s = response.data;
-        });
-        
-        
-        ///API public-expenditure-education
-        $http.get("https://sos1819-11.herokuapp.com/api/v2/public-expenditure-educations").then(function(response) {
+        ///API e-car-statics
+        $http.get("https://sos1819-10.herokuapp.com/api/v1/e-car-statics").then(function(response) {
             $scope.SOS7s = response.data;
         });
-        
-        
-         ///API tourist-by-contries
-        $http.get("https://sos1819-08.herokuapp.com/api/v1/tourists-by-countries/").then(function(response) {
+
+
+        ///API populationstats
+        $http.get("https://sos1819-09.herokuapp.com/api/v1/populationstats").then(function(response) {
             $scope.SOS8s = response.data;
         });
-        
-
 
         /////////////////////APIs Externas/////////////////////
-        //Api externa 1
+        //API EXTERNA 1
+        var datos2 = [];
+        $http.get("https://restcountries.eu/rest/v2/region/europe").then(function(response) {
+            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
+                for (var i = 0; i < 5; i++) {
 
-        $http.get("https://swapi.co/api/starships/").then(function(responseStarships) {
-            $http.get("/api/v1/uefa-club-rankings").then(function(responseUefa) {
-
-                var ejex = [];
-                for (var i in responseUefa.data) {
-                    ejex.push(responseUefa.data.map(function(d) { return d["team"] })[i] + " " + responseUefa.data.map(function(d) { return d["season"] })[i]);
+                    var dato2 = {
+                        country: response.data[i].name,
+                        PopulationOrPoints: response.data[i].population
+                    };
+                    datos2.push(dato2);
                 }
-                var datos = responseStarships.data.results;
+                for (var i in responseCountry.data) {
+                    var dato1 = {
+                        country: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
+                        PopulationOrPoints: responseCountry.data.map(function(d) { return d["points"] })[i]
+                    };
+                    datos2.push(dato1);
+                }
+                console.log(datos2);
 
-                var Integration1 = {
-                    "type": "radar",
-                    "plot": {
-                        "value-box": {
-                            "text": "%v"
-                        },
-                        "tooltip": {
-                            "text": "50%v"
-                        }
-                    },
-                    "legend": {
-                        "toggle-action": "hide",
-                        "header": {
-                            "text": "Legend Header"
-                        },
-                        "item": {
-                            "cursor": "pointer"
-                        },
-                        "draggable": true,
-                        "drag-handler": "icon"
-                    },
-                    "series": [{
-                        "values": [datos[0].name,
-                            datos[1].name,
-                            datos[2].name,
-                            datos[3].name,
-                            datos[4].name,
-                            datos[5].name,
-                            datos[6].name,
-                            datos[7].name,
-                            datos[8].name,
-                        ],
-                        "text": "Name"
-                    }, {
-                        "values": [datos[0].length,
-                            datos[1].length,
-                            datos[2].length,
-                            datos[3].length,
-                            datos[4].length,
-                            datos[5].length,
-                            datos[6].length,
-                            datos[7].length,
-                            datos[8].length,
-                        ],
-                        "text": "Length"
-                    }, {
-                        "values": [responseUefa.data[0].team,
-                            responseUefa.data[1].team,
-                            responseUefa.data[2].team,
-                            responseUefa.data[3].team,
-                            responseUefa.data[4].team,
-                            responseUefa.data[5].team,
-                            responseUefa.data[6].team,
-                            responseUefa.data[7].team,
-                            responseUefa.data[8].team,
-                        ],
-                        "text": "Team"
-                    }, {
-                        "values": [responseUefa.data[0].points / 10000,
-                            responseUefa.data[1].points / 10000,
-                            responseUefa.data[2].points / 10000,
-                            responseUefa.data[3].points / 10000,
-                            responseUefa.data[4].points / 10000,
-                            responseUefa.data[5].points / 10000,
-                            responseUefa.data[6].points / 10000,
-                            responseUefa.data[7].points / 10000,
-                            responseUefa.data[8].points / 10000,
-                        ],
-                        "text": "Points/10000"
-                    }]
-                };
-                zingchart.render({
-                    id: "ExternalIntegration1",
-                    data: Integration1,
-                    height: "1000",
-                    width: "100%"
+                var chart = new Taucharts.Chart({
+                    data: datos2,
+                    type: 'scatterplot',
+                    x: 'country',
+                    y: 'PopulationOrPoints',
+                    color: 'country',
+                    size: 'PopulationOrPoints',
+                    plugins: [Taucharts.api.plugins.get('tooltip')(), Taucharts.api.plugins.get('legend')()]
                 });
+                chart.renderTo('#externa1');
+
+
             });
         });
 
