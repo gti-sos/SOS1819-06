@@ -6,7 +6,46 @@ angular
         /////////////////////APIs Compañeros SOS/////////////////////
         ///API Companies
         $http.get("https://sos1819-03.herokuapp.com/api/v1/companies/").then(function(response) {
-            $scope.SOS1s = response.data;
+            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response2) {
+                var coun;
+                var countries = [];
+                var companies = [];
+                var points = [];
+                var googleChartData = [
+                    ["Country", "Companies", "Uefa Points"]
+                ];
+                for (var i in response.data) {
+                    for (var j in response2.data) {
+                        if ((response.data[i].country == response2.data[j].country)&& !countries.includes(response.data[i].country)&& !countries.includes(response2.data[j].country)) {
+                            coun = response.data[i].country;
+                            countries.push(coun);
+                            if (coun == "England" || coun == "Scotland" || coun == "Wales" || coun == "Northern Ireland") {
+                                coun = "United Kingdom";
+                            }
+                            companies = response.data[i].numberOfCompanies;
+                            points = response2.data[j].points;
+                            googleChartData.push([coun, companies,points]);
+                        }
+                        
+                    }
+
+                }
+                google.charts.load("current", { packages: ["corechart"] });
+                google.charts.setOnLoadCallback(drawChart);
+                console.log(googleChartData);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(googleChartData);
+
+                    var options = {
+                        title: 'Uefa',
+                        legend: { position: 'none' },
+                    };
+
+                    var chart = new google.visualization.Histogram(document.getElementById('companies'));
+                    chart.draw(data, options);
+                }
+            });
         });
 
 
@@ -26,7 +65,7 @@ angular
         });
 
         ///API Elements
-        //$http.get("https://sos1819-14.herokuapp.com/api/v1/scorers-stats").then(function(response) {
+        //$http.get("https://sos1819-14.herokuapp.com/api/v1/elements").then(function(response) {
         //    $scope.SOS5s = response.data;
         // });
 
@@ -168,16 +207,16 @@ angular
                 for (var i in responseCountry.data) {
 
                     var dato3 = {
-                       name: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
-                       y: responseCountry.data.map(function(d) { return d["points"] })[i]
+                        name: "Uefa Country: " + responseCountry.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
+                        y: responseCountry.data.map(function(d) { return d["points"] })[i]
                     };
                     datos3.push(dato3);
                 }
                 for (var i in responseCountry.data) {
 
                     var dato4 = {
-                       name: response.data.releases[i].title,
-                       y: response.data.releases[i].id
+                        name: response.data.releases[i].title,
+                        y: response.data.releases[i].id
                     };
                     datos3.push(dato4);
                 }

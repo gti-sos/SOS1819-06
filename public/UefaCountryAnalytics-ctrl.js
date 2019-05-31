@@ -60,7 +60,7 @@ angular
 
             //GOOGLE CHARTS
             var coun;
-            var points = [];
+            var teams = [];
             var googleChartData = [
                 ["Country", "Teams"]
             ];
@@ -70,8 +70,8 @@ angular
                 if (coun == "England" || coun == "Scotland" || coun == "Wales" || coun == "Northern Ireland") {
                     coun = "United Kingdom";
                 }
-                points = response.data[i].teams;
-                googleChartData.push([coun, points]);
+                teams = response.data[i].teams;
+                googleChartData.push([coun, teams]);
             }
             console.log(googleChartData);
             google.charts.load('current', {
