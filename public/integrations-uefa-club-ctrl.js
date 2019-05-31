@@ -2,23 +2,56 @@ angular
     .module("ManagerApp")
     .controller("integrations-uefa-club-ctrl", ["$scope", "$http", function($scope, $http) {
         console.log("Integrations Controller initialized");
+        var apiBio = "/proxyBiofuelsProduction";
 
         /////////////////////APIs Compañeros SOS/////////////////////
         ///API Country Stats
-        $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response) {
-            $scope.SOS1s = response.data;
+        $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response2) {
+            var coun;
+            var population = [];
+            var googleChartData = [
+                ["Region", "Population"]
+            ];
+            for (var i = 0; i < response2.data.length; i++) {
+                if (response2.data[i].year == 2017) {
+                    coun = response2.data[i].country;
+                    population = response2.data[i].population;
+                    googleChartData.push([coun, population]);
+                }
+            }
+            console.log(googleChartData);
+
+            google.charts.load('current', {
+                'packages': ['geochart'],
+                'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+            });
+            google.charts.setOnLoadCallback(drawRegionsMap);
+
+
+            function drawRegionsMap() {
+                var data = google.visualization.arrayToDataTable(googleChartData);
+                var options = {
+                    colorAxis: {
+                        minValue: 0,
+                        maxValue: 10
+                    }
+                };
+                var chart = new google.visualization.GeoChart(document.getElementById('countryStatsMap'));
+                chart.draw(data, options);
+            }
         });
 
 
         //API Biofuels-production
-        $http.get("https://sos1819-10.herokuapp.com/api/v2/biofuels-production").then(function(response) {
+        $http.get(apiBio).then(function(response) {
             $scope.SOS2s = response.data;
         });
+        
 
 
         //API Transfer-stats
         $http.get("/api/v1/uefa-club-rankings").then(function(responseClub) {
-            $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+            $http.get("https://sos1819-06.herokuapp.com/api/v1/transfer-stats").then(function(responseTransfer) {
                 var response = [];
                 var dataAll = [];
                 for (var i in responseClub.data) {
@@ -89,31 +122,48 @@ angular
         $http.get("https://sos1819-04.herokuapp.com/api/v1/beer-consumed-stats").then(function(response) {
             $scope.SOS4s = response.data;
         });
-        
-        
-        ///API Beer-consumed-stats
+
+
+        ///API Companies-stats
         $http.get("https://sos1819-02.herokuapp.com/api/v1/companies-stats/").then(function(response) {
-            $scope.SOS5s = response.data;
+            var datos = [];
+            for (var i in response.data) {
+                var dato = {
+                    y: response.data.map(function(d) { return d["company"] })[i] + " " + response.data.map(function(d) { return d["year"] })[i],
+                    a: response.data.map(function(d) { return d["employee"] })[i]
+                };
+                datos.push(dato);
+            }
+            console.log(datos);
+
+            new Morris.Bar({
+                element: 'CompaniesStats',
+
+                data: datos,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Series A', 'Series B']
+            });
         });
-        
-        
-        ///API Beer-consumed-stats
+
+
+        ///API Deceaseds
         $http.get("https://sos1819-14.herokuapp.com/api/v1/deceaseds").then(function(response) {
             $scope.SOS6s = response.data;
         });
-        
-        
+
+
         ///API public-expenditure-education
         $http.get("https://sos1819-11.herokuapp.com/api/v2/public-expenditure-educations").then(function(response) {
             $scope.SOS7s = response.data;
         });
-        
-        
-         ///API tourist-by-contries
+
+
+        ///API tourist-by-contries
         $http.get("https://sos1819-08.herokuapp.com/api/v1/tourists-by-countries/").then(function(response) {
             $scope.SOS8s = response.data;
         });
-        
+
 
 
         /////////////////////APIs Externas/////////////////////
