@@ -5,7 +5,7 @@ angular
 
         /////////////////////APIs Compañeros SOS/////////////////////
         ///API Country Stats
-        $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response) {
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings/").then(function(response) {
             $scope.SOS1s = response.data;
         });
 
