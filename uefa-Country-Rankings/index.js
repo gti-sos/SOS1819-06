@@ -1,8 +1,8 @@
 var BASE_PATH = "/api/v1";
-
+console.log("e")
 module.exports = {
     register: function(app, uefaCountryRankings) {
-        
+console.log("f");   
         // GET REDIRECT 
 
         app.get(BASE_PATH + "/uefa-country-rankings/docs", (req, res) => {
@@ -189,7 +189,7 @@ module.exports = {
         // POST /api/v1/uefa-country-rankings
 
         app.post(BASE_PATH + "/uefa-country-rankings", (req, res) => {
-
+console.log("g");
             var newUefaCountryRankings = req.body;
 
             if (Object.keys(newUefaCountryRankings).length > 5 || !newUefaCountryRankings.country 
@@ -206,7 +206,7 @@ module.exports = {
                 res.sendStatus(400);
                 return;
             }
-
+console.log("h");
             uefaCountryRankings.find({ "country": newUefaCountryRankings["country"], "season": parseInt(newUefaCountryRankings["season"], 10), }).toArray((err, newUefaCountryRankingsArray) => {
                 if (err) {
                     console.error("Error accesing DB");
@@ -218,15 +218,17 @@ module.exports = {
                     res.sendStatus(409);
                     return;
                 }
+//console.log("i");
                 else {
                     uefaCountryRankings.insert(newUefaCountryRankings);
+console.log("j");
                     res.sendStatus(201);
                 }
-
+console.log("k");
             });
-
+console.log("l");
         });
-
+console.log("m");
 
         // DELETE /api/v1/uefa-country-rankings
 
