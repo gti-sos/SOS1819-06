@@ -56,8 +56,9 @@
                 }).when("/integrations-transfer-stats",{
                         controller: "integrations-transfer-stats-ctrl",
                         templateUrl: "integrations-transfer-stats.html"
-                })
-                ;
+                }).when("/about",{
+                        templateUrl: "about.html"
+                });
         });
 
     console.log("Manager App Initialized.");
