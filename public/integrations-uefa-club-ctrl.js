@@ -2,7 +2,6 @@ angular
     .module("ManagerApp")
     .controller("integrations-uefa-club-ctrl", ["$scope", "$http", function($scope, $http) {
         console.log("Integrations Controller initialized");
-        var apiBio = "/proxyBiofuelsProduction";
 
         /////////////////////APIs Compañeros SOS/////////////////////
         ///API Country Stats
@@ -42,8 +41,9 @@ angular
         });
 
 
-        //API Biofuels-production
-        $http.get(apiBio).then(function(response) {
+        //API Biofuels-production con Proxy
+        var proxyAPI = "/proxyBiofuels";
+        $http.get(proxyAPI).then(function(response) {
             $scope.SOS2s = response.data;
         });
         

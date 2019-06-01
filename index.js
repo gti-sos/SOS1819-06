@@ -22,7 +22,15 @@ app.use(pathPopulation, function(req, res) {
   console.log('piped: '+remoteAPIPopulation);
   req.pipe(request(remoteAPIPopulation)).pipe(res);
 });
-///////////////////////////////////////////////////////
+
+/////////////////PROXY JAVIER BIOFUELS//////////////////
+var pathBiofuels ="/proxyBiofuels";
+var remoteAPIBiofuels ="https://sos1819-10.herokuapp.com/api/v2/biofuels-production";
+app.use(pathBiofuels, function(req, res) {
+  console.log('piped: '+ remoteAPIBiofuels);
+  req.pipe(request(remoteAPIBiofuels)).pipe(res);
+});
+
 
 
 
