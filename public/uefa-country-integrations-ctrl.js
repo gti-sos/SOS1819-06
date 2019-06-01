@@ -92,10 +92,10 @@ angular
             });
         });
 
-        ///API Elements
-        //$http.get("https://sos1819-14.herokuapp.com/api/v1/elements").then(function(response) {
-        //    $scope.SOS5s = response.data;
-        // });
+        //API Elements
+        $http.get("https://sos1819acp-feedbacks-sos1819acp.c9users.io/api/v1/elements").then(function(response) {
+            $scope.SOS5s = response.data;
+         });
 
         //API Uefa-club Integraction
         $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings").then(function(responseClub) {
