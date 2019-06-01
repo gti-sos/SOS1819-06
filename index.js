@@ -38,6 +38,13 @@ app.use(pathHappiness, function(req, res) {
   console.log('piped: '+remoteAPIHappiness);
   req.pipe(request(remoteAPIHappiness)).pipe(res);
 });
+
+var pathSports="/proxySports";
+var remoteAPISports="https://sos1819-15.herokuapp.com/api/v1/sports-competitions";
+app.use(pathSports, function(req, res) {
+  console.log('piped: '+remoteAPISports);
+  req.pipe(request(remoteAPISports)).pipe(res);
+});
 /*
 var pathPollution="/proxyPollution";
 var remoteAPIPollution="https://sos1819-12.herokuapp.com/api/v1/pollution-stats";

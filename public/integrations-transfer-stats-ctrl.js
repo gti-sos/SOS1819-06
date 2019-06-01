@@ -25,7 +25,8 @@ angular
         });
         
         //INTEGRACION SOS 4 (G15-sports-competitions)
-        $http.get("https://sos1819-15.herokuapp.com/api/v1/sports-competitions").then(function(response) {
+        var proxyAPISports = "/proxySports";
+        $http.get(proxyAPISports).then(function(response) {
             $scope.SOS4s = response.data;
         });
         
@@ -44,11 +45,11 @@ angular
             $scope.SOS7s = response.data;
         });
         
-        //INTEGRACION SOS 8 (G12-pollution-stats)
+        /*//INTEGRACION SOS 8 (G12-pollution-stats)
         var proxyAPI = "/proxyPollution";
         $http.get(proxyAPI).then(function(response){
             $scope.SOS8s = response.data;
-        });
+        });*/
         
     
         
