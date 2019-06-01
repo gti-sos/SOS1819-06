@@ -38,7 +38,7 @@ angular
                     var data = google.visualization.arrayToDataTable(googleChartData);
 
                     var options = {
-                        title: 'Uefa',
+                        title: 'Uefa Points and Companies',
                         legend: { position: 'none' },
                     };
 
