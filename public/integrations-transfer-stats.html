@@ -67,6 +67,27 @@
 </div>
 <hr>
 
+<h3 align="center">Uso API SOS 4 - G15-competitions-stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID del evento</th>
+                <th>Año</th>
+                <th>Centro escolar en el que se celebra el evento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS4 in SOS4s">
+                <td>{{SOS4.id}}</td>
+                <td>{{SOS4.year}}</td>
+                <td>{{SOS4.schoolcenter}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
 <h3 align="center">Integración con API Externa 1 - Meals</h3>
 
 <div id="APIExterna"></div>

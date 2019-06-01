@@ -24,9 +24,9 @@ angular
             $scope.SOS3s = response.data;
         });
         
-        //INTEGRACION SOS 4
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
-            $scope.SOS1s = response.data;
+        //INTEGRACION SOS 4 (G15-sports-competitions)
+        $http.get("https://sos1819-15.herokuapp.com/api/v1/sports-competitions").then(function(response) {
+            $scope.SOS4s = response.data;
         });
         
         //INTEGRACION SOS 1
