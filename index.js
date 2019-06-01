@@ -15,14 +15,14 @@ var port = process.env.PORT || 8080;
 
 app.use("/", express.static(__dirname + "/public"));
 
-//PROXY JESÚS POPULATION
+/////////////////PROXY JESÚS POPULATION//////////////////
 var pathPopulation="/proxyPopulation";
 var remoteAPIPopulation="https://sos1819-09.herokuapp.com/api/v1/populationstats";
 app.use(pathPopulation, function(req, res) {
   console.log('piped: '+remoteAPIPopulation);
   req.pipe(request(remoteAPIPopulation)).pipe(res);
 });
-
+///////////////////////////////////////////////////////
 
 
 
