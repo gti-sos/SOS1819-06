@@ -333,7 +333,6 @@ angular
         });
         
         //INTEGRACION APIP EXTERNA WEATHER
-         //$http.get("https://api.openweathermap.org/data/2.5/weather?q=Seville&appid=a58c838b9e41e87a40337f6e0b5ebc10").then(function(responseExt) {
         $http.get("https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=3a65e0fea1f79cac5d4a6e3e5d94ef3d").then(function(responseExt) {     
             $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
                 //var cat = responseTransfer.data[0].team;
@@ -360,7 +359,7 @@ angular
                         type: 'area'
                     },
                     title: {
-                        text: 'Number of farewells and temperature'
+                        text: 'Number of farewells and humidity'
                     },
                     
                     xAxis: {
