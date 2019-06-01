@@ -81,7 +81,91 @@
             <tr ng-repeat="SOS4 in SOS4s">
                 <td>{{SOS4.id}}</td>
                 <td>{{SOS4.year}}</td>
-                <td>{{SOS4.schoolcenter}}</td>
+                <td>{{SOS4.day}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
+<h3 align="center">Uso API SOS 5 - G09-climate-stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Niveles de CO2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS5 in SOS5s">
+                <td>{{SOS5.country}}</td>
+                <td>{{SOS5.year}}</td>
+                <td>{{SOS5.co2_stats}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
+<h3 align="center">Uso API SOS 6 - G03-computers-attacks-stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Ataque</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS6 in SOS6s">
+                <td>{{SOS6.country}}</td>
+                <td>{{SOS6.year}}</td>
+                <td>{{SOS6.attacktype}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
+<h3 align="center">Uso API SOS 7 - G11-general-public-expenses</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Gasto Público</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS7 in SOS7s">
+                <td>{{SOS7.country}}</td>
+                <td>{{SOS7.year}}</td>
+                <td>{{SOS7.publicSpending}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
+<h3 align="center">Uso API SOS 8 - G12-pollution-stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Gasto Público</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS8 in SOS8s">
+                <td>{{SOS8.country}}</td>
+                <td>{{SOS8.year}}</td>
+                <td>{{SOS8.pollution_tco2}}</td>
             </tr>
          </tbody>
     </table>

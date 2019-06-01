@@ -38,6 +38,13 @@ app.use(pathHappiness, function(req, res) {
   console.log('piped: '+remoteAPIHappiness);
   req.pipe(request(remoteAPIHappiness)).pipe(res);
 });
+/*
+var pathPollution="/proxyPollution";
+var remoteAPIPollution="https://sos1819-12.herokuapp.com/api/v1/pollution-stats";
+app.use(pathPollution, function(req, res) {
+  console.log('piped: '+remoteAPIPollution);
+  req.pipe(request(remoteAPIPollution)).pipe(res);
+});*/
 
 
 

@@ -29,25 +29,28 @@ angular
             $scope.SOS4s = response.data;
         });
         
-        //INTEGRACION SOS 1
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
-            $scope.SOS1s = response.data;
+        //INTEGRACION SOS 5 (G09-climate-stats)
+        $http.get("https://sos1819-09.herokuapp.com/api/v2/climate-stats").then(function(response) {
+            $scope.SOS5s = response.data;
         });
         
-        //INTEGRACION SOS 1
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
-            $scope.SOS1s = response.data;
+        //INTEGRACION SOS 6 (G03-computers-attacks-stats)
+        $http.get("https://sos1819-03.herokuapp.com/api/v1/computers-attacks-stats").then(function(response) {
+            $scope.SOS6s = response.data;
         });
         
-        //INTEGRACION SOS 1
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
-            $scope.SOS1s = response.data;
+        //INTEGRACION SOS 7 (G11-general-public-expenses)
+        $http.get("https://sos1819-11.herokuapp.com/api/v1/general-public-expenses").then(function(response) {
+            $scope.SOS7s = response.data;
         });
         
-        //INTEGRACION SOS 1
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
-            $scope.SOS1s = response.data;
+        //INTEGRACION SOS 8 (G12-pollution-stats)
+        var proxyAPI = "/proxyPollution";
+        $http.get(proxyAPI).then(function(response){
+            $scope.SOS8s = response.data;
         });
+        
+    
         
         
         //INTEGRACION CON API EXTERNA 1 (LIGAS DE FUTBOL)
