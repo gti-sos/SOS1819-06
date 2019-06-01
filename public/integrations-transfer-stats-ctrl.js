@@ -6,6 +6,41 @@ angular
         console.log("Integrations Controller initialized");
         
         
+        //INTEGRACION SOS 1 (G06-uefa-country-rankings)
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
+        //INTEGRACION SOS 2 (G10-issue-dioxid)
+        $http.get("https://sos1819-10.herokuapp.com/api/v2/issue-dioxid").then(function(response) {
+            $scope.SOS2s = response.data;
+        });
+        
+        //INTEGRACION SOS 1
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
+        //INTEGRACION SOS 1
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
+        //INTEGRACION SOS 1
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
+        //INTEGRACION SOS 1
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
+        //INTEGRACION SOS 1
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
         //INTEGRACION SOS 1
         $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
             $scope.SOS1s = response.data;
