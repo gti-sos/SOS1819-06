@@ -1,18 +1,61 @@
 <link rel="stylesheet" href="/bower_components/chartist/dist/chartist.min.css">
 
-
 <h1>Integrations Transfer Stats</h1>
 <hr><hr>
-<h5>Transfer Stats & Meals</h5>
+
+
+<h3 align="center">Uso API SOS 1 - G06-uefa-club-rankings</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Temporada</th>
+                <th>Puntos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS1 in SOS1s">
+                <td>{{SOS1.country}}</td>
+                <td>{{SOS1.season}}</td>
+                <td>{{SOS1.points}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
+<h3 align="center">Uso API SOS 2 - G10-issue-dioxid</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Contaminación por combustibles líquidos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS2 in SOS2s">
+                <td>{{SOS2.country}}</td>
+                <td>{{SOS2.year}}</td>
+                <td>{{SOS2.issue_liquid_fuel}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
+<h3 align="center">Integración con API Externa 1 - Meals</h3>
 
 <div id="APIExterna"></div>
 
 <hr><hr>
-<h5>Transfer Stats & No se</h5>
+<h3 align="center">Integración con API Externa 2 - TVSeries</h3>
 
 <div id="APIExterna2"></div>
 
 <hr><hr>
-<h5>Transfer Stats & futbol</h5>
+<h3 align="center">Integración con API Externa 3 - Soccer</h3>
 
-<div id="#chartExt"></div>
+<div id="chartExt"></div>
