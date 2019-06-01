@@ -16,7 +16,7 @@ angular
                 ];
                 for (var i in response.data) {
                     for (var j in response2.data) {
-                        if ((response.data[i].country == response2.data[j].country)&& !countries.includes(response.data[i].country)&& !countries.includes(response2.data[j].country)) {
+                        if ((response.data[i].country == response2.data[j].country) && !countries.includes(response.data[i].country) && !countries.includes(response2.data[j].country)) {
                             coun = response.data[i].country;
                             countries.push(coun);
                             if (coun == "England" || coun == "Scotland" || coun == "Wales" || coun == "Northern Ireland") {
@@ -24,9 +24,9 @@ angular
                             }
                             companies = response.data[i].numberOfCompanies;
                             points = response2.data[j].points;
-                            googleChartData.push([coun, companies,points]);
+                            googleChartData.push([coun, companies, points]);
                         }
-                        
+
                     }
 
                 }
@@ -59,9 +59,37 @@ angular
             $scope.SOS3s = response.data;
         });
 
-        ///API scorers-stats
+        ///API scorers-stats & uefa country
         $http.get("https://sos1819-02.herokuapp.com/api/v1/scorers-stats").then(function(response) {
-            $scope.SOS4s = response.data;
+            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response2) {
+                var datosSU=[];
+                for (var i in response2.data) {
+                    var datoSU = {
+                        name: "Scorers: " + response.data.map(function(d) { return d["name"]})[i],
+                        data: response.data.map(function(d) { return d["scorergoal"]})[i]
+                    };
+                    datosSU.push(datoSU);
+                }
+                
+                for (var i in response2.data) {
+                    var datoSU1 = {
+                        name: "Uefa Country: " + response2.data.map(function(d) { return d["country"]+" "+d["season"]})[i],
+                        data: response2.data.map(function(d) { return d["points"] })[i]
+                    };
+                    datosSU.push(datoSU1);
+                }
+
+                var chartSC = new Taucharts.Chart({
+                       data: datosSU,
+                       type: 'scatterplot',
+                        x: 'name',
+                        y: 'data',
+                        color: 'name',
+                        size: 'data',
+                        plugins: [Taucharts.api.plugins.get('tooltip')(), Taucharts.api.plugins.get('legend')()]
+                    });
+                    chartSC.renderTo('#scorers');
+            });
         });
 
         ///API Elements
@@ -165,17 +193,6 @@ angular
                     datos2.push(dato1);
                 }
                 console.log(datos2);
-
-                /*var chart = new Taucharts.Chart({
-                    data: datos2,
-                   type: 'scatterplot',
-                   x: 'country',
-                    y: 'PopulationOrPoints',
-                    color: 'country',
-                    size: 'PopulationOrPoints',
-                    plugins: [Taucharts.api.plugins.get('tooltip')(), Taucharts.api.plugins.get('legend')()]
-                });
-                chart.renderTo('#externa1');*/
 
                 var chart = new CanvasJS.Chart("externa1", {
                     animationEnabled: true,
