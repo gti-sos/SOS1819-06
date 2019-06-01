@@ -5,39 +5,49 @@ angular
 
         /////////////////////APIs Compañeros SOS/////////////////////
         ///API Country Stats
-        $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response2) {
-            var coun;
-            var population = [];
-            var googleChartData = [
-                ["Region", "Population"]
-            ];
-            for (var i = 0; i < response2.data.length; i++) {
-                if (response2.data[i].year == 2017) {
-                    coun = response2.data[i].country;
-                    population = response2.data[i].population;
-                    googleChartData.push([coun, population]);
-                }
-            }
-            console.log(googleChartData);
-
-            google.charts.load('current', {
-                'packages': ['geochart'],
-                'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-            });
-            google.charts.setOnLoadCallback(drawRegionsMap);
-
-
-            function drawRegionsMap() {
-                var data = google.visualization.arrayToDataTable(googleChartData);
-                var options = {
-                    colorAxis: {
-                        minValue: 0,
-                        maxValue: 10
+        $http.get("/api/v1/uefa-club-rankings/").then(function(response) {
+            $http.get("https://sos1819-03.herokuapp.com/api/v1/country-stats/").then(function(response2) {
+                var coun;
+                var population = [];
+                var points = [];
+                var googleChartData = [
+                    ["Region", "Population", "Points"]
+                ];
+                for (var i = 0; i < response2.data.length; i++) {
+                    if (response2.data[i].year == 2017) {
+                        coun = response2.data[i].country;
+                        population = response2.data[i].population;
+                        for (var j = 0; j < response.data.length; j++) {
+                            if (response.data[j].season == 2017) {
+                                if (response2.data[i].country == response.data[j].country) {
+                                    points = response.data[j].points;
+                                    googleChartData.push([coun, population, points]);
+                                }
+                            }
+                        }
                     }
-                };
-                var chart = new google.visualization.GeoChart(document.getElementById('countryStatsMap'));
-                chart.draw(data, options);
-            }
+                }
+                console.log(googleChartData);
+
+                google.charts.load('current', {
+                    'packages': ['geochart'],
+                    'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+                });
+                google.charts.setOnLoadCallback(drawRegionsMap);
+
+
+                function drawRegionsMap() {
+                    var data = google.visualization.arrayToDataTable(googleChartData);
+                    var options = {
+                        colorAxis: {
+                            minValue: 0,
+                            maxValue: 10
+                        }
+                    };
+                    var chart = new google.visualization.GeoChart(document.getElementById('countryStatsMap'));
+                    chart.draw(data, options);
+                }
+            });
         });
 
 
@@ -46,7 +56,7 @@ angular
         $http.get(proxyAPI).then(function(response) {
             $scope.SOS2s = response.data;
         });
-        
+
 
 
         //API Transfer-stats
