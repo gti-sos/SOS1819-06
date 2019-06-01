@@ -1,7 +1,7 @@
 <h1>Integrations Uefa-Country-Rankings</h1>
 <hr><hr>
 
-<h3>Uso API SOS 1 - Companies & Uefa Country</h3>
+<h3>Integration API SOS 1 - Companies & Uefa Country</h3>
 <div id="companies"></div>
 <hr> 
 
@@ -57,35 +57,37 @@
 <hr> 
 
 
-<h3>Uso API SOS 4 - Scorers-stats & Uefa Country Points</h3>
+<h3>Integration API SOS 4 - Scorers-stats & Uefa Country Points</h3>
 <div id="scorers"></div>
 <hr> 
 
-<!-- <h3>Uso API SOS 5 - Elements</h3>
+<h3>Uso API SOS 5 - Elements</h3>
 <div>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>País</th>
+                <th>Provincia</th>
                 <th>Año</th>
-                <th>Gasto Educación</th>
-                <th>Gasto Educación (% Pub)</th>
+                <th>Víctimas</th>
+                <th>Heridos no hospitalizados en accidentes</th>
+                <th>Accidentes con victimas</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="SOS7 in SOS7s">
-                <td>{{SOS7.country}}</td>
-                <td>{{SOS7.year}}</td>
-                <td>{{SOS7.educationExpense}}</td>
-                <td>{{SOS7.educationExpensePub}}</td>
+            <tr ng-repeat="SOS5 in SOS5s">
+                <td>{{SOS5.province}}</td>
+                <td>{{SOS5.year}}</td>
+                <td>{{SOS5.victims}}</td>
+                <td>{{SOS5.injurednothospitalizedinaccidents}}</td>
+                <td>{{SOS5.accidentswithvictims}}</td>
             </tr>
          </tbody>
     </table>
 </div>
-<hr> -->
+<hr> 
 
 
-<h3>Integración API SOS 6 - Uefa Club & Uefa Country</h3>
+<h3>Integration API SOS 6 - Uefa Club & Uefa Country</h3>
 <div id="clubRanking"></div>
 
 <h3>Uso API SOS 7 - e-car-statics</h3>
