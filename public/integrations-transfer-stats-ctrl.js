@@ -341,86 +341,83 @@ angular
             });
         });
         
-        /*//INTEGRACION APIP EXTERNA WEATHER
+        //INTEGRACION APIP EXTERNA WEATHER
          //$http.get("https://api.openweathermap.org/data/2.5/weather?q=Seville&appid=a58c838b9e41e87a40337f6e0b5ebc10").then(function(responseExt) {
-        $http.get("https://api.openweathermap.org/data/2.5/weather?id=524901&appid=3a65e0fea1f79cac5d4a6e3e5d94ef3d").then(function(responseExt) {     
+        $http.get("https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=3a65e0fea1f79cac5d4a6e3e5d94ef3d").then(function(responseExt) {     
             $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
-                var cat = responseTransfer.data[0].team;
+                //var cat = responseTransfer.data[0].team;
                 var val = responseTransfer.data[0].numberofsignings;
-                var temp = responseExt.data["list"][0]["main"]["temp"];
-                console.log(temp);
-                Highcharts.chart('APIExterna4', {
+                var temp = responseExt.data["list"][0]["main"]["humidity"];
+                
+                var val2 = responseTransfer.data[1].numberofsignings;
+                var temp2 = responseExt.data["list"][1]["main"]["humidity"];
+                
+                var val3 = responseTransfer.data[2].numberofsignings;
+                var temp3 = responseExt.data["list"][2]["main"]["humidity"];
+                
+                var val4 = responseTransfer.data[3].numberofsignings;
+                var temp4 = responseExt.data["list"][3]["main"]["humidity"];
+                
+                var val5 = responseTransfer.data[4].numberofsignings;
+                var temp5 = responseExt.data["list"][4]["main"]["humidity"];
+                
+                var val6 = responseTransfer.data[5].numberofsignings;
+                var temp6 = responseExt.data["list"][5]["main"]["humidity"];
+                console.log(temp, temp2, temp3, temp4, temp5, temp6);
+                Highcharts.chart('APIExterna5', {
                     chart: {
-                        zoomType: 'xy'
+                        type: 'area'
                     },
                     title: {
-                        text: 'Average Monthly Temperature and Rainfall in Tokyo'
+                        text: 'Number of farewells and temperature'
                     },
-                    subtitle: {
-                        text: 'Source: WorldClimate.com'
-                    },
-                    xAxis: [{
-                        categories: [cat],
-                        crosshair: true
-                    }],
-                    yAxis: [{ // Primary yAxis
+                    
+                    xAxis: {
+                        allowDecimals: true,
                         labels: {
-                            format: '{value}°C',
-                            style: {
-                                color: Highcharts.getOptions().colors[1]
-                            }
-                        },
-                        title: {
-                            text: 'Temperature',
-                            style: {
-                                color: Highcharts.getOptions().colors[1]
+                            formatter: function () {
+                                return this.value; // clean, unformatted number for year
                             }
                         }
-                    }, { // Secondary yAxis
+                    },
+                    yAxis: {
                         title: {
-                            text: 'Rainfall',
-                            style: {
-                                color: Highcharts.getOptions().colors[0]
-                            }
+                            text: 'Nuclear weapon states'
                         },
                         labels: {
-                            format: '{value} mm',
-                            style: {
-                                color: Highcharts.getOptions().colors[0]
+                            formatter: function () {
+                                return this.value / 1000 + 'k';
                             }
-                        },
-                        opposite: true
-                    }],
-                    tooltip: {
-                        shared: true
+                        }
                     },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'left',
-                        x: 120,
-                        verticalAlign: 'top',
-                        y: 100,
-                        floating: true,
-                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
+                    tooltip: {
+                        pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                    },
+                    plotOptions: {
+                        area: {
+                            //pointStart: 1940,
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                radius: 2,
+                                states: {
+                                    hover: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
                     },
                     series: [{
-                        name: 'Rainfall',
-                        type: 'column',
-                        yAxis: 1,
-                        data: [val],
-                        tooltip: {
-                            valueSuffix: ' mm'
-                        }
-                
+                        name: 'USA',
+                        data: [
+                            val, val2, val3, val4, val5, val6
+                        ]
                     }, {
-                        name: 'Temperature',
-                        type: 'spline',
-                        data: [temp],
-                        tooltip: {
-                            valueSuffix: '°C'
-                        }
+                        name: 'USSR/Russia',
+                        data: [temp, temp2, temp3, temp4, temp5, temp6]
                     }]
                 });
             });
-         });*/
+         });
 }]);
