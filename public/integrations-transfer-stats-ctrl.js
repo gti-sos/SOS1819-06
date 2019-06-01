@@ -6,6 +6,12 @@ angular
         console.log("Integrations Controller initialized");
         
         
+        //INTEGRACION SOS 1
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings").then(function(response) {
+            $scope.SOS1s = response.data;
+        });
+        
+        //INTEGRACION CON API EXTERNA 1 (LIGAS DE FUTBOL)
         $http.get("https://soccer.sportsopendata.net/v1/leagues").then(function(responseExt) {
             $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
                 
@@ -52,6 +58,8 @@ angular
             });
         });
         
+        
+        //INTEGRACION API EXTERNA 2 (MENÚS DE COMIDA)
         $http.get("https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian").then(function(responseExt) {
             $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
 
@@ -123,6 +131,8 @@ angular
             });
         });
         
+        
+        //INTEGRACION CON API EXTERNA 3 (SERIES)
         $http.get("https://api.tvmaze.com/seasons/1/episodes").then(function(responseExt) {
             $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
 

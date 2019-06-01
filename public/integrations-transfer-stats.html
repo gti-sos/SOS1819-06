@@ -1,8 +1,30 @@
 <link rel="stylesheet" href="/bower_components/chartist/dist/chartist.min.css">
 
-
 <h1>Integrations Transfer Stats</h1>
 <hr><hr>
+
+
+<h3 align="center">Uso API SOS 1 - G06-uefa-club-rankings</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Temporada</th>
+                <th>Puntos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS1 in SOS1s">
+                <td>{{SOS1.country}}</td>
+                <td>{{SOS1.season}}</td>
+                <td>{{SOS1.points}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
 <h5>Transfer Stats & Meals</h5>
 
 <div id="APIExterna"></div>
