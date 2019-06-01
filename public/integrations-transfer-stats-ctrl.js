@@ -1,5 +1,7 @@
 //Api externa 1
 /*global Chartist*/
+/*global unirest*/
+/*global angular*/
 angular
     .module("ManagerApp")
     .controller("integrations-transfer-stats-ctrl", ["$scope", "$http", function($scope, $http) {
@@ -22,7 +24,7 @@ angular
             $scope.SOS3s = response.data;
         });
         
-        //INTEGRACION SOS 1
+        //INTEGRACION SOS 4
         $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
             $scope.SOS1s = response.data;
         });
@@ -46,6 +48,7 @@ angular
         $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
             $scope.SOS1s = response.data;
         });
+        
         
         //INTEGRACION CON API EXTERNA 1 (LIGAS DE FUTBOL)
         $http.get("https://soccer.sportsopendata.net/v1/leagues").then(function(responseExt) {
@@ -239,4 +242,185 @@ angular
                 });
             });
         });
+        
+        //INTEGRACION CON API EXTERNA INE
+        $http.get("https://servicios.ine.es/wstempus/js/ES/OPERACIONES_DISPONIBLES").then(function(responseExt) {
+            $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+                
+                var cat1 = responseTransfer.data[0].team+ " - " + responseExt.data[0]["Nombre"];
+                var val1 = responseTransfer.data[0].numberofsignings;
+                var data1 = responseExt.data[0]["Id"];
+                
+                var cat2 = responseTransfer.data[1].team+ " - " + responseExt.data[1]["Nombre"];
+                var val2 = responseTransfer.data[1].numberofsignings;
+                var data2 = responseExt.data[1]["Id"];
+                
+                var cat3 = responseTransfer.data[2].team + " - " + responseExt.data[2]["Nombre"];
+                var val3 = responseTransfer.data[2].numberofsignings;
+                var data3 = responseExt.data[2]["Id"];
+                
+                var cat4 = responseTransfer.data[3].team+ " - " + responseExt.data[3]["Nombre"];
+                var val4 = responseTransfer.data[3].numberofsignings;
+                var data4 = responseExt.data[3]["Id"];
+                
+                var cat5 = responseTransfer.data[4].team+ " - " + responseExt.data[4]["Nombre"];
+                var val5 = responseTransfer.data[4].numberofsignings;
+                var data5 = responseExt.data[4]["Id"];
+                
+                Highcharts.chart('APIExterna4', {
+                    chart: {
+                        zoomType: 'xy'
+                    },
+                    title: {
+                        text: ' '
+                    },
+                    subtitle: {
+                        text: ' '
+                    },
+                    xAxis: [{
+                        categories: [cat1, cat2, cat3, cat4, cat5],
+                        crosshair: true
+                    }],
+                    yAxis: [{ // Primary yAxis
+                        labels: {
+                            format: '{value}',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        },
+                        title: {
+                            text: 'ID',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        }
+                    }, { // Secondary yAxis
+                        title: {
+                            text: 'Number of signings',
+                            style: {
+                                color: Highcharts.getOptions().colors[0]
+                            }
+                        },
+                        labels: {
+                            format: '{value} players',
+                            style: {
+                                color: Highcharts.getOptions().colors[0]
+                            }
+                        },
+                        opposite: true
+                    }],
+                    tooltip: {
+                        shared: true
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'left',
+                        x: 120,
+                        verticalAlign: 'top',
+                        y: 100,
+                        floating: true,
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
+                    },
+                    series: [{
+                        name: 'Number of signings',
+                        type: 'column',
+                        yAxis: 1,
+                        data: [val1, val2, val3, val4, val5],
+                        tooltip: {
+                            valueSuffix: ' players'
+                        }
+                
+                    }, {
+                        name: 'ID',
+                        type: 'spline',
+                        data: [data1, data2, data3, data4, data5],
+                        tooltip: {
+                        }
+                    }]
+                });
+            });
+        });
+        
+        /*//INTEGRACION APIP EXTERNA WEATHER
+         //$http.get("https://api.openweathermap.org/data/2.5/weather?q=Seville&appid=a58c838b9e41e87a40337f6e0b5ebc10").then(function(responseExt) {
+        $http.get("https://api.openweathermap.org/data/2.5/weather?id=524901&appid=3a65e0fea1f79cac5d4a6e3e5d94ef3d").then(function(responseExt) {     
+            $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+                var cat = responseTransfer.data[0].team;
+                var val = responseTransfer.data[0].numberofsignings;
+                var temp = responseExt.data["list"][0]["main"]["temp"];
+                console.log(temp);
+                Highcharts.chart('APIExterna4', {
+                    chart: {
+                        zoomType: 'xy'
+                    },
+                    title: {
+                        text: 'Average Monthly Temperature and Rainfall in Tokyo'
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com'
+                    },
+                    xAxis: [{
+                        categories: [cat],
+                        crosshair: true
+                    }],
+                    yAxis: [{ // Primary yAxis
+                        labels: {
+                            format: '{value}°C',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        },
+                        title: {
+                            text: 'Temperature',
+                            style: {
+                                color: Highcharts.getOptions().colors[1]
+                            }
+                        }
+                    }, { // Secondary yAxis
+                        title: {
+                            text: 'Rainfall',
+                            style: {
+                                color: Highcharts.getOptions().colors[0]
+                            }
+                        },
+                        labels: {
+                            format: '{value} mm',
+                            style: {
+                                color: Highcharts.getOptions().colors[0]
+                            }
+                        },
+                        opposite: true
+                    }],
+                    tooltip: {
+                        shared: true
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'left',
+                        x: 120,
+                        verticalAlign: 'top',
+                        y: 100,
+                        floating: true,
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
+                    },
+                    series: [{
+                        name: 'Rainfall',
+                        type: 'column',
+                        yAxis: 1,
+                        data: [val],
+                        tooltip: {
+                            valueSuffix: ' mm'
+                        }
+                
+                    }, {
+                        name: 'Temperature',
+                        type: 'spline',
+                        data: [temp],
+                        tooltip: {
+                            valueSuffix: '°C'
+                        }
+                    }]
+                });
+            });
+         });*/
 }]);
