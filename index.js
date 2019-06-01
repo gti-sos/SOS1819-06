@@ -40,7 +40,7 @@ app.use(pathHappiness, function(req, res) {
 });
 
 var pathSports="/proxySports";
-var remoteAPISports="https://sos1819-15.herokuapp.com/api/v1/sports-competitions";
+var remoteAPISports="https://sos1819-15.herokuapp.com/api/v2/sports-competitions";
 app.use(pathSports, function(req, res) {
   console.log('piped: '+remoteAPISports);
   req.pipe(request(remoteAPISports)).pipe(res);
