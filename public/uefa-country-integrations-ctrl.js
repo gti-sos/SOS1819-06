@@ -6,7 +6,7 @@ angular
         /////////////////////APIs Compañeros SOS/////////////////////
         ///API Companies
         $http.get("https://sos1819-03.herokuapp.com/api/v1/companies/").then(function(response) {
-            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response2) {
+            $http.get("/api/v1/uefa-country-rankings").then(function(response2) {
                 var coun;
                 var countries = [];
                 var companies = [];
@@ -61,7 +61,7 @@ angular
 
         ///API scorers-stats & uefa country
         $http.get("https://sos1819-02.herokuapp.com/api/v1/scorers-stats").then(function(response) {
-            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response2) {
+            $http.get("/api/v1/uefa-country-rankings").then(function(response2) {
                 var datosSU=[];
                 for (var i in response2.data) {
                     var datoSU = {
@@ -99,7 +99,7 @@ angular
 
         //API Uefa-club Integraction
         $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings").then(function(responseClub) {
-            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
+            $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
                 var datos = [];
 
                 for (var i in responseClub.data) {
@@ -168,7 +168,8 @@ angular
 
 
         ///API populationstats
-        $http.get("https://sos1819-09.herokuapp.com/api/v1/populationstats").then(function(response) {
+        var proxyAPI="/proxyPopulation"
+        $http.get(proxyAPI).then(function(response) {
             $scope.SOS8s = response.data;
         });
 
@@ -176,7 +177,7 @@ angular
         //API EXTERNA 1
         var datos2 = [];
         $http.get("https://restcountries.eu/rest/v2/region/europe").then(function(response) {
-            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
+            $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
                 for (var i in responseCountry.data) {
 
                     var dato2 = {
@@ -220,7 +221,7 @@ angular
         //API externa 2
         var datos3 = [];
         $http.get("https://api.discogs.com/artists/1/releases").then(function(response) {
-            $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(responseCountry) {
+            $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
                 for (var i in responseCountry.data) {
 
                     var dato3 = {

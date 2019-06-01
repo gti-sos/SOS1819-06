@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var uefaCountryApi=require("./uefa-Country-Rankings");
 var uefaClubApi = require("./uefa-club-rankings");
 var transferAPI = require("./transfer-stats");
+var request = require("request");
 var cors = require("cors");
 console.log("a");
 var app = express();
@@ -13,6 +14,17 @@ app.use(cors());
 var port = process.env.PORT || 8080;
 
 app.use("/", express.static(__dirname + "/public"));
+
+//PROXY JESÚS POPULATION
+var pathPopulation="/proxyPopulation";
+var remoteAPIPopulation="https://sos1819-09.herokuapp.com/api/v1/populationstats";
+app.use(pathPopulation, function(req, res) {
+  console.log('piped: '+remoteAPIPopulation);
+  req.pipe(request(remoteAPIPopulation)).pipe(res);
+});
+
+
+
 
 const MongoClient = require("mongodb").MongoClient;
 
