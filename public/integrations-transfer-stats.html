@@ -46,6 +46,27 @@
 </div>
 <hr>
 
+<h3 align="center">Uso API SOS 3 - CON PROXY - G04-happiness-stats</h3>
+<div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>País</th>
+                <th>Año</th>
+                <th>Grado de felicidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SOS3 in SOS3s">
+                <td>{{SOS3.country}}</td>
+                <td>{{SOS3.year}}</td>
+                <td>{{SOS3.happinessScore}}</td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+<hr>
+
 <h3 align="center">Integración con API Externa 1 - Meals</h3>
 
 <div id="APIExterna"></div>

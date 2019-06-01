@@ -16,9 +16,10 @@ angular
             $scope.SOS2s = response.data;
         });
         
-        //INTEGRACION SOS 1
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
-            $scope.SOS1s = response.data;
+        //INTEGRACION SOS 3 CON PROXY (G04-happiness-stats)
+        var proxyAPI = "/proxyHappiness";
+        $http.get(proxyAPI).then(function(response) {
+            $scope.SOS3s = response.data;
         });
         
         //INTEGRACION SOS 1

@@ -31,6 +31,13 @@ app.use(pathBiofuels, function(req, res) {
   req.pipe(request(remoteAPIBiofuels)).pipe(res);
 });
 
+/////////////////PROXY ALFONSO HAPPINESS//////////////////
+var pathHappiness="/proxyHappiness";
+var remoteAPIHappiness="https://sos1819-04.herokuapp.com/api/v1/happiness-stats";
+app.use(pathHappiness, function(req, res) {
+  console.log('piped: '+remoteAPIHappiness);
+  req.pipe(request(remoteAPIHappiness)).pipe(res);
+});
 
 
 
