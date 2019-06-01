@@ -60,7 +60,6 @@ angular
                 
                 var datosExt = responseExt.data["data"]["leagues"];
                 var datosTransfer = responseTransfer.data;
-                console.log(datosTransfer);
                 
                 var a1 = datosExt[7]["level"];
                 var b1 = datosExt[8]["level"];
@@ -111,13 +110,7 @@ angular
                     ejex.push(responseTransfer.data.map(function(d) { return d["team"] })[i] + " " + responseTransfer.data.map(function(d) { return d["season"] })[i]);
                 }
                 var datos = responseExt.data["meals"];
-                /*console.log("a");
-                console.log(datos);
-                console.log("b");
-                //console.log(datos["meals"][0].strMeal);
-                console.log("c");*/
-                
-                
+               
                 var Integration1 = {
                     "type": "scatter",
                     "plot": {
@@ -184,12 +177,6 @@ angular
                     ejex.push(responseTransfer.data.map(function(d) { return d["team"] })[i] + " " + responseTransfer.data.map(function(d) { return d["season"] })[i]);
                 }
                 var datos = responseExt.data;
-                /*console.log("a");
-                console.log(datos);
-                console.log("b");
-                //console.log(datos["meals"][0].strMeal);
-                console.log("c");*/
-                
                 
                 var Integration2 = {
                     "type": "bar",
@@ -223,7 +210,7 @@ angular
                             datos[7].number,
                             datos[8].number,
                         ],
-                        "text": "ID Meal"
+                        "text": "Number of episody"
                     }, {
                         "values": [responseTransfer.data[0].moneyspent,
                             responseTransfer.data[1].moneyspent,
@@ -293,7 +280,7 @@ angular
                             }
                         },
                         title: {
-                            text: 'ID',
+                            text: 'ID of the statistic',
                             style: {
                                 color: Highcharts.getOptions().colors[1]
                             }
@@ -335,7 +322,7 @@ angular
                         }
                 
                     }, {
-                        name: 'ID',
+                        name: 'ID of the statistic',
                         type: 'spline',
                         data: [data1, data2, data3, data4, data5],
                         tooltip: {
@@ -386,7 +373,7 @@ angular
                     },
                     yAxis: {
                         title: {
-                            text: 'Nuclear weapon states'
+                            text: 'Number of farewells and medium humidity'
                         },
                         labels: {
                             formatter: function () {
@@ -413,12 +400,12 @@ angular
                         }
                     },
                     series: [{
-                        name: 'USA',
+                        name: 'Farewells',
                         data: [
                             val, val2, val3, val4, val5, val6
                         ]
                     }, {
-                        name: 'USSR/Russia',
+                        name: 'Humidity',
                         data: [temp, temp2, temp3, temp4, temp5, temp6]
                     }]
                 });
@@ -431,8 +418,7 @@ angular
                 
                 var datosExt = responseExt.data;
                 var datosTransfer = responseTransfer.data;
-                console.log(datosTransfer);
-                
+
                 var a1 = datosExt[7]["project_count"]/10000;
                 var b1 = datosExt[8]["project_count"]/1000;
                 var c1 = datosExt[9]["project_count"]/1000;
@@ -442,10 +428,6 @@ angular
                 var b2 = datosTransfer[1]["numberofsignings"];
                 var c2 = datosTransfer[2]["numberofsignings"];
                 var d2 = datosTransfer[3]["numberofsignings"];
-               
-                
-                
-               
 
                 new Chartist.Pie('#APIExterna6', {
                       
