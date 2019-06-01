@@ -420,4 +420,39 @@ angular
                 });
             });
          });
+         
+         //INTEGRACION CON API EXTERNA 6 (LIBRERIAS)
+        $http.get("https://libraries.io/api/platforms").then(function(responseExt) {
+            $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+                
+                var datosExt = responseExt.data;
+                var datosTransfer = responseTransfer.data;
+                console.log(datosTransfer);
+                
+                var a1 = datosExt[7]["project_count"]/10000;
+                var b1 = datosExt[8]["project_count"]/1000;
+                var c1 = datosExt[9]["project_count"]/1000;
+                var d1 = datosExt[10]["project_count"]/1000;
+                
+                var a2 = datosTransfer[0]["numberofsignings"];
+                var b2 = datosTransfer[1]["numberofsignings"];
+                var c2 = datosTransfer[2]["numberofsignings"];
+                var d2 = datosTransfer[3]["numberofsignings"];
+               
+                
+                
+               
+
+                new Chartist.Pie('#APIExterna6', {
+                      
+                      series: [a1, a2, b1, b2, c1, c2, d1, d2]
+                    }, {
+                      donut: true,
+                      donutWidth: 150,
+                      donutSolid: true,
+                      startAngle: 270,
+                      showLabel: true
+                    });
+            });
+        });
 }]);
