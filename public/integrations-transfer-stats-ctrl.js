@@ -1,9 +1,25 @@
 //Api externa 1
+/*global Chartist*/
 angular
     .module("ManagerApp")
     .controller("integrations-transfer-stats-ctrl", ["$scope", "$http", function($scope, $http) {
         console.log("Integrations Controller initialized");
+        
+        
+        $http.get("https://soccer.sportsopendata.net/v1/leagues").then(function(responseExt) {
+            $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
+                
+                //var datosExt = responseExt.data["data"]["leagues"];
+                //console.log(datosExt[0]["level"]);
+                console.log(responseTransfer.data);
 
+                new Chartist.Line('#chartExt', {
+                        labels: responseTransfer.data.map(function(d) { return d["team"] }),
+                        series: [responseTransfer.data.map(function(d) { return d["numberofsignings"] })]
+                     });
+            });
+        });
+        
         $http.get("https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian").then(function(responseExt) {
             $http.get("/api/v1/transfer-stats").then(function(responseTransfer) {
 
@@ -12,11 +28,11 @@ angular
                     ejex.push(responseTransfer.data.map(function(d) { return d["team"] })[i] + " " + responseTransfer.data.map(function(d) { return d["season"] })[i]);
                 }
                 var datos = responseExt.data["meals"];
-                console.log("a");
+                /*console.log("a");
                 console.log(datos);
                 console.log("b");
                 //console.log(datos["meals"][0].strMeal);
-                console.log("c");
+                console.log("c");*/
                 
                 
                 var Integration1 = {
@@ -83,11 +99,11 @@ angular
                     ejex.push(responseTransfer.data.map(function(d) { return d["team"] })[i] + " " + responseTransfer.data.map(function(d) { return d["season"] })[i]);
                 }
                 var datos = responseExt.data;
-                console.log("a");
+                /*console.log("a");
                 console.log(datos);
                 console.log("b");
                 //console.log(datos["meals"][0].strMeal);
-                console.log("c");
+                console.log("c");*/
                 
                 
                 var Integration2 = {
