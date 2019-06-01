@@ -45,11 +45,11 @@ angular
             $scope.SOS7s = response.data;
         });
         
-        /*//INTEGRACION SOS 8 (G12-pollution-stats)
-        var proxyAPI = "/proxyPollution";
-        $http.get(proxyAPI).then(function(response){
+        //INTEGRACION SOS 8 (G12-pollution-stats)
+        var proxyAPIPollution = "/proxyPollution";
+        $http.get(proxyAPIPollution).then(function(response){
             $scope.SOS8s = response.data;
-        });*/
+        });
         
     
         

@@ -45,13 +45,13 @@ app.use(pathSports, function(req, res) {
   console.log('piped: '+remoteAPISports);
   req.pipe(request(remoteAPISports)).pipe(res);
 });
-/*
+
 var pathPollution="/proxyPollution";
 var remoteAPIPollution="https://sos1819-12.herokuapp.com/api/v1/pollution-stats";
 app.use(pathPollution, function(req, res) {
   console.log('piped: '+remoteAPIPollution);
   req.pipe(request(remoteAPIPollution)).pipe(res);
-});*/
+});
 
 
 
