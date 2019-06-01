@@ -188,7 +188,7 @@ angular
                         type: "pyramid",
                         yValueFormatString: "#\"\"",
                         indexLabelFontColor: "black",
-                        indexLabelFontSize: 16,
+                        indexLabelFontSize: 10,
                         indexLabel: "{label} - {y}",
                         dataPoints: datos2
                     }]

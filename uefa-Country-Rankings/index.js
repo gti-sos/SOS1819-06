@@ -49,6 +49,24 @@ console.log("f");
                 rankingPosition: 2,
                 points: 79498,
                 teams: 7
+            },{
+                country: "Russia",
+                season: 2017,
+                rankingPosition: 6,
+                points: 53382,
+                teams: 5
+            },{
+                country: "Ukraine",
+                season: 2017,
+                rankingPosition: 8,
+                points: 41133,
+                teams: 5
+            },{
+                country: "Switzerland",
+                season: 2015,
+                rankingPosition: 12,
+                points: 33775,
+                teams: 5
             }];
             uefaCountryRankings.find({}).toArray((err, uefaCountryRankingsArray) => {
 
