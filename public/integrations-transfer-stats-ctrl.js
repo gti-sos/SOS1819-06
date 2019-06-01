@@ -7,7 +7,7 @@ angular
         
         
         //INTEGRACION SOS 1
-        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings").then(function(response) {
+        $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings").then(function(response) {
             $scope.SOS1s = response.data;
         });
         
