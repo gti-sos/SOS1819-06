@@ -134,7 +134,7 @@ angular
         });
 
         //API Elements
-        $http.get("https://sos1819acp-feedbacks-sos1819acp.c9users.io/api/v1/elements").then(function(response) {
+        $http.get("https://sos1819-14.herokuapp.com/api/v1/elements").then(function(response) {
             $scope.SOS5s = response.data;
         });
 
