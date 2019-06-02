@@ -1,3 +1,8 @@
+/*global angular*/
+/*global google*/
+/*global Taucharts*/
+/*global Highcharts*/
+/*global CanvasJS*/
 angular
     .module("ManagerApp")
     .controller("uefa-country-integrations-ctrl", ["$scope", "$http", function($scope, $http) {
@@ -51,7 +56,43 @@ angular
 
         //API Suicide-rates
         $http.get("https://sos1819-04.herokuapp.com/api/v1/suicide-rates").then(function(response) {
-            $scope.SOS2s = response.data;
+            $http.get("/api/v1/uefa-country-rankings").then(function(response2) {
+                var countryU;
+                var countriesUefa = [];
+                var suicidalMen = [];
+                var Uefapoints = [];
+                var googleChartDataSR = [
+                    ["Country", "Number of Suicides Man", "Uefa Points (mil)"]
+                ];
+                for (var i in response2.data) {
+
+                    countryU = response.data[i].country;
+                    countriesUefa.push(countriesUefa);
+                    if (countryU == "England" || countryU == "Scotland" || countryU == "Wales" || countryU == "Northern Ireland") {
+                        countryU = "United Kingdom";
+                    }
+                    suicidalMen = response.data[i].noSuicidesMan;
+                    Uefapoints = response2.data[i].points / 1000;
+                    googleChartDataSR.push([countryU, suicidalMen, Uefapoints]);
+
+                }
+
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(googleChartDataSR);
+
+                    var options = {
+                        vAxis: { title: 'Accumulated Rating' },
+                        isStacked: true
+                    };
+
+                    var chart = new google.visualization.SteppedAreaChart(document.getElementById('suicideRates'));
+
+                    chart.draw(data, options);
+                }
+            });
         });
 
         ///API expenses-of-countries-in-education-and-culture
@@ -62,40 +103,40 @@ angular
         ///API scorers-stats & uefa country
         $http.get("https://sos1819-02.herokuapp.com/api/v1/scorers-stats").then(function(response) {
             $http.get("/api/v1/uefa-country-rankings").then(function(response2) {
-                var datosSU=[];
+                var datosSU = [];
                 for (var i in response2.data) {
                     var datoSU = {
-                        name: "Scorers: " + response.data.map(function(d) { return d["name"]})[i],
-                        data: response.data.map(function(d) { return d["scorergoal"]})[i]
+                        name: "Scorers: " + response.data.map(function(d) { return d["name"] })[i],
+                        data: response.data.map(function(d) { return d["scorergoal"] })[i]
                     };
                     datosSU.push(datoSU);
                 }
-                
+
                 for (var i in response2.data) {
                     var datoSU1 = {
-                        name: "Uefa Country: " + response2.data.map(function(d) { return d["country"]+" "+d["season"]})[i],
+                        name: "Uefa Country: " + response2.data.map(function(d) { return d["country"] + " " + d["season"] })[i],
                         data: response2.data.map(function(d) { return d["points"] })[i]
                     };
                     datosSU.push(datoSU1);
                 }
 
                 var chartSC = new Taucharts.Chart({
-                       data: datosSU,
-                       type: 'scatterplot',
-                        x: 'name',
-                        y: 'data',
-                        color: 'name',
-                        size: 'data',
-                        plugins: [Taucharts.api.plugins.get('tooltip')(), Taucharts.api.plugins.get('legend')()]
-                    });
-                    chartSC.renderTo('#scorers');
+                    data: datosSU,
+                    type: 'scatterplot',
+                    x: 'name',
+                    y: 'data',
+                    color: 'name',
+                    size: 'data',
+                    plugins: [Taucharts.api.plugins.get('tooltip')(), Taucharts.api.plugins.get('legend')()]
+                });
+                chartSC.renderTo('#scorers');
             });
         });
 
         //API Elements
-        $http.get("https://sos1819acp-feedbacks-sos1819acp.c9users.io/api/v1/elements").then(function(response) {
+        $http.get("https://sos1819-14.herokuapp.com/api/v1/elements").then(function(response) {
             $scope.SOS5s = response.data;
-         });
+        });
 
         //API Uefa-club Integraction
         $http.get("https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings").then(function(responseClub) {
@@ -168,16 +209,16 @@ angular
 
 
         ///API populationstats
-        var proxyAPI="/proxyPopulation"
+        var proxyAPI = "/proxyPopulation"
         $http.get(proxyAPI).then(function(response) {
             $scope.SOS8s = response.data;
         });
 
         /////////////////////APIs Externas/////////////////////
         //API EXTERNA 1
-        var datos2 = [];
         $http.get("https://restcountries.eu/rest/v2/region/europe").then(function(response) {
             $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
+                var datos2 = [];
                 for (var i in responseCountry.data) {
 
                     var dato2 = {
@@ -219,9 +260,9 @@ angular
 
 
         //API externa 2
-        var datos3 = [];
         $http.get("https://api.discogs.com/artists/1/releases").then(function(response) {
             $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
+                var datos3 = [];
                 for (var i in responseCountry.data) {
 
                     var dato3 = {
@@ -286,5 +327,31 @@ angular
 
 
             });
+
+            //API externa 3
+            $http.get("https://api.citybik.es/v2/networks/").then(function(response) {
+                $http.get("/api/v1/uefa-country-rankings").then(function(responseCountry) {
+                    var defData = [];
+                    for (var i in responseCountry.data) {
+                        var datoNC = {
+                            NetworkName: "Network name: " + response.data["networks"][i]["name"],
+                            uefaPoints: responseCountry.data.map(function(d) { return d["points"] })[i]
+                        };
+                        defData.push(datoNC);
+                    }
+
+                    var chartNC = new Taucharts.Chart({
+                        data: defData,
+                        type: 'horizontalBar',
+                        x: 'uefaPoints',
+                        y: 'NetworkName',
+                        color: 'NetworkName',
+                        plugins: [Taucharts.api.plugins.get('legend')()]
+                    });
+                    chartNC.renderTo('#externa3');
+
+                });
+            });
+
         });
     }]);
